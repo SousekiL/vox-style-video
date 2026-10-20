@@ -15,7 +15,7 @@ Printed halftone cut-outs (real Qin artifacts + original woodblock-style illustr
 
 Theme bake-off (same shots, four themes): ![bake-off](docs/media/bakeoff_pair.jpg)
 
-Video: [`docs/media/vox-qin-pole-collage-720p.mp4`](docs/media/vox-qin-pole-collage-720p.mp4)
+Stills above; the rendered video stays local (not pushed).
 
 ### Vox editorial register, bold dark look: 立木为信 v2
 Measured from 5 real Vox videos (local study only): dark stage, film grain, oversized cropped type, labels in boxes, red tags, hand-drawn annotations, dark relief map, a cut every 1.5–3 s.
