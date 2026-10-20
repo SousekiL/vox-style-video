@@ -1,0 +1,15 @@
+node_modules/
+out/
+.DS_Store
+
+# Reference videos and everything extracted from them are third-party copyrighted material:
+# never commit. Rebuild locally with scripts/prep_reference.py (see references/README.md).
+references/videos/
+references/analysis/*
+!references/analysis/BRIEF.md
+
+# Asset pipeline working files (search candidates, raw generations); ship only public/cutouts
+public/assets/
+
+# Compiled binary (build with: swiftc -O scripts/assets/cutout.swift -o scripts/assets/cutout)
+scripts/assets/cutout
