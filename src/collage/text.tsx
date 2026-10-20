@@ -83,7 +83,9 @@ export const LineReveal: React.FC<{frame: number; inAt: number; outAt?: number; 
   const {height} = useVideoConfig();
   const k = height / 1080;
   const i = interpolate(frame, [inAt, inAt + 8], [0, 1], {easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const o = interpolate(frame, [outAt, outAt + 4], [0, 1], {easing: Easing.in(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const o = Number.isFinite(outAt)
+    ? interpolate(frame, [outAt, outAt + 4], [0, 1], {easing: Easing.in(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
+    : 0;
   const vis = i * (1 - o);
   return (
     <div

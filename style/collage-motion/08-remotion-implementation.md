@@ -14,6 +14,9 @@ Stack: Remotion 4.0.537, React 19, TypeScript, `@remotion/google-fonts`, `@remot
 | `text.tsx` | `TypeOn`, `WordStamp`, `PoseJump`, `LineReveal`, `ScrambleLine`, `BrokenLine` | text primitives |
 | `transitions.tsx` | `CutCamera`, `WhipBoard`, `TileMosaic`, `InkBlackout`, `SlantedSheet`, `DiscIris` | transitions |
 | `fonts.ts` | `FONT` | Google Fonts loader |
+| `camera.tsx` | `VoxCamera`, `camAt`, `camTransform`, `zoomThrough` | vox camera keys + drift |
+| `editorial.tsx` | `Mark`, `SourceLine`, `ArchivalPrint`, `DocumentPage`, `LowerThird`, `Seal`, `highlightDur` | vox evidence devices |
+| `map.tsx` | `LandMap`, `chinaProjection` | Natural Earth land (+ Yellow River / Yangtze), no borders by default |
 | `audio.tsx` | `Bgm`, `Sfx`, `SfxTrack`, `SFX_FOR`, `dbToGain` | BGM bed with ducking + SFX cues per motion event (12-audio.md) |
 | `placeholders.tsx` | `HouseObject`, `BankObject`, `CoinStack`, `HandObject`, `TowerObject` | original SVG stand-ins; replace with real cut-outs |
 
@@ -53,7 +56,8 @@ export const Shot: React.FC<{dur: number}> = ({dur}) => {
 ## 3. Composition settings
 | Deliverable | Size | fps | Notes |
 |---|---|---|---|
-| YouTube / web explainer | 1920×1080 or **3840×2160** | 30 | stepped presets look right at 30 (12 fps → 3,2 holds) |
+| **Vox-style explainer (`vox`)** | 1920×1080 or **3840×2160** | **24** | Vox delivers 24 fps; 12 fps layers become clean on-2s (`VoxQinPole` is the example) |
+| Collage explainer | 1920×1080 or **3840×2160** | 30 | stepped presets look right at 30 (12 fps → 3,2 holds) |
 | Social vertical | 1080×1920 or 2160×3840 | 30 | layouts per 03 §2 |
 | Ident loop | 1080×1920 | **12** | `redIdent`: author at 12 fps natively |
 | Scroll story | 1920×1080 | 50 or 60 | smooth scroll needs a high frame rate |
@@ -83,6 +87,9 @@ npx remotion render src/index.ts ExplainerDemo out/demo.mov --codec=prores --pro
 5. **Don't use `vw`/`vh`.** In Studio the canvas is scaled. Use `useVideoConfig()` width and height.
 6. Inline `filter: url(#id)` on HTML elements needs the `<svg><defs>` in the same document. `CollageFilters` renders it with zero size.
 7. A `WordStamp` word wrapped in an inline-block filter swallows its trailing space. Keep the space outside the styled span.
+8. `interpolate` rejects `Infinity` in the input range: guard "never" defaults (`outAt`, `dimAt`) before interpolating.
+9. CJK fonts: `@remotion/google-fonts` serves Noto SC as unicode-range slices (pass `ignoreTooManyRequestsWarning`); for long scripts self-host a `pyftsubset` subset and load it with `loadLocalFont`.
+10. Homebrew can swap `python3` to a new minor version (installing aubio pulled in python@3.15) without Pillow; pin the interpreter that has Pillow + NumPy (e.g. `python3.14 -I scripts/...`).
 
 ## 6. Extending the library
 - **A new preset:** add a palette to `PALETTES`, a clock to `CLOCK`, and a section to `07-presets.md` with its measured source.

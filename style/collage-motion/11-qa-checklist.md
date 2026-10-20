@@ -2,7 +2,13 @@
 
 Run these on every render. Most can be measured. The analyser that measured the references works on your output too.
 
-## 1. Frame checks (pause on 3 random frames per board)
+## 0. Vox journalism checks (`vox` preset)
+- [ ] Every factual visual has a SourceLine (or a description citation for footage); map borders match the year shown (or the map is land-only).
+- [ ] No generated image on a board that makes a historical or factual claim.
+- [ ] Text ≥ 1.9 %H and on screen ≥ its reading time (`readingFrames`).
+- [ ] Cadence: run length 1 on camera/map/document layers; long holds in `cadence.py` must show 20–24 f MAD > 0.3 (sub-threshold drift). Run length 2 only on layers declared stepped.
+
+## 1. Frame checks — collage presets (pause on 3 random frames per board)
 - [ ] Exactly **one** saturated accent (or a second one < 0.5 % of the frame).
 - [ ] Photos are graded per preset (greyscale / sepia / duotone / halftone), not raw.
 - [ ] Cut-outs have **no halo, outline or drop shadow** (unless the preset is postcard, thenNow or duotoneBurst, or the item is a paper prop).

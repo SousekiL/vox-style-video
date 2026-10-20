@@ -12,12 +12,17 @@
     "@remotion/cli": "4.0.537",
     "@remotion/google-fonts": "4.0.537",
     "@remotion/noise": "^4.0.537",
+    "d3-geo": "^3.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "remotion": "4.0.537"
+    "remotion": "4.0.537",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   },
   "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
     "@types/react": "19.1.8",
+    "@types/topojson-client": "^3.1.5",
     "node-web-audio-api": "2.2.0",
     "tone": "15.1.22",
     "typescript": "5.8.3"

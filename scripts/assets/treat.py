@@ -26,7 +26,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("inp")
     ap.add_argument("out")
-    ap.add_argument("--grade", choices=["greyscale", "sepia", "duotone", "muted", "keep"], default="greyscale")
+    ap.add_argument("--grade", choices=["greyscale", "sepia", "duotone", "muted", "keep", "archival"], default="greyscale")
     ap.add_argument("--contrast", type=float, default=1.25)
     ap.add_argument("--dark", default="4a3d2c")
     ap.add_argument("--light", default="f8ebd2")
@@ -53,6 +53,11 @@ def main():
 
     rgb = np.asarray(im.convert("RGB"), dtype=np.float32) / 255.0
     luma = rgb @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    if a.grade == "archival":
+        # vox evidence: levels only (stretch the 0.5–99.5 percentile range), tonality and colour untouched
+        mask = np.asarray(a_ch) > 128
+        lo, hi = (np.percentile(rgb[mask], [0.5, 99.5]) if mask.any() else (0.0, 1.0))
+        rgb = np.clip((rgb - lo) / max(1e-3, hi - lo), 0, 1)
     if a.grade in ("greyscale", "sepia", "duotone"):
         # contrast around the subject's own median, so dark and light objects both keep detail
         mask = np.asarray(a_ch) > 128
@@ -67,7 +72,7 @@ def main():
         grey = np.repeat(luma[..., None], 3, axis=2)
         out = grey + 0.8 * (rgb - grey)
         out = out * np.array([1.02, 1.0, 0.95], dtype=np.float32)
-    else:
+    else:  # keep, archival
         out = rgb
     if a.grain > 0:
         rng = np.random.default_rng(7)

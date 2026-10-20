@@ -1,4 +1,6 @@
-# 00 · Principles: the non-negotiables
+# 00 · Principles: the non-negotiables (collage presets)
+
+> These rules describe the 8 measured **collage** references. For **Vox** (`vox` preset) rules 1, 2, 3, 4, 6, 8, 9 and 11 are overridden by [13-vox-editorial.md §1](13-vox-editorial.md): 24 fps on 1s with a drifting camera, `#FFF200` as the one attention colour, evidence keeps its tonality and may sit as a bordered print, state dissolves allowed, ≤ 4 % overshoot.
 
 These 12 rules hold in at least 6 of the 8 references. Break one only when a preset in [07-presets.md](07-presets.md) explicitly says so.
 

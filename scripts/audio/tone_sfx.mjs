@@ -135,6 +135,54 @@ const SFX = {
     g.gain.setValueAtTime(1, 0); g.gain.exponentialRampTo(0.01, 0.22, 0.003);
     const m = new T.MembraneSynth({envelope: {attack: 0.001, decay: 0.1, sustain: 0}}).toDestination(); m.triggerAttackRelease(90, 0.08, 0);
   }},
+  // ---- vox editorial set (12-audio.md §3b) ----
+  // Highlight: felt-tip marker squeak
+  marker: {dur: 0.4, build: (T, r) => {
+    const n = new T.Noise('pink').start(0).stop(0.36);
+    const f = new T.Filter({frequency: 2400 + r() * 400, type: 'bandpass', Q: 3}).toDestination();
+    const g = new T.Gain(0); n.connect(g); g.connect(f);
+    g.gain.setValueAtTime(0, 0); g.gain.linearRampTo(1, 0.04, 0); g.gain.linearRampTo(0.7, 0.25, 0.04); g.gain.linearRampTo(0, 0.06, 0.3);
+    const o = new T.Oscillator({type: 'sine', frequency: 1800 + r() * 300}).start(0).stop(0.3);
+    const og = new T.Gain(0.04).toDestination(); o.connect(og);
+  }},
+  // page / document turn
+  pageTurn: {dur: 0.5, build: (T, r) => {
+    const n = new T.Noise('white').start(0).stop(0.46);
+    const f = new T.Filter({frequency: 4200, type: 'bandpass', Q: 0.9}).toDestination(); f.frequency.exponentialRampTo(1400, 0.4, 0);
+    const g = new T.Gain(0); n.connect(g); g.connect(f);
+    for (let t = 0; t < 0.44; t += 0.022) g.gain.setValueAtTime((0.3 + r() * 0.7) * Math.sin(Math.PI * Math.min(1, t / 0.44)), t);
+    g.gain.setValueAtTime(0, 0.45);
+  }},
+  // archival print lands / photo appears: mechanical shutter (two clicks + body)
+  shutter: {dur: 0.25, build: (T, r) => {
+    for (const t0 of [0, 0.07 + r() * 0.02]) {
+      const n = new T.Noise('white').start(t0).stop(t0 + 0.012);
+      const f = new T.Filter(2500, 'highpass').toDestination(); n.connect(f);
+    }
+    const m = new T.MembraneSynth({pitchDecay: 0.01, octaves: 2, envelope: {attack: 0.001, decay: 0.05, sustain: 0}}).toDestination();
+    m.volume.value = -12; m.triggerAttackRelease(160, 0.04, 0);
+  }},
+  // typewriter key (per glyph, very quiet in the mix)
+  typewriter: {dur: 0.08, build: (T, r) => {
+    const n = new T.Noise('white').start(0).stop(0.01);
+    const f = new T.Filter(3000 + r() * 1500, 'highpass').toDestination(); n.connect(f);
+    const m = new T.MembraneSynth({pitchDecay: 0.005, octaves: 2, envelope: {attack: 0.001, decay: 0.03, sustain: 0}}).toDestination();
+    m.volume.value = -10; m.triggerAttackRelease(220 + r() * 60, 0.02, 0.002);
+  }},
+  // map fly-to: soft air swell that rises then settles
+  mapWhoosh: {dur: 1.1, build: (T) => {
+    const n = new T.Noise('pink').start(0).stop(1.05);
+    const f = new T.Filter(300, 'lowpass').toDestination(); f.frequency.exponentialRampTo(2600, 0.6, 0); f.frequency.exponentialRampTo(500, 0.45, 0.6);
+    const g = new T.Gain(0); n.connect(g); g.connect(f); g.gain.linearRampTo(1, 0.55, 0); g.gain.linearRampTo(0, 0.5, 0.55);
+  }},
+  // title card hit: deep boom with a soft noise tail
+  lowHit: {dur: 1.4, build: (T) => {
+    const m = new T.MembraneSynth({pitchDecay: 0.08, octaves: 3, envelope: {attack: 0.002, decay: 1.1, sustain: 0}}).toDestination();
+    m.triggerAttackRelease(42, 1.0, 0);
+    const n = new T.Noise('brown').start(0).stop(0.5);
+    const f = new T.Filter(500, 'lowpass').toDestination(); const g = new T.Gain(0.35); n.connect(g); g.connect(f);
+    g.gain.linearRampTo(0, 0.45, 0.02);
+  }},
 };
 
 const writeWav = (file, data) => {

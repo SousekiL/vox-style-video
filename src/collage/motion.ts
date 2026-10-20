@@ -16,7 +16,14 @@ export const EASE = {
   windowGrow: Easing.bezier(0.2, 0.8, 0.2, 1), // v04b duotone square
   recede: Easing.in(Easing.cubic), // v04a recede-to-cut
   linear: Easing.linear,
+  // vox editorial (13-vox-editorial.md)
+  voxCamera: Easing.bezier(0.42, 0, 0.18, 1), // document / photo pushes
+  aeEasy: Easing.bezier(0.33, 0, 0.67, 1), // After Effects Easy Ease (map fly-tos)
+  highlight: Easing.bezier(0.3, 0, 0.2, 1), // marker sweep
 };
+
+/** vox prop entrance: barely-there overshoot (+3 %), per 30 fps frame; at 24 fps use spring SPRING.vox. */
+export const POP_VOX = [0.88, 0.97, 1.03, 1.02, 1.0];
 
 // ---- Springs ----
 export const SPRING: Record<string, Partial<SpringConfig>> = {
@@ -24,6 +31,15 @@ export const SPRING: Record<string, Partial<SpringConfig>> = {
   pop: {mass: 1, stiffness: 130, damping: 8.5}, // v01 prop pop (use POP table for exact shape)
   snapPush: {mass: 0.6, stiffness: 260, damping: 26}, // v04a zoom-to-sheet, no overshoot
   eyeSettle: {mass: 1, stiffness: 180, damping: 14}, // v03 corner pop
+  vox: {mass: 1, stiffness: 170, damping: 22}, // vox entrances: ≤ 4 % overshoot
+};
+
+/** Reading time in frames (vox rule): Latin max(2 s, words/3 + 1 s); CJK max(2 s, chars/6 + 1 s). */
+export const readingFrames = (text: string, fps: number) => {
+  const cjk = (text.match(/[\u3400-\u9fff]/g) || []).length;
+  const words = text.replace(/[\u3400-\u9fff]/g, ' ').split(/\s+/).filter(Boolean).length;
+  const s = cjk > words ? Math.max(2, cjk / 6 + 1) : Math.max(2, words / 3 + 1);
+  return Math.round(s * fps);
 };
 
 // ---- Keyframe tables (one entry per drawing on the layer's clock) ----

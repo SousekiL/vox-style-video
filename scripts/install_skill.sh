@@ -25,9 +25,9 @@ mkdir -p "$DEST/scripts/audio" "$DEST/template/public/audio"
 cp "$REPO"/scripts/audio/*.py "$REPO"/scripts/audio/*.mjs "$DEST/scripts/audio/"
 cp -R "$REPO/public/audio/bgm" "$REPO/public/audio/sfx" "$DEST/template/public/audio/"
 
-cp -R "$REPO/src/collage" "$REPO/src/demo" "$DEST/template/src/"
+cp -R "$REPO/src/collage" "$REPO/src/demo" "$REPO/src/stories" "$DEST/template/src/"
 cp "$REPO/src/Root.tsx" "$REPO/src/index.ts" "$DEST/template/src/"
-cp -R "$REPO/public/cutouts" "$DEST/template/public/"
+cp -R "$REPO/public/cutouts" "$REPO/public/evidence" "$REPO/public/fonts" "$DEST/template/public/"
 cp "$REPO/package.json" "$REPO/tsconfig.json" "$DEST/template/"
 cp "$REPO/skill/template.gitignore" "$DEST/template/.gitignore"
 

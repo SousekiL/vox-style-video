@@ -106,6 +106,11 @@ export const CollageFilters: React.FC<{scale?: number; seed?: number}> = ({scale
         <feTurbulence type="fractalNoise" baseFrequency={0.5 / scale} numOctaves={2} seed={seed} result="n" />
         <feDisplacementMap in="SourceGraphic" in2="n" scale={2.5 * scale} xChannelSelector="R" yChannelSelector="G" />
       </filter>
+      {/* Highlighter edge (vox): slightly rough marker band, displacement ≈ 0.25 %H */}
+      <filter id="markerEdge" x="-5%" y="-20%" width="110%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency={0.04 / scale} numOctaves={2} seed={3} result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale={2.7 * scale} xChannelSelector="R" yChannelSelector="G" />
+      </filter>
       {/* Warp boil (v01): re-seeded displacement, mean ≈0.25 %H. Change `seed` every 7–8 frames (busy) or 15 (calm). */}
       <filter id="warp" x="-2%" y="-2%" width="104%" height="104%">
         <feTurbulence type="fractalNoise" baseFrequency={0.035 / scale} numOctaves={2} seed={seed} result="n" />

@@ -9,3 +9,6 @@ export * from './transitions';
 export * from './placeholders';
 export * from './fonts';
 export * from './audio';
+export * from './camera';
+export * from './editorial';
+export * from './map';

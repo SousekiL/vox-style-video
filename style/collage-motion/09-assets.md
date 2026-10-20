@@ -41,8 +41,10 @@ python3 -I scripts/assets/find_images.py "<subject>" --pick 3 --out public/asset
 ```bash
 mx-image "<prompt>" -o public/assets/gen/<slug>.png --size 1536x1024 --quality high --provider mx
 ```
-Prompt template (proven in this repo: house, piggy bank, hand and bank facade all cut out cleanly on the first try):
-> *[Archival black-and-white press photograph | Studio product photograph] of [subject, specific: material, era, view], three-quarter view, the entire [subject] fully in frame with generous margin, isolated on a plain seamless light grey studio backdrop, no ground, no shadows on the backdrop, no people, no text, sharp focus, rich photographic detail [and subtle film grain], photorealistic.*
+**Never generate anything that looks like a historical photo or document, and never put a generated image on a board that makes a factual or historical claim** (13-vox-editorial V7). Generated images are generic props only; label them "示意 / illustration" if there is any doubt. For history pieces use real evidence (archival photos, artifacts, documents, maps) found by search.
+
+Prompt template for generic props (proven here: house, piggy bank, hand and bank facade cut out cleanly on the first try):
+> *[Studio product photograph] of [subject, specific: material, view], three-quarter view, the entire [subject] fully in frame with generous margin, isolated on a plain seamless light grey studio backdrop, no ground, no shadows on the backdrop, no people, no text, sharp focus, rich photographic detail [and subtle film grain], photorealistic.*
 
 Rules:
 - Use `--quality high` only. The `--size` should match the subject's aspect (1536×1024 landscape, 1024×1536 portrait, 1024×1024 compact).
@@ -67,7 +69,8 @@ swiftc -O scripts/assets/cutout.swift -o scripts/assets/cutout
 python3 -I scripts/assets/treat.py <cut.png> public/cutouts/<slug>.png --grade greyscale --contrast 1.2 --target-h 0.5 --frame-h 2160
 ```
 - Trims to the alpha box (+2 % pad), erodes the matte 1 px and feathers 0.6 px, which removes background fringe.
-- `--grade`: `greyscale` (explainer, redIdent), `sepia` (postcard, thenNow), `duotone --dark --light` (duotoneBurst), `muted` (diorama), `keep` (the accent object).
+- `--grade`: `greyscale` (explainer, redIdent), `sepia` (postcard, thenNow), `duotone --dark --light` (duotoneBurst), `muted` (diorama), `keep` (the accent object), `archival` (**vox evidence: levels only, ±10 %**, tonality untouched).
+- Wikimedia rate-limits scripted downloads of originals (HTTP 429): `find_images.py --pick` downloads a 2560 px standard thumbnail (`--max-width`) with backoff.
 - Contrast is applied around the subject's own median, so dark and light objects both keep detail.
 - **Prints a WARNING if the cut-out would be upscaled on screen.** Treat that as a failure for hero assets.
 - `--grain 0.25` adds the photocopy speckle seen on v01a photos.

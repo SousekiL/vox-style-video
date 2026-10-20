@@ -20,6 +20,28 @@ export type PhotoTreatment =
   | {kind: 'halftone'; pitchPctH: number; angle: number};
 
 // One palette per preset. Names match style/collage-motion/07-presets.md.
+export type VoxPalette = Palette & {highlight: string; data: string[]; dark: string; onDark: string; land: string; water: string; border: string; seal: string};
+
+// Vox editorial preset (13-vox-editorial.md). Values are proposed from Vox's public brand + review
+// sources (vox.com logo fill #FFF200), not measured from a Vox video. `explainer` below is the COLLAGE
+// explainer measured from v01 — it is not Vox.
+export const VOX: VoxPalette = {
+  page: '#EFEBE3',
+  paper: '#F7F4EE',
+  ink: '#141414',
+  accent: '#FFF200', // the attention colour IS the highlighter
+  highlight: '#FFF200',
+  data: ['#141414', '#9A9A9A'],
+  dark: '#161616',
+  onDark: '#F2F2F2',
+  land: '#E8E2D4',
+  water: '#C9D5D9',
+  border: '#3A3A3A',
+  seal: '#B7332A', // per-video accent for Chinese history pieces (seals, annotations)
+  pastels: [],
+  photo: {kind: 'greyscale', contrast: 1.0},
+};
+
 export const PALETTES = {
   // v01: cool grey paper, pastel flats, single red-orange accent
   explainer: {
@@ -122,6 +144,15 @@ export const TYPE = {
   metadata: 2.1 * 1.42, // tiny grotesk label/value grid (v04a)
   handwriting: 2.0 * 1.6, // postcard hand (v08)
   numeral: 19.3 * 1.42, // year counter numerals (v05)
+  // vox editorial roles (font-size, % of frame height)
+  voxHeadline: 5,
+  voxTitle: 8,
+  label: 2.6,
+  source: 1.9, // never smaller: legible on a phone
+  lowerName: 3.4,
+  lowerTitle: 2.2,
+  subtitleCJK: 4.4,
+  documentCJK: 4.2,
 };
 
 // Animation clocks seen in the references (frames per second of the drawing, not the comp).
@@ -131,4 +162,6 @@ export const CLOCK = {
   earth: 10, // v03: 3-3-3-4-2 pattern at 30 fps
   ident: 12, // v06: native 12 fps, texture on 3s/4s
   smooth: Infinity, // v02, v05, v07 text and modern objects
+  vox: 24, // Vox delivers 24 fps; camera, maps, charts, documents and text run on 1s
+  voxStepped: 12, // optional cut-out puppet layers on 2s inside a 24 fps vox comp
 } as const;

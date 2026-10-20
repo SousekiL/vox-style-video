@@ -62,6 +62,14 @@ export const SFX_FOR = {
   payoff: {name: 'chime', db: -14}, // end card / M14
   pump: {name: 'pump', db: -14}, // M10 stroke
   burst: {name: 'burst', db: -9}, // M10 end
+  // vox editorial set (13-vox-editorial.md)
+  highlight: {name: 'marker', db: -22}, // <Mark> sweep
+  pageTurn: {name: 'pageTurn', db: -18}, // document board arrives
+  printLand: {name: 'shutter', db: -16}, // archival print appears
+  typewriter: {name: 'typewriter', db: -24}, // per glyph of a typed document line
+  mapFly: {name: 'mapWhoosh', db: -20}, // map fly-to
+  titleHit: {name: 'lowHit', db: -12}, // title card on a downbeat
+  seal: {name: 'stamp', db: -12}, // red seal lands (Chinese pieces)
 } as const;
 export type SfxEvent = keyof typeof SFX_FOR;
 

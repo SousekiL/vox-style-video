@@ -47,6 +47,8 @@ The palette is synthesized by `scripts/audio/tone_sfx.mjs` (3 variants each; `<S
 | `payoff` | soft FM chime | −14 | end card / M14 |
 | `pump`, `burst` | air hiss; crack + thump | −14, −9 | M10 |
 
+**Vox editorial set** (13-vox-editorial V10): `highlight` → marker −22 dB · `pageTurn` −18 · `printLand` → shutter −16 · `typewriter` −24 per glyph · `mapFly` → mapWhoosh −20 · `titleHit` → lowHit −12 · `seal` → stamp −12. Vox BGM default: `documentary` (or a per-video style such as `dynasty`: D-gong pentatonic, koto, shakuhachi, half-time taiko). Collage bloops (`popIn`, `shapePop`) are not vox defaults.
+
 **SFX rules**
 1. **Only physical moves get sound.** Paper boil, grain, slow drifts, loops (spins, wobble) and held frames are silent.
 2. **At most one prominent cue per beat** (≈ 0.5 s). A build of 8 props gets 2–3 cues, not 8; let the rest ride the music.

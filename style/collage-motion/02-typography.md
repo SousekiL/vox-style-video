@@ -24,6 +24,8 @@ Code: `FONT` in `src/collage/fonts.ts`, components in `src/collage/text.tsx`. Si
 | Marker label | Grotesk SemiBold caps, white on a black dry-brush strip | 3.3 %H on a 9.3 %H strip, rotated ≈ −3° | CAPS, +8 % tracking | white | Inter 600 | v01 |
 | Credits | Geometric sans caps, medium | 1.05 %H, pitch 1.45 × cap | CAPS, +20 tracking | white | Outfit / Montserrat Medium | v06 |
 
+**Vox and Chinese (CJK) roles** — Libre Franklin / Libre Baskerville / Roboto Mono, Noto Sans SC, Noto Serif SC 900, Zhuque Fangsong (vertical classical text), LXGW WenKai, subsetting and CJK reading time: see [13-vox-editorial.md §4](13-vox-editorial.md). Rules below that say "no box", "crop on purpose", "8:1 scale" and "end with a full stop" apply to collage presets only.
+
 ## 2. Pairing rules
 - **Scale contrast is the hierarchy.** Pair a 16 %H headline with 2.1 %H metadata (ratio ≈ 8:1, v04a). Avoid mid sizes for body copy.
 - **Text never sits in a box or a pill.** It sits directly on paper, photo or a physical strip (torn paper, marker stroke, tape).

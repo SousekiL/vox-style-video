@@ -28,6 +28,8 @@ TPB = 480  # ticks per beat
 
 # GM programs (0-based) and drum notes
 PIZZ, MARIMBA, CELESTA, GLOCK, PIANO, EPIANO, CELLO, STRINGS, PAD, ACBASS, FINGERBASS, CLARINET, PLUCK = 45, 12, 8, 9, 0, 4, 42, 48, 89, 32, 33, 71, 46
+KOTO, SHAKUHACHI, TAIKO = 107, 77, 116
+WOODBLOCK = 76  # GM drum: hi wood block
 KICK, SIDESTICK, SNARE, CLAP, HAT, OPENHAT, SHAKER, TAMB = 36, 37, 38, 39, 42, 46, 70, 54
 
 NOTE = {"C": 0, "C#": 1, "Db": 1, "D": 2, "Eb": 3, "E": 4, "F": 5, "F#": 6, "Gb": 6, "G": 7, "Ab": 8, "A": 9, "Bb": 10, "B": 11}
@@ -51,6 +53,9 @@ STYLES = {
     "lofi": dict(bpm=86, prog=["Fmaj7", "Em7", "Dm7", "Cmaj7"], bass=FINGERBASS, arp=EPIANO, arp2=None,
                  lead=GLOCK, pad=PAD, drums="lofi", swing=0.12),
     # duotoneBurst / redIdent: driving pulse, plucks, claps
+    # Chinese history: D-gong pentatonic, koto plucks, shakuhachi lead, half-time taiko + wood block
+    "dynasty": dict(bpm=120, prog=["Dsus2", "Bm", "Asus2", "Bm"], bass=CELLO, arp=KOTO, arp2=None, lead=SHAKUHACHI,
+                    pad=STRINGS, drums="taiko", swing=0.0, scale=[2, 4, 6, 9, 11]),
     "pulse": dict(bpm=120, prog=["Am", "F", "C", "G"], bass=FINGERBASS, arp=PLUCK, arp2=MARIMBA, lead=None, pad=None,
                   drums="four", swing=0.0),
 }
@@ -118,6 +123,8 @@ def compose(style, duration, seed, bpm=None, transpose=0):
     if st["pad"] is not None:
         song.ch(4, st["pad"], 58, 64, 80)
     song.ch(9, None, 88, 64, 30)
+    if st["drums"] == "taiko":
+        song.ch(5, TAIKO, 110, 64, 50)
 
     # arrangement: intro 2 bars (no drums), body in 8-bar sections A/B, outro 1 bar held chord
     sections = []
@@ -176,7 +183,11 @@ def compose(style, duration, seed, bpm=None, transpose=0):
                 for (off, ln), deg in zip(motif, motif_deg):
                     d = deg if name == "A" else (deg + 1) % 3
                     r2, iv2 = chord(st["prog"][(bar + int(off // 4)) % len(st["prog"])])
-                    song.note(3, swing(t + off), ln * 0.9, 72 + r2 + transpose + iv2[d % len(iv2)], 74 + rnd.randint(-8, 8))
+                    pitch = 72 + r2 + transpose + iv2[d % len(iv2)]
+                    if st.get("scale"):  # keep the lead inside the mode (pentatonic): snap to the nearest scale tone
+                        pcs = [(p + transpose) % 12 for p in st["scale"]]
+                        pitch = min((pitch + k for k in range(-2, 3)), key=lambda q: (q % 12 not in pcs, abs(q - pitch)))
+                    song.note(3, swing(t + off), ln * 0.9, pitch, 74 + rnd.randint(-8, 8))
             # drums
             if name in ("A", "B"):
                 d = st["drums"]
@@ -199,6 +210,13 @@ def compose(style, duration, seed, bpm=None, transpose=0):
                         if i in (2, 6):
                             song.note(9, beat, 0.25, SNARE, 70)
                         song.note(9, beat, 0.2, HAT, 38 + rnd.randint(0, 12))
+                    elif d == "taiko":
+                        if i == 0:
+                            song.note(5, beat, 1.5, 36, 118)  # big drum on the downbeat (half-time feel)
+                        if i == 5:
+                            song.note(5, beat, 0.5, 43, 84)
+                        if i in (3, 7):
+                            song.note(9, beat, 0.15, WOODBLOCK, 46)
                     elif d == "four":
                         if i % 2 == 0:
                             song.note(9, beat, 0.25, KICK, 100)

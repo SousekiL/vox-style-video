@@ -15,6 +15,7 @@ import argparse
 import json
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -184,6 +185,7 @@ def main():
     ap.add_argument("--download", type=int, default=0)
     ap.add_argument("--preview", action="store_true", help="write preview.jpg: numbered thumbnails to choose from")
     ap.add_argument("--pick", default="", help="comma list of candidate indices to download (implies --download)")
+    ap.add_argument("--max-width", type=int, default=2560, help="Commons/Wikidata: download this thumbnail width (0 = original)")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
 
@@ -236,15 +238,35 @@ def main():
     if a.download:
         credits = ["# Credits", ""]
         picks = [int(x) for x in a.pick.split(",")] if a.pick else list(range(a.download))
-        for i in picks:
+        import time
+        for n, i in enumerate(picks):
             r = res[i]
-            ext = Path(urllib.parse.urlparse(r["url"]).path).suffix.lower() or ".jpg"
+            url = r["url"]
+            if r["source"].startswith(("commons", "wikidata")) and a.max_width:
+                # Wikimedia rate-limits scripted downloads of originals (HTTP 429); standard thumbnail
+                # widths are the sanctioned route (https://w.wiki/GHai). 2560 px covers 4K cut-outs.
+                title = r["title"].split(" — ")[-1]
+                info = get_json("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(
+                    {"action": "query", "format": "json", "titles": title, "prop": "imageinfo",
+                     "iiprop": "url", "iiurlwidth": str(a.max_width)}))
+                page = next(iter(info.get("query", {}).get("pages", {}).values()), {})
+                url = ((page.get("imageinfo") or [{}])[0]).get("thumburl") or url
+            ext = Path(urllib.parse.urlparse(url).path).suffix.lower() or ".jpg"
             dest = out / f"cand_{i:02d}{ext}"
-            req = urllib.request.Request(r["url"], headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=120) as resp:
-                dest.write_bytes(resp.read())
+            for attempt in range(4):
+                try:
+                    req = urllib.request.Request(url, headers={"User-Agent": UA})
+                    with urllib.request.urlopen(req, timeout=120) as resp:
+                        dest.write_bytes(resp.read())
+                    break
+                except urllib.error.HTTPError as e:
+                    if e.code != 429 or attempt == 3:
+                        raise
+                    time.sleep(10 * (attempt + 1))
             credits.append(f"- `{dest.name}`: {r['title']} by {r['author'] or 'unknown'}, {r['license']}, {r['page']}")
             print(f"downloaded {dest} ({dest.stat().st_size // 1024} KB)")
+            if n < len(picks) - 1:
+                time.sleep(1.5)
         (out / "CREDITS.md").write_text("\n".join(credits) + "\n")
 
 

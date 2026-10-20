@@ -4,7 +4,8 @@ Each preset is a tested combination of palette, clock, materials, moves and tran
 
 | Preset | Best for | Clock | Boil | Signature move | Signature transition |
 |---|---|---|---|---|---|
-| `explainer` | Explainers with narration (finance, science, how-it-works) | 12 fps grid | paper every 7–15 f | pop-in +28 %, pose-jump captions | whip-pan / push pose + settle |
+| **`vox`** | **Vox-style editorial explainers: documents, archival prints, maps, charts, sources** | **24 fps on 1s (+ optional stepped layers on 2s)** | **paper overlay every 8–12 f** | **camera drift, highlight sweep, document push** | **hard cut; state dissolve; map fly-to** |
+| `explainer` (collage, not Vox) | Collage explainers with narration (finance, science, how-it-works) | 12 fps grid | paper every 7–15 f | pop-in +28 %, pose-jump captions | whip-pan / push pose + settle |
 | `archive` | Brand history, editorial, documentary chapters | on 2s | paper on 3s, scribbles on 2s | type-on 2 f/char, medium swap | recede to cut, ink blackout, slanted sheet |
 | `earth` | Short poetic pieces, intros, emotional beats | 10 fps (3-3-3-4-2) | none | linear slides with hard stops, depth slots | slide-over cover, matte iris |
 | `postcard` | Social loops, travel, product moments, greetings | smooth + per-loop cadences | none | hold-jump entries, handwriting 2 f/char | stamp payoff, then a cut to black |

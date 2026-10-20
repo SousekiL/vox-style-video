@@ -1,12 +1,15 @@
 # Collage Motion: a style system for paper-collage explainer animation
 
+> **Scope.** Files 00–12 were measured from 8 **non-Vox** collage references and define *collage registers*. What makes a video read as **Vox** (24 fps, evidence on screen, `#FFF200` highlights, sources, maps, a camera that never freezes) is in **[13-vox-editorial.md](13-vox-editorial.md)** and the `vox` preset. When a request says "Vox", start there; use collage presets as optional art direction on top.
+
 This is a code-first instruction system for building high-resolution, mixed-media **paper-collage motion graphics** (explainers, brand stories, social loops) in Remotion. It was reverse-engineered from 8 reference videos. Each was analysed frame by frame, and every number below traces back to a measurement in `references/notes/`.
 
 ## How to use these files
 
 | Step | Read | You get |
 |---|---|---|
-| 1. Pick a preset | [07-presets.md](07-presets.md) | One of 9 tested looks, with its palette, clock, textures and moves |
+| 0. Vox? | [13-vox-editorial.md](13-vox-editorial.md) | The `vox` preset: 24 fps, evidence boards (document, archival print, map), highlight, source lines, camera drift |
+| 1. Pick a preset | [07-presets.md](07-presets.md) | One of 9 collage looks (plus `vox`), with its palette, clock, textures and moves |
 | 2. Learn the non-negotiables | [00-principles.md](00-principles.md) | 12 rules that make any preset read as "collage motion" |
 | 3. Build | [08-remotion-implementation.md](08-remotion-implementation.md) | Architecture, the `src/collage` API, render settings |
 | 4. Fill the details | [01-color](01-color.md) · [02-typography](02-typography.md) · [03-layout](03-layout.md) · [04-textures](04-textures.md) · [05-motion](05-motion.md) · [06-transitions](06-transitions.md) | Exact values and recipes |
@@ -16,7 +19,7 @@ This is a code-first instruction system for building high-resolution, mixed-medi
 | 7. Verify | [11-qa-checklist.md](11-qa-checklist.md) | Measurable checks, including the cadence test on your own render |
 
 ## The style in one paragraph
-Photographs are cut out of their backgrounds and pasted, without outlines or shadows, onto real paper: crumpled sheets, graph paper, newsprint, plaster. Each frame carries **one** saturated accent against greyscale or sepia photos and flat pastel shapes. Everything moves on a **stepped clock** (10–12.5 drawings per second), so motion reads as hand-placed stop motion: props pop in with overshoot, captions teleport between held poses, and the paper re-rolls its texture a few times a second while the photos stay pixel-still. Scenes change by hard cut, carried by camera beats (a whip or push before the cut, an expo settle after it) or by physical paper (ink blackout, a sliding sheet, a tile mosaic). Nothing cross-dissolves.
+Photographs are cut out of their backgrounds and pasted, without outlines or shadows, onto real paper: crumpled sheets, graph paper, newsprint, plaster. Each frame carries **one** saturated accent against greyscale or sepia photos and flat pastel shapes. Everything moves on a **stepped clock** (10–12.5 drawings per second), so motion reads as hand-placed stop motion: props pop in with overshoot, captions teleport between held poses, and the paper re-rolls its texture a few times a second while the photos stay pixel-still. Scenes change by hard cut, carried by camera beats (a whip or push before the cut, an expo settle after it) or by physical paper (ink blackout, a sliding sheet, a tile mosaic). Collage presets never cross-dissolve; the `vox` preset allows state dissolves between two versions of the same geometry (13 §1 V6).
 
 ## Where things live
 | Path (repo / bootstrapped project) | In the installed skill | What |
@@ -52,3 +55,4 @@ npx remotion render src/index.ts ExplainerDemo4K out/demo-4k.mp4
 | v06 | Bird & cameras ident (15 s, 12 fps) | A one-hue ident: linear card spins, ring strobes, film dust | `redIdent` |
 | v07 | AE collage, filmed off a monitor (13 s) | "Then and now": a 12 fps old object next to a smooth modern one, line reveals | `thenNow` |
 | v08 | Travel postcard (17 s, 30 fps) | Hold-jump entries, mixed loop cadences, handwriting, stamp payoff | `postcard` |
+| — | **No Vox video was measured.** `vox` values come from Vox's public brand, Vox YouTube metadata, creator tutorials and interviews (13-vox-editorial.md sources) | | `vox` |
