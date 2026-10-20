@@ -13,7 +13,7 @@
 // - Earlier polls: 新台灣國策智庫 5/4–5 52.9·29.7; TVBS 5/21–26 58·30; 山水 6/21–22 55.2·27.5; TPOC 8/5–7 48.4·33.0.
 // - 6 registered candidates (中央社 2026/9/4); vote 2026/11/28; polls may not be published from 11/18.
 import React from 'react';
-import {AbsoluteFill, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {geoMercator, geoPath} from 'd3-geo';
 import type {FeatureCollection, Geometry} from 'geojson';
 import {
@@ -28,7 +28,6 @@ import {
   SLAP,
   STAMP,
   Scraps,
-  Seal,
   SfxTrack,
   SourceLine,
   Tape,
@@ -49,7 +48,6 @@ const ROLE = {
   strip: {font: VOX_FONT_TC.sans, weight: 900}, // 資訊條
   label: {font: VOX_FONT_TC.sans, weight: 700}, // 方法卡、標籤、出處
   num: {font: VOX_FONT.sans, weight: 800}, // 數字: Libre Franklin
-  seal: {font: VOX_FONT_TC.kai, weight: 700}, // 印章: 文楷
 };
 
 // ---- colours: party colours only for data; shot backgrounds stay neutral ----
@@ -572,7 +570,7 @@ const S10: React.FC = () => {
 // ⑪ payoff: 39 days, then the blackout
 const S11: React.FC = () => {
   const {f, fps, s, W} = useShot();
-  const seal = f < 50 ? 0 : table(STAMP, f - 50);
+  const stamp = f < 50 ? 0 : table(STAMP, f - 50);
   return (
     <AbsoluteFill>
       <ColorField color={C.ink} dots="br" seed={11} />
@@ -581,7 +579,10 @@ const S11: React.FC = () => {
         <CutLetters text="39天" step={s - 3} perChar={2} sizePctH={15} styles={ON_DARK} x={8} y={19} seed="d11" />
         <HeadlineStrip text="11/18 起 禁止發布民調" step={s - 12} sizePctH={3.4} x={10} y={44} bg={C.red} fg={C.paper} rot={2} font={ROLE.strip.font} />
         <HeadlineStrip text="11.28 開票見真章" step={s - 18} sizePctH={5.4} x={7} y={58} bg={C.paper} fg={C.ink} rot={-2} font={ROLE.title.font} />
-        <Seal text="票" sizePx={W * 0.22} scale={seal} font={ROLE.seal.font} style={{left: '68%', top: '72%'}} />
+        <PaperCard x={62} y={68} w={30} h={17} rot={4} step={s - 22}>
+          {/* 圈選章 (File:Vote1.svg, public domain) stamped on blank ballot paper: no candidate, no winner implied */}
+          <Img src={staticFile('evidence/taipei/vote1.svg')} style={{position: 'absolute', left: '50%', top: '50%', width: W * 0.22, height: W * 0.22, marginLeft: -W * 0.11, marginTop: -W * 0.11, transform: `rotate(-8deg) scale(${stamp})`, opacity: stamp ? 0.9 : 0, filter: 'url(#inkBleed)'}} />
+        </PaperCard>
         {s >= 18 ? <Tape x={12} y={56.5} w={12} h={1.6} rot={-24} color="rgba(236,226,196,.9)" seed={11} /> : null}
       </VoxCamera>
       <SourceLine frame={f} at={12} onDark font={ROLE.label.font} text="投票日 2026/11/28；依選罷法，投票日前 10 日起不得發布民調" />
@@ -657,6 +658,7 @@ const CUES: Array<{at: number; event: SfxEvent; db?: number}> = [
   {at: at(10, 10), event: 'slam', db: -12},
   {at: at(10, 24), event: 'slam', db: -13},
   {at: at(10, 36), event: 'slide', db: -14},
+  {at: at(10, 44), event: 'slide', db: -15},
   {at: at(10, 50), event: 'seal', db: -8},
 ];
 
