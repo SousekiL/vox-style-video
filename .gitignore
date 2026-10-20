@@ -19,5 +19,3 @@ public/audio/raw/
 references/vox-study/
 references/vox-director-study/
 
-# rendered videos stay local (only code and source assets are pushed)
-docs/media/vox-qin-pole-collage-720p.mp4

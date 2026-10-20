@@ -6,6 +6,15 @@ Vox-style **paper-collage motion graphics** built in code with [Remotion](https:
 
 > **Two layers.** `vox` (see [13-vox-editorial.md](style/collage-motion/13-vox-editorial.md)) is the Vox editorial grammar: 24 fps, evidence on screen with `#FFF200` highlights and source lines, maps, archival prints, a camera that never freezes. The 9 collage presets (measured from 8 non-Vox references) are optional art-direction registers on top.
 
+## Demo works
+
+### 2026 台北市長選情（vertical 9:16, 繁體中文, 48 s, data to 2026/10/20）
+A vox-collage data explainer: halftone portrait cut-outs, cut-out lettering, printed bar and split-bar charts, a slope chart, seven polls on one timeline, a district map, and a 圈選章 ending. Every number carries its pollster, fieldwork dates, sample and margin of error; when polls disagree, both are shown with the method differences. Story: [`src/stories/TaipeiPoll2026.tsx`](src/stories/TaipeiPoll2026.tsx) · credits: [`public/cutouts/taipei/CREDITS.md`](public/cutouts/taipei/CREDITS.md)
+
+![台北市長選情](docs/media/taipei_strip.jpg)
+
+Video: [`docs/media/vox-taipei-poll-2026-720p.mp4`](docs/media/vox-taipei-poll-2026-720p.mp4)
+
 ### Vox collage (default "Vox style"): 立木为信 v3
 Printed halftone cut-outs (real Qin artifacts + original woodblock-style illustrations, labelled) on one bold colour per shot, cut-out lettering with **one font per text element**, scraps, seal; pieces on 2s, camera smooth. Theme bake-off picks the palette before rendering. See [`14-vox-collage.md`](style/collage-motion/14-vox-collage.md).
 
@@ -15,7 +24,13 @@ Printed halftone cut-outs (real Qin artifacts + original woodblock-style illustr
 
 Theme bake-off (same shots, four themes): ![bake-off](docs/media/bakeoff_pair.jpg)
 
-Stills above; the rendered video stays local (not pushed).
+Video: [`docs/media/vox-qin-pole-collage-720p.mp4`](docs/media/vox-qin-pole-collage-720p.mp4)
+
+**Vertical 9:16 cut** (same story, portrait layouts via `L(landscape, portrait)`):
+
+![立木为信 vertical](docs/media/col_vertical_strip.jpg)
+
+Video: [`docs/media/vox-qin-pole-collage-vertical-720p.mp4`](docs/media/vox-qin-pole-collage-vertical-720p.mp4)
 
 ### Vox editorial register, bold dark look: 立木为信 v2
 Measured from 5 real Vox videos (local study only): dark stage, film grain, oversized cropped type, labels in boxes, red tags, hand-drawn annotations, dark relief map, a cut every 1.5–3 s.
