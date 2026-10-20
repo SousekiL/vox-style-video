@@ -65,7 +65,7 @@ export const SourceLine: React.FC<{frame: number; at: number; text: string; onDa
   font,
 }) => {
   const {height, fps} = useVideoConfig();
-  const o = interpolate(frame, [at, at + Math.round((6 * fps) / 30)], [0, 1], clamp);
+  const o = interpolate(frame, [at, at + Math.max(1, Math.round((6 * fps) / 30))], [0, 1], clamp);
   return (
     <div
       style={{

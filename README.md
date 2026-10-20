@@ -6,7 +6,18 @@ Vox-style **paper-collage motion graphics** built in code with [Remotion](https:
 
 > **Two layers.** `vox` (see [13-vox-editorial.md](style/collage-motion/13-vox-editorial.md)) is the Vox editorial grammar: 24 fps, evidence on screen with `#FFF200` highlights and source lines, maps, archival prints, a camera that never freezes. The 9 collage presets (measured from 8 non-Vox references) are optional art-direction registers on top.
 
-### Vox preset, bold look (default): 立木为信 v2
+### Vox collage (default "Vox style"): 立木为信 v3
+Printed halftone cut-outs (real Qin artifacts + original woodblock-style illustrations, labelled) on one bold colour per shot, cut-out lettering with **one font per text element**, scraps, seal; pieces on 2s, camera smooth. Theme bake-off picks the palette before rendering. See [`14-vox-collage.md`](style/collage-motion/14-vox-collage.md).
+
+| | | |
+|---|---|---|
+| ![v3 1](docs/media/col_f40.jpg) | ![v3 3](docs/media/col_f136.jpg) | ![v3 6](docs/media/col_f286.jpg) |
+
+Theme bake-off (same shots, four themes): ![bake-off](docs/media/bakeoff_pair.jpg)
+
+Video: [`docs/media/vox-qin-pole-collage-720p.mp4`](docs/media/vox-qin-pole-collage-720p.mp4)
+
+### Vox editorial register, bold dark look: 立木为信 v2
 Measured from 5 real Vox videos (local study only): dark stage, film grain, oversized cropped type, labels in boxes, red tags, hand-drawn annotations, dark relief map, a cut every 1.5–3 s.
 
 | | |

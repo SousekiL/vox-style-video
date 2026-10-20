@@ -60,6 +60,18 @@ export const CollageFilters: React.FC<{scale?: number; seed?: number}> = ({scale
           <feMergeNode in="SourceGraphic" />
         </feMerge>
       </filter>
+      {/* Torn white sticker border, thick (≈0.8 %H) with a ragged hand-torn edge: vox-collage cut-outs. */}
+      <filter id="stickerTorn" x="-15%" y="-15%" width="130%" height="130%">
+        <feMorphology in="SourceAlpha" operator="dilate" radius={9 * scale} result="d" />
+        <feTurbulence type="fractalNoise" baseFrequency={0.045 / scale} numOctaves={3} seed={7} result="n" />
+        <feDisplacementMap in="d" in2="n" scale={10 * scale} xChannelSelector="R" yChannelSelector="G" result="rough" />
+        <feFlood floodColor="#F7F4EC" />
+        <feComposite in2="rough" operator="in" result="border" />
+        <feMerge>
+          <feMergeNode in="border" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
       {/* Cream feathered cut-out halo, 1–1.4 %W (v07 building). */}
       <filter id="halo" x="-10%" y="-10%" width="120%" height="120%">
         <feMorphology in="SourceAlpha" operator="dilate" radius={8 * scale} result="d" />

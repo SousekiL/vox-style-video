@@ -8,7 +8,8 @@ This is a code-first instruction system for building high-resolution, mixed-medi
 
 | Step | Read | You get |
 |---|---|---|
-| 0. Vox? | [13-vox-editorial.md](13-vox-editorial.md) | The `vox` preset: 24 fps, evidence boards (document, archival print, map), highlight, source lines, camera drift |
+| 0. Vox? | **[14-vox-collage.md](14-vox-collage.md)** (default: printed cut-outs on bold colour, cut-out lettering, fonts by role) and [13-vox-editorial.md](13-vox-editorial.md) (dark maps/documents register) |
+| 0b. (editorial register) | [13-vox-editorial.md](13-vox-editorial.md) | The `vox` preset: 24 fps, evidence boards (document, archival print, map), highlight, source lines, camera drift |
 | 1. Pick a preset | [07-presets.md](07-presets.md) | One of 9 collage looks (plus `vox`), with its palette, clock, textures and moves |
 | 2. Learn the non-negotiables | [00-principles.md](00-principles.md) | 12 rules that make any preset read as "collage motion" |
 | 3. Build | [08-remotion-implementation.md](08-remotion-implementation.md) | Architecture, the `src/collage` API, render settings |

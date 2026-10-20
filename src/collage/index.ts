@@ -13,3 +13,4 @@ export * from './camera';
 export * from './editorial';
 export * from './map';
 export * from './voxbold';
+export * from './collagekit';

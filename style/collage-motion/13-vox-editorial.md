@@ -1,6 +1,8 @@
 # 13 · Vox editorial preset (`vox`)
 
-> **Default look = §9 "bold" (dark stage).** It is measured from 5 real Vox videos. The light paper boards in §2–§6 are the `vox-light` variant: use them for calm, document-heavy pieces.
+> **For "Vox style" requests the default is now [14-vox-collage.md](14-vox-collage.md)** (printed cut-out collage on bold colour). This file's dark editorial look (§9) is the register for maps, documents and archival footage inside a collage film.
+>
+> Within this file: **default look = §9 "bold" (dark stage).** It is measured from 5 real Vox videos. The light paper boards in §2–§6 are the `vox-light` variant: use them for calm, document-heavy pieces.
 
 The collage presets in 00–12 were measured from 8 non-Vox references. This file defines what makes a video read as **Vox**: evidence on screen, sourced and highlighted, mapped, with a camera that never freezes, at 24 fps. Collage and stop-motion are an *art-direction option* layered on top (Vox's art director picks a different anchor per video: construction paper for one, protest posters for another). Sources are tagged: **[P]** primary (vox.com, Vox YouTube descriptions and format data, a creator's own tutorial), **[I]** interview, **[T]** third-party tutorial, **[O]** reviewer observation to verify against the named video. Full citations are at the end.
 
