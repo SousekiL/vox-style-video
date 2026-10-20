@@ -35,6 +35,17 @@ Worked example: `src/stories/QinPoleCollage.tsx` (composition `VoxQinPoleCollage
 - Subset self-hosted CJK fonts per film: `python3 -I scripts/fonts/subset_cjk.py <font.ttf> public/fonts/<name>.woff <story files…>` (collects every CJK character in the sources). Load with `loadLocalFont('<neutral name>', 'fonts/<name>.woff')`; give subsets a neutral family name (OFL reserved-name rule) and keep the OFL text next to the file.
 - Commercial fonts (e.g. 苍耳今楷) only after the user confirms the licence covers video use.
 - Latin pieces: Libre Franklin 800 for chips, Libre Baskerville for quotes, Roboto Mono for labels.
+- **繁體中文 films** use `VOX_FONT_TC` (Noto Sans TC 900 for chips and strips, Noto Serif TC 900 for the title, LXGW WenKai TC for seals and quotes) so glyphs take Taiwan forms; the role map stays the same. Big numbers get their own role (Libre Franklin 800).
+
+## 3b. 9:16 (vertical) layout
+- Portrait-only films: x in % of width, y and sizes in % of height; CJK chips 6–7.5 %H, strips 2.4–4.6 %H, numbers up to 15 %H.
+- Keep titles at y ≥ 6.5 % and source lines clear of content from y 90 %: a camera push of 1.05× already clips anything nearer the edge. Check the LAST frame of every shot.
+- Shared stories (landscape + portrait): `L(landscape, portrait)` from `useShot`, short-edge units `u = min(W, H)` for cut-out widths; `SourceLine` wraps in portrait.
+
+## 3c. Data and politics (polls, elections)
+- Every number on screen carries pollster, fieldwork dates, sample and margin of error (a method card or the source line).
+- One colour and one side per candidate for the whole film (split bars: candidate A left, undecided grey middle, candidate B right); same portrait size and screen time for each; shot backgrounds avoid party colours.
+- When polls disagree, show both and explain the method differences; never pick one as "the" result. Worked example: `src/stories/TaipeiPoll2026.tsx`.
 
 ## 4. Palette themes and the bake-off gate
 Themes live in `THEMES` (`QinPoleCollage.tsx`); each gives six shot colours, disc tints, chip colour pairs, strip colours, an accent and scrap colours.

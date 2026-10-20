@@ -64,22 +64,24 @@ export const SourceLine: React.FC<{frame: number; at: number; text: string; onDa
   top = false,
   font,
 }) => {
-  const {height, fps} = useVideoConfig();
+  const {width, height, fps} = useVideoConfig();
+  const portrait = height > width;
   const o = interpolate(frame, [at, at + Math.max(1, Math.round((6 * fps) / 30))], [0, 1], clamp);
   return (
     <div
       style={{
         position: 'absolute',
-        left: '4%',
-        ...(top ? {top: '4%'} : {bottom: '4.6%'}),
-        maxWidth: '64%',
+        left: portrait ? '6%' : '4%',
+        ...(top ? {top: portrait ? '3.5%' : '4%'} : {bottom: portrait ? '3.5%' : '4.6%'}),
+        maxWidth: portrait ? '88%' : '64%',
         fontFamily: font,
-        fontSize: height * 0.019,
+        fontSize: portrait ? width * 0.026 : height * 0.019,
         fontWeight: 400,
         letterSpacing: '0.02em',
         color: onDark ? 'rgba(242,242,242,.75)' : 'rgba(20,20,20,.7)',
         opacity: o,
-        whiteSpace: 'nowrap',
+        whiteSpace: portrait ? 'normal' : 'nowrap',
+        lineHeight: 1.35,
       }}
     >
       {text}

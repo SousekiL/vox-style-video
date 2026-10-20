@@ -12,6 +12,9 @@ import {loadFont as loadLibreFranklin} from '@remotion/google-fonts/LibreFrankli
 import {loadFont as loadLibreBaskerville} from '@remotion/google-fonts/LibreBaskerville';
 import {loadFont as loadNotoSansSC} from '@remotion/google-fonts/NotoSansSC';
 import {loadFont as loadNotoSerifSC} from '@remotion/google-fonts/NotoSerifSC';
+import {loadFont as loadNotoSansTC} from '@remotion/google-fonts/NotoSansTC';
+import {loadFont as loadNotoSerifTC} from '@remotion/google-fonts/NotoSerifTC';
+import {loadFont as loadWenKaiTC} from '@remotion/google-fonts/LXGWWenKaiTC';
 import {continueRender, delayRender, staticFile} from 'remotion';
 
 export const FONT = {
@@ -38,6 +41,13 @@ export const VOX_FONT = {
   cjkSerif: loadNotoSerifSC('normal', {weights: ['700', '900'], subsets: ['chinese-simplified', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
   /** 朱雀仿宋 Zhuque Fangsong (OFL): self-hosted subset, see loadLocalFont + scripts/fonts/subset.sh */
   cjkFangsong: 'Zhuque Fangsong',
+};
+
+// Traditional Chinese (Taiwan glyph forms): use these for 繁體 films instead of the SC faces.
+export const VOX_FONT_TC = {
+  sans: loadNotoSansTC('normal', {weights: ['400', '500', '700', '900'], subsets: ['chinese-traditional', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
+  serif: loadNotoSerifTC('normal', {weights: ['900'], subsets: ['chinese-traditional', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
+  kai: loadWenKaiTC('normal', {weights: ['700'], subsets: ['chinese-traditional', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily, // 霞鶩文楷 TC (OFL)
 };
 
 /** Load a self-hosted font file from public/ (e.g. a pyftsubset .woff/.woff2) and block rendering until ready. */

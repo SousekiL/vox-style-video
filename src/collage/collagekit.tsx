@@ -5,7 +5,7 @@
 // Look checklist borrowed (ideas only) from alisa0808/vox-director (MIT): torn edges, tape, halftone,
 // clippings, paper-stencil scraps, real paper shadows, one bold flat colour per beat, cut-out headlines, seal.
 import React from 'react';
-import {AbsoluteFill, random, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, random, useVideoConfig} from 'remotion';
 import {Halftone} from './materials';
 
 /** Palette measured from Vox thumbnails + Chinese-history accents. */
@@ -137,10 +137,10 @@ export const PrintCutout: React.FC<{
       </div>
       {halftone ? (
         <Halftone pitchPctH={pitchPctH} angle={45} ink={ink} gain={10} style={{position: 'absolute', inset: 0}}>
-          <img src={src} style={{width: widthPx, height: h, display: 'block', filter: 'grayscale(1) contrast(1.35)'}} />
+          <Img src={src} style={{width: widthPx, height: h, display: 'block', filter: 'grayscale(1) contrast(1.35)'}} />
         </Halftone>
       ) : (
-        <img src={src} style={{position: 'absolute', inset: 0, width: widthPx, height: h, filter: 'grayscale(1) contrast(1.2)'}} />
+        <Img src={src} style={{position: 'absolute', inset: 0, width: widthPx, height: h, filter: 'grayscale(1) contrast(1.2)'}} />
       )}
     </div>
   );
