@@ -13,3 +13,6 @@ public/assets/
 
 # Compiled binary (build with: swiftc -O scripts/assets/cutout.swift -o scripts/assets/cutout)
 scripts/assets/cutout
+
+# Audio search candidates (ship only composed/synth/picked files under public/audio/bgm and public/audio/sfx)
+public/audio/raw/

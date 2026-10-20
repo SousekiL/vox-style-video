@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@types/react": "19.1.8",
+    "node-web-audio-api": "2.2.0",
+    "tone": "15.1.22",
     "typescript": "5.8.3"
   }
 }

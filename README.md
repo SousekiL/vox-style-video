@@ -20,6 +20,7 @@ Demo video (12 s, 3 presets): [`docs/media/explainer-demo-720p.mp4`](docs/media/
 | [`src/collage/`](src/collage/index.ts) | Primitive library: stepped clocks, overshoot pop tables, crumpled/graph paper, newsprint halftone, duotones, sticker/halo/fringe edges, torn paper, pencil scribble, type-on, pose jumps, whip-pan, ink blackout, tile mosaic, disc iris… |
 | [`src/demo/`](src/demo) | `ExplainerDemo` (1080p and 4K) and the `TextureSheet` still |
 | [`scripts/assets/`](scripts/assets) | `find_images.py` (licensed image search with a preview sheet), `cutout.swift` (on-device background removal with Apple Vision), `treat.py` (grade + matte cleanup + size check) |
+| [`scripts/audio/`](scripts/audio) | **BGM vs SFX** pipeline: `find_audio.py` (Incompetech, ccMixter, FMA, Commons, Freesound), `compose_bgm.py` (original beds via FluidSynth), `tone_sfx.mjs` (SFX palette via Tone.js), `master.py` (−14 LUFS) |
 | [`scripts/prep_reference.py`](scripts/prep_reference.py), [`scripts/cadence.py`](scripts/cadence.py) | Analyse any video: every frame, contact sheets, palettes, hold-length cadence. Run it on references **and on your own renders** |
 | [`skill/`](skill/SKILL.md) | The `vox-style-video` Claude Code skill |
 
@@ -50,10 +51,16 @@ Heroes and props must be real photo cut-outs, never rough drawings. The pipeline
 
 Real people are only ever shown through licensed photographs, never AI likenesses. No brand logos are reproduced.
 
+## Sound: BGM and SFX are different jobs
+**BGM** is one music bed for the whole video; **SFX** are short cues glued to specific motions (pop, slam, whip, stamp, paper slide). See [`12-audio.md`](style/collage-motion/12-audio.md).
+- Library first: `find_audio.py --kind bgm|sfx` searches free, reusable sources, keeps CC0/BY/BY-SA, measures loudness and tempo, and writes credits.
+- If nothing fits: `compose_bgm.py` writes an original bed (MIDI → FluidSynth, 4 styles, exact length, beat grid for cut sync), and `tone_sfx.mjs` synthesizes the 14-sound SFX palette.
+- `master.py` masters the final mix to −14 LUFS. The demo's cuts land on the composed music's downbeats, and 28/28 SFX cues land within 2 frames of their motion.
+
 ## Notes
 - This is a study of a visual *style*. It is not affiliated with Vox Media and does not include any of their logos, footage or music.
 - The reference videos are third-party works and are **not** included. See [`references/README.md`](references/README.md) for links and how to rebuild the analysis locally.
-- Requirements: Node 20+, Python 3 with Pillow + NumPy, ffmpeg, macOS 14+ for the Vision cut-out tool.
+- Requirements: Node 20+, Python 3 with Pillow + NumPy, ffmpeg, macOS 14+ for the Vision cut-out tool; for audio: `brew install fluid-synth aubio` and the [GeneralUser GS](https://github.com/mrbumpy409/GeneralUser-GS) soundfont in `~/.local/share/soundfonts/`.
 
 ## License
 MIT for code, docs and the generated demo assets. See [LICENSE](LICENSE).

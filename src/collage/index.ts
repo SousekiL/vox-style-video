@@ -8,3 +8,4 @@ export * from './text';
 export * from './transitions';
 export * from './placeholders';
 export * from './fonts';
+export * from './audio';

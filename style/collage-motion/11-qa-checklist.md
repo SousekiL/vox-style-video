@@ -41,7 +41,15 @@ This repo's own demo failed the check twice before passing. The causes were a gr
 - [ ] Every cut lands on a clock frame; the first frame after a cut is already moving.
 - [ ] No cross-dissolves between scenes (diorama in-shot swaps are the only exception).
 
-## 5. Delivery
+## 5. Audio
+- [ ] Exactly one BGM bed (or one per register, switched only at a hard cut); it starts at frame 0 and fades out at the end.
+- [ ] SFX only on physical motion; nothing on boil, loops or holds; at most one prominent cue per ≈ 0.5 s.
+- [ ] Cue frames match their motion: `aubio onset -i mix.wav -m hfc -t 0.3` vs the cue sheet, all within 2 frames.
+- [ ] BGM ducked −8 dB under every voice-over range.
+- [ ] `master.py` result: −14 LUFS ±1, true peak ≤ −1.5 dBTP.
+- [ ] Every library pick (BGM and SFX) is in `CREDITS.md` with no NC/ND licence in a monetised video.
+
+## 6. Delivery
 - [ ] 2160p master renders without frame timeouts (fonts self-hosted or `--timeout=120000`).
 - [ ] `CREDITS.md` from every searched asset is carried into the description or end card.
 - [ ] No logos, brand marks or real-person AI likenesses.

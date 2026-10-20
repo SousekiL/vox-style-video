@@ -3,6 +3,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {
+  Bgm,
   BrokenLine,
   CollageFilters,
   CrumpledPaper,
@@ -22,6 +23,8 @@ import {
   POP_SOFT,
   PoseJump,
   STAMP,
+  SfxTrack,
+  type SfxEvent,
   Scribble,
   Tape,
   TileMosaic,
@@ -233,12 +236,43 @@ const ShotBurst: React.FC = () => {
   );
 };
 
+// SFX cue sheet: every cue sits on the frame its motion starts (12-audio.md §3). Absolute comp frames.
+// BGM is separate: one bed for the whole film, composed at 120 bpm so the cuts at 120/240 land on downbeats.
+const CUES: Array<{at: number; event: SfxEvent; db?: number}> = [
+  // shot A (explainer, 12 fps grid)
+  {at: 3, event: 'shapePop'}, // grid circle POP_SOFT, drawing 1
+  {at: 8, event: 'popIn'}, // house POP, drawing 3
+  {at: 25, event: 'slam'}, // caption pose 1 (2x, first grid frame >= 24)
+  {at: 33, event: 'poseJump'},
+  {at: 38, event: 'poseJump'},
+  {at: 40, event: 'poseJump', db: -22}, // arrow draw-on step 1
+  {at: 55, event: 'slide'}, // hand pose 1
+  {at: 65, event: 'poseJump'}, // hand pose 2
+  {at: 115, event: 'whip'}, // pre-cut push pose
+  // shot B (archive, on 2s)
+  ...[0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({at: 126 + i * 2, event: 'typeOn' as const})), // LEVERAGE, 2 f/glyph
+  {at: 144, event: 'poseJump'},
+  {at: 148, event: 'slam'}, // ink-bleed word
+  {at: 152, event: 'poseJump'},
+  {at: 162, event: 'scribble'},
+  {at: 226, event: 'inkBlackout'},
+  // shot C (duotone burst)
+  {at: 248, event: 'poseJump'},
+  {at: 251, event: 'poseJump'},
+  {at: 254, event: 'poseJump'},
+  {at: 257, event: 'slam'}, // broken line lands
+  {at: 292, event: 'mosaic'},
+  {at: 324, event: 'stamp'},
+];
+
 export const ExplainerDemo: React.FC = () => {
   const {height} = useVideoConfig();
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{background: '#000'}}>
       <CollageFilters scale={height / 1080} seed={1 + Math.floor(frame / 2) % 5} />
+      <Bgm src="audio/bgm/demo_curious.wav" levelDb={-3} fadeOut={30} />
+      <SfxTrack cues={CUES} />
       <Sequence durationInFrames={SHOT}>
         <ShotExplainer />
       </Sequence>

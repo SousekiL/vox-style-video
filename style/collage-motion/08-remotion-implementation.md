@@ -1,6 +1,6 @@
 # 08 · Remotion implementation
 
-Stack: Remotion 4.0.537, React 19, TypeScript, `@remotion/google-fonts`, `@remotion/noise`. Everything is under `src/collage/` and exported from `src/collage/index.ts`.
+Stack: Remotion 4.0.537, React 19, TypeScript, `@remotion/google-fonts`, `@remotion/noise`; audio tooling: FluidSynth + GeneralUser GS, Tone.js + `node-web-audio-api` (dev), aubio, ffmpeg. Everything is under `src/collage/` and exported from `src/collage/index.ts`.
 
 ## 1. Module map
 | File | Exports | Notes |
@@ -14,6 +14,7 @@ Stack: Remotion 4.0.537, React 19, TypeScript, `@remotion/google-fonts`, `@remot
 | `text.tsx` | `TypeOn`, `WordStamp`, `PoseJump`, `LineReveal`, `ScrambleLine`, `BrokenLine` | text primitives |
 | `transitions.tsx` | `CutCamera`, `WhipBoard`, `TileMosaic`, `InkBlackout`, `SlantedSheet`, `DiscIris` | transitions |
 | `fonts.ts` | `FONT` | Google Fonts loader |
+| `audio.tsx` | `Bgm`, `Sfx`, `SfxTrack`, `SFX_FOR`, `dbToGain` | BGM bed with ducking + SFX cues per motion event (12-audio.md) |
 | `placeholders.tsx` | `HouseObject`, `BankObject`, `CoinStack`, `HandObject`, `TowerObject` | original SVG stand-ins; replace with real cut-outs |
 
 ## 2. Scene skeleton (explainer preset)

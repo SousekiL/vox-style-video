@@ -21,9 +21,10 @@ How to turn a script into a collage-motion explainer. Pacing numbers come from v
 
 Background: paper re-rolls every 7–8 frames on busy boards and every 15 frames on calm ones. Hero and text stay still between beats.
 
-## 3. Audio
-- Cut on the narration's stressed syllable or a music downbeat. Stepped motion makes misalignment obvious, so snap cut frames to the 12 fps grid nearest the beat.
-- Pops and slams want a small foley hit (paper flick, stamp thump). Whips want a short paper swish.
+## 3. Audio (details: [12-audio.md](12-audio.md))
+- **BGM** is one bed for the whole film. Pick or compose it before animating, with a BPM chosen so planned cuts land on bar lines (`compose_bgm.py` → `beats.json.grid_cuts_30fps`).
+- **SFX** are cues on physical motion only: pops, slams, whips, stamps, slides, scribbles. At most one prominent cue per beat. Build the cue sheet from the same pose/step tables that drive the visuals.
+- Cut on the narration's stressed syllable or a music downbeat, snapped to the 12 fps grid.
 - v06 places its 2× punches on beats and moves them between loop passes. Treat punches as music-synced, not as part of the loop.
 
 ## 4. Longer films: registers
@@ -47,10 +48,11 @@ Keep the type family, the accent hue and the cut grammar constant across registe
   verb: swing (pendulum on a red rope = the one accent)
   text: {copy: "They want your house.", enter: slam, at: 1.6s}
   out: whip-left
+  sfx: [popIn@hero, slam@text, whip@out]   # BGM is set once for the film, not per board
 ```
 
 ## 6. Production order
-1. Shot list (above) → asset list with routes (search / generate) → run the asset pipeline (09).
+1. Shot list (above) → asset list with routes (search / generate) → run the asset pipeline (09) → choose or compose the BGM and fix the cut grid to its bars (12).
 2. Build one board end to end. Run the cadence QA (11) on that board **before** building the rest.
 3. Build the remaining boards from the same components; change content, not grammar.
-4. Render 1080p proofs, then a 2160p master (ProRes HQ if it goes to an editor).
+4. Add the SFX cue sheet, render 1080p proofs, master loudness (`master.py`), then a 2160p master (ProRes HQ if it goes to an editor).

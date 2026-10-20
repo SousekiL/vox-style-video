@@ -1,5 +1,6 @@
 node_modules/
 out/
 public/assets/
+public/audio/raw/
 scripts/assets/cutout
 .DS_Store

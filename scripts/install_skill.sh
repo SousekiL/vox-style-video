@@ -21,6 +21,9 @@ cp "$REPO/references/analysis/BRIEF.md" "$DEST/references/notes/ANALYSIS-BRIEF.m
 
 cp "$REPO/scripts/prep_reference.py" "$REPO/scripts/cadence.py" "$DEST/scripts/"
 cp "$REPO"/scripts/assets/*.py "$REPO/scripts/assets/cutout.swift" "$DEST/scripts/assets/"
+mkdir -p "$DEST/scripts/audio" "$DEST/template/public/audio"
+cp "$REPO"/scripts/audio/*.py "$REPO"/scripts/audio/*.mjs "$DEST/scripts/audio/"
+cp -R "$REPO/public/audio/bgm" "$REPO/public/audio/sfx" "$DEST/template/public/audio/"
 
 cp -R "$REPO/src/collage" "$REPO/src/demo" "$DEST/template/src/"
 cp "$REPO/src/Root.tsx" "$REPO/src/index.ts" "$DEST/template/src/"

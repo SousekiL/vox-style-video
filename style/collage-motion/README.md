@@ -12,6 +12,7 @@ This is a code-first instruction system for building high-resolution, mixed-medi
 | 4. Fill the details | [01-color](01-color.md) · [02-typography](02-typography.md) · [03-layout](03-layout.md) · [04-textures](04-textures.md) · [05-motion](05-motion.md) · [06-transitions](06-transitions.md) | Exact values and recipes |
 | 5. Get assets | [09-assets.md](09-assets.md) | How to source and treat photo cut-outs and paper scans |
 | 6. Script the explainer | [10-explainer-playbook.md](10-explainer-playbook.md) | Beat sheet, scene templates, pacing |
+| 6b. Sound it | [12-audio.md](12-audio.md) | BGM (one music bed) vs SFX (cues on motion), sources, composing, synthesis, mastering |
 | 7. Verify | [11-qa-checklist.md](11-qa-checklist.md) | Measurable checks, including the cadence test on your own render |
 
 ## The style in one paragraph
@@ -26,6 +27,7 @@ Photographs are cut out of their backgrounds and pasted, without outlines or sha
 | `src/demo/` | `template/src/demo/` | `ExplainerDemo` (12 s, 3 presets) and the `TextureSheet` still |
 | `scripts/prep_reference.py`, `scripts/cadence.py` | `scripts/` | frame/cadence/palette analyser; run it on references AND your renders |
 | `scripts/assets/` | `scripts/assets/` | `find_images.py` (licensed search), `cutout.swift` (Apple Vision), `treat.py` (grade + size check) |
+| `scripts/audio/` | `scripts/audio/` | `find_audio.py` (BGM/SFX licensed search), `compose_bgm.py` (FluidSynth), `tone_sfx.mjs` (Tone.js), `master.py` (−14 LUFS) |
 | `skill/` | `SKILL.md`, `scripts/new_project.sh` | the Claude Code skill; install with `bash scripts/install_skill.sh` |
 
 Run the demo:
