@@ -1,5 +1,7 @@
 # 13 · Vox editorial preset (`vox`)
 
+> **Default look = §9 "bold" (dark stage).** It is measured from 5 real Vox videos. The light paper boards in §2–§6 are the `vox-light` variant: use them for calm, document-heavy pieces.
+
 The collage presets in 00–12 were measured from 8 non-Vox references. This file defines what makes a video read as **Vox**: evidence on screen, sourced and highlighted, mapped, with a camera that never freezes, at 24 fps. Collage and stop-motion are an *art-direction option* layered on top (Vox's art director picks a different anchor per video: construction paper for one, protest posters for another). Sources are tagged: **[P]** primary (vox.com, Vox YouTube descriptions and format data, a creator's own tutorial), **[I]** interview, **[T]** third-party tutorial, **[O]** reviewer observation to verify against the named video. Full citations are at the end.
 
 Code: `src/collage/editorial.tsx`, `camera.tsx`, `map.tsx`; tokens `VOX`, `VOX_FONT`, `CLOCK.vox`, `EASE.voxCamera`/`aeEasy`/`highlight`, `SPRING.vox`, `POP_VOX`, `readingFrames`. Worked example: `src/stories/QinPole.tsx` (composition `VoxQinPole`).
@@ -72,3 +74,45 @@ Cuts at 72/144/216 land on beats of the 120 bpm `dynasty` bed. Master: −14.1 L
 
 ## Sources
 S1 vox.com HTML (logo `#fff200`; Balto, Harriet, Roboto Mono) · S2 TheWrap 2014 (highlighter-yellow cards) · S3 Balto (Typographica, Fonts In Use) · S4 Harriet (Typewolf) · S5 The Long Story, "former Vox employees" · S6 Nieman Lab on Joe Posner · S7 Video Consortium, Joe Posner · S8 Storybench 2024, Joey Sendaydiego · S9 Storybench 2022, Vox Atlas · S10 Film Independent 2018, Estelle Caswell · S11 Johnny Harris, "How I Make My Maps" (youtu.be/GsojLuJpe_0) · S12 Vox YouTube descriptions (Darkroom g9bkQ7OiEdQ, P8QVBt2hh9M; Atlas cyayif_nla8, Fb9U1uoYCOc; Sahara twAP3buj9Og; Almanac 2gEwEcYnewE; Earworm p_IHotHxIl8) · S13 YouTube format metadata (`yt-dlp -F`, no download) · S14 Tubefilter, Glad You Asked · S15 SPJ, Vox Missing Chapter · S16 RNDR on Harris/Vox visuals · S17 PremiumBeat, "Replicating the VOX motion graphic look" · S20 YouTube end screens · S21 Google Fonts metadata · S22 Zhuque Fangsong, Smiley Sans, LXGW WenKai (GitHub).
+
+
+## 9. Bold look (default), measured from 5 Vox videos
+Study set (downloaded locally for analysis only, never committed: `references/vox-study/`, git-ignored): Atlas (Kashmir, Ukraine), Darkroom (Hindenburg), Earworm (syncopation), Borders (India–Pakistan). Contact sheets at 1 frame / 6 s; colours by k-means on 160×90 frames; cuts by ffmpeg scene detection (> 0.3).
+
+**Measured**
+| What | Value |
+|---|---|
+| Frame rate | 23.976 fps in 5/5 |
+| Average shot length | Borders 2.0 s · Darkroom 2.5 s · Atlas 3.1–3.5 s · Earworm 8.4 s (host-led) → **cut every 2–3 s** |
+| Map stage | land slate `#2d343c` / `#242a31` / `#1c2128`, water and vignette near-black `#0b0e11`, shaded relief |
+| Region fills (flat, saturated) | green `#7FB08C`, coral `#E09897`, ochre `#C8934A`, brick `#854937` (+ blue in Atlas) |
+| Earworm stage | `#181818`–`#222123` with a faint grid, neon `#D7DE20` |
+
+**Devices seen on the frames** (described, not copied)
+- Oversized region/country names in heavy white caps, deliberately cropped by the frame edge.
+- Labels in **colour boxes** (white text on a fill, or black text on white); years in **outlined boxes**; a **red vertical bar + year + title** chapter caption at the lower left.
+- Hand-drawn **white arrows**, **dashed boundary lines**, **red X** marks, icons in round badges, hatching for contested areas.
+- Archival material **full-bleed in black and white** with **red caption tags** (place, date); newspaper and magazine pages; film negatives; technical drawings with red labels.
+- Documents with **yellow highlights**; newspaper headline cards with key words in red on a dark grid.
+- Earworm: dark grid stage, **neon brush blocks** behind numbers and words, tracked caps labels in pink/red, black typewriter-style tags over footage.
+- A film finish throughout: grain, vignette, dark edges.
+
+**Components** (`src/collage/voxbold.tsx`, `map.tsx`): `VOX_DARK` palette · `DarkStage` (+grid) · `FilmLook` (per-frame grain, vignette) · `LabelBox` (colour box, jagged wipe, text 2 f later) · `YearBox` · `BarCaption` · `GiantLabel` (cropped, slow slide) · `Annotate` (circle / strike / underline / arrow, draws on) · `BrushBar` (neon brush behind a word) · `Counter` · `DarkReliefMap` (relief clipped to land, glowing rivers, schematic focus disc).
+
+**Rules for the bold look**
+1. Dark stage by default; light paper only for document close-ups (a cut-out page on the dark stage, with a heavy shadow).
+2. One huge thing per shot: a cropped giant word, a giant number in a neon box, or full-bleed evidence. Body text 3–5 %H, giant type 20–80 %H.
+3. Labels live in boxes, years in outlined boxes, places on white tags; red tags caption archival material.
+4. Something is drawn on in every shot: a highlight, a strike, a circle, an arrow or a seal.
+5. Cut every 1.5–3 s on the beat; the camera drifts 1–2 %/s and never stops; grain re-seeds every frame.
+6. Colour: neon or highlighter yellow for "look here", red for tags, strikes and seals, flat saturated fills only on maps.
+
+**Worked example: `VoxQinPoleBold`** (12 s, 24 fps, 6 shots at 0/48/96/168/216/252)
+1. Cold open: full-bleed B/W Qin slips, giant cropped 一根木头, highlighted question, red tag.
+2. Title on the dark grid: 立木为信 with a neon brush behind 信, red-bar caption.
+3. Dark relief map: giant 秦 bleeding off frame, glowing Yellow River, green schematic disc, white place tag, outlined date box.
+4. Cut-out Shiji page on the dark stage: push in, dim the other columns, highlight.
+5. 十金 struck in red, then 五十金 slammed in a neon box.
+6. 以明不欺, circled in red, then the 信 seal.
+
+Master −14.1 LUFS / −2.0 dBTP; every shot moves every frame; 12/14 SFX within 2 frames.

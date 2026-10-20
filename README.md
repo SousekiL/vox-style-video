@@ -6,7 +6,18 @@ Vox-style **paper-collage motion graphics** built in code with [Remotion](https:
 
 > **Two layers.** `vox` (see [13-vox-editorial.md](style/collage-motion/13-vox-editorial.md)) is the Vox editorial grammar: 24 fps, evidence on screen with `#FFF200` highlights and source lines, maps, archival prints, a camera that never freezes. The 9 collage presets (measured from 8 non-Vox references) are optional art-direction registers on top.
 
-### Vox preset: 立木为信 (12 s, 24 fps, real evidence only)
+### Vox preset, bold look (default): 立木为信 v2
+Measured from 5 real Vox videos (local study only): dark stage, film grain, oversized cropped type, labels in boxes, red tags, hand-drawn annotations, dark relief map, a cut every 1.5–3 s.
+
+| | |
+|---|---|
+| ![bold 1](docs/media/bold_f30.jpg) | ![bold 2](docs/media/bold_f80.jpg) |
+| ![bold 3](docs/media/bold_f150.jpg) | ![bold 4](docs/media/bold_f200.jpg) |
+| ![bold 5](docs/media/bold_f240.jpg) | ![bold 6](docs/media/bold_f280.jpg) |
+
+Video: [`docs/media/vox-qin-pole-bold-720p.mp4`](docs/media/vox-qin-pole-bold-720p.mp4)
+
+### Vox preset, light variant (`vox-light`): 立木为信 v1
 | Archival evidence + question | Map (land only, Natural Earth) |
 |---|---|
 | ![Qin evidence](docs/media/qin_f40.jpg) | ![Qin map](docs/media/qin_f120.jpg) |
@@ -31,7 +42,7 @@ Demo video (12 s, 3 presets): [`docs/media/explainer-demo-720p.mp4`](docs/media/
 | [`references/notes/`](references/notes) | Frame-by-frame analyses of 8 reference videos. Every number in the style system traces back here |
 | [`src/collage/`](src/collage/index.ts) | Primitive library: stepped clocks, overshoot pop tables, crumpled/graph paper, newsprint halftone, duotones, sticker/halo/fringe edges, torn paper, pencil scribble, type-on, pose jumps, whip-pan, ink blackout, tile mosaic, disc iris… |
 | [`src/demo/`](src/demo) | `ExplainerDemo` (1080p and 4K) and the `TextureSheet` still |
-| [`src/stories/`](src/stories) | `VoxQinPole`: the vox preset end to end (archival print, map fly-to, vertical classical text with highlight, title card, scored and mastered) |
+| [`src/stories/`](src/stories) | `VoxQinPoleBold` (default bold look) and `VoxQinPole`: the vox preset end to end (archival print, map fly-to, vertical classical text with highlight, title card, scored and mastered) |
 | [`scripts/assets/`](scripts/assets) | `find_images.py` (licensed image search with a preview sheet), `cutout.swift` (on-device background removal with Apple Vision), `treat.py` (grade + matte cleanup + size check) |
 | [`scripts/audio/`](scripts/audio) | **BGM vs SFX** pipeline: `find_audio.py` (Incompetech, ccMixter, FMA, Commons, Freesound), `compose_bgm.py` (original beds via FluidSynth), `tone_sfx.mjs` (SFX palette via Tone.js), `master.py` (−14 LUFS) |
 | [`scripts/prep_reference.py`](scripts/prep_reference.py), [`scripts/cadence.py`](scripts/cadence.py) | Analyse any video: every frame, contact sheets, palettes, hold-length cadence. Run it on references **and on your own renders** |

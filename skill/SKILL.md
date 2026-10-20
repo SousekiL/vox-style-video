@@ -12,7 +12,7 @@ Style, not brand: never reproduce Vox (or any) logos, idents, music or copy. Nev
 ## Steps
 
 ### 1. Brief → preset
-"Vox" in the request → preset **`vox`**: read `references/13-vox-editorial.md` first (24 fps, evidence boards, `#FFF200` highlight, source lines, drifting camera). Paper collage / cut-out / stop-motion requests → a collage preset in `references/07-presets.md` (explainer, archive, earth, postcard, thenNow, diorama, scroll, redIdent, duotoneBurst) and `references/00-principles.md`. A vox film may use a collage preset as one art-directed register.
+"Vox" in the request → preset **`vox`**: read `references/13-vox-editorial.md` first, **§9 (the bold look, measured from real Vox videos) is the default**: dark stage, film grain, oversized cropped type, labels in colour boxes, red tags, hand-drawn annotations, dark relief maps, a cut every 1.5–3 s; plus 24 fps, evidence boards, highlights, source lines and a drifting camera. Use the light paper boards (`vox-light`) only for calm, document-heavy pieces. Paper collage / cut-out / stop-motion requests → a collage preset in `references/07-presets.md` (explainer, archive, earth, postcard, thenNow, diorama, scroll, redIdent, duotoneBurst) and `references/00-principles.md`. A vox film may use a collage preset as one art-directed register.
 **Done when:** you can state the preset, fps (vox: 24) and clock per layer, attention colour, sourcing plan (what evidence each board shows and where it comes from), deliverable size and duration, and the user has seen that one-line choice.
 
 ### 2. Project

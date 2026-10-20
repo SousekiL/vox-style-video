@@ -8,7 +8,8 @@ import {feature} from 'topojson-client';
 import type {Topology, GeometryCollection} from 'topojson-specification';
 import landTopo from 'world-atlas/land-50m.json';
 import riversChina from './data/rivers-china-50m.json';
-import {useVideoConfig} from 'remotion';
+import {interpolate, useVideoConfig} from 'remotion';
+import {EASE} from './motion';
 import {VOX} from './tokens';
 import {camAt, camTransform, type CamKey} from './camera';
 
@@ -107,6 +108,111 @@ export const LandMap: React.FC<{
             );
           })
         : null}
+    </div>
+  );
+};
+
+/**
+ * Dark relief map (Vox Atlas look, measured: slate #1c2128–#2d343c land on near-black water, saturated
+ * flat fills for regions). Relief is simulated: fractal noise lit as a height map, clipped to land.
+ * `focus` draws a schematic (not a border claim) translucent disc around a place.
+ */
+export const DarkReliefMap: React.FC<{
+  frame: number;
+  fps: number;
+  keys: Array<{at: number; lon: number; lat: number; scale: number}>;
+  drift?: number;
+  rivers?: boolean;
+  riverGlow?: string;
+  focus?: {lon: number; lat: number; radiusPctH: number; color: string; at: number};
+  box?: [[number, number], [number, number]];
+  children?: (screen: (lon: number, lat: number) => [number, number]) => React.ReactNode;
+}> = ({frame, fps, keys, drift = 0.01, rivers = true, riverGlow = '#7FB3C9', focus, box, children}) => {
+  const {width, height} = useVideoConfig();
+  const {project, d, riverD} = useMemo(() => {
+    const topo = landTopo as unknown as Topology<{land: GeometryCollection}>;
+    const landFc = feature(topo, topo.objects.land);
+    const projection = chinaProjection(width, height, box);
+    const path = geoPath(projection);
+    return {
+      project: (lon: number, lat: number) => projection([lon, lat]) as [number, number],
+      d: path(landFc) ?? '',
+      riverD: path(riversChina as unknown as GeoJSON.FeatureCollection) ?? '',
+    };
+  }, [width, height, box]);
+  const camKeys: CamKey[] = keys.map((k) => {
+    const [x, y] = project(k.lon, k.lat);
+    return {at: k.at, cx: (x / width) * 100, cy: (y / height) * 100, scale: k.scale};
+  });
+  const k = camAt(frame, camKeys);
+  const s = k.scale * (1 + (drift * Math.max(0, frame)) / fps);
+  // screen-space (% of frame) position of a lon/lat under the current camera
+  const screen = (lon: number, lat: number): [number, number] => {
+    const [x, y] = project(lon, lat);
+    return [50 - s * k.cx + (s * x * 100) / width, 50 - s * k.cy + (s * y * 100) / height];
+  };
+  const fr = focus ? interpolate(frame, [focus.at, focus.at + Math.round((10 * fps) / 24)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: EASE.voxCamera}) : 0;
+  return (
+    <div style={{position: 'absolute', inset: 0, background: '#0b0e11', overflow: 'hidden'}}>
+      <div style={{position: 'absolute', inset: 0, transformOrigin: '0 0', transform: camTransform(k.cx, k.cy, s)}}>
+        <svg width={width} height={height} style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
+          <defs>
+            <clipPath id="landClip">
+              <path d={d} />
+            </clipPath>
+            <filter id="relief" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency={0.011} numOctaves={5} seed={11} result="h" />
+              <feDiffuseLighting in="h" surfaceScale={5} lightingColor="#ffffff" result="lit">
+                <feDistantLight azimuth={315} elevation={38} />
+              </feDiffuseLighting>
+              <feComponentTransfer in="lit" result="dim">
+                <feFuncR type="linear" slope={0.32} intercept={0.04} />
+                <feFuncG type="linear" slope={0.34} intercept={0.05} />
+                <feFuncB type="linear" slope={0.37} intercept={0.06} />
+              </feComponentTransfer>
+            </filter>
+            <filter id="riverGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation={height * 0.004} result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <g clipPath="url(#landClip)">
+            <rect width={width} height={height} fill="#2d343c" />
+            <rect width={width} height={height} filter="url(#relief)" style={{mixBlendMode: 'soft-light'}} opacity={0.85} />
+          </g>
+          <path d={d} fill="none" stroke="rgba(242,242,242,.28)" strokeWidth={height * 0.0012} vectorEffect="non-scaling-stroke" />
+          {rivers ? (
+            <path d={riverD} fill="none" stroke={riverGlow} strokeWidth={height * 0.0032} strokeLinecap="round" vectorEffect="non-scaling-stroke" filter="url(#riverGlow)" />
+          ) : null}
+        </svg>
+      </div>
+      {focus && fr > 0
+        ? (() => {
+            const [fx, fy] = screen(focus.lon, focus.lat);
+            const r = (focus.radiusPctH / 100) * height * s * fr;
+            return (
+              <div
+                style={{
+                  position: 'absolute',
+                  left: `${fx}%`,
+                  top: `${fy}%`,
+                  width: r * 2,
+                  height: r * 2,
+                  marginLeft: -r,
+                  marginTop: -r,
+                  borderRadius: '50%',
+                  background: focus.color,
+                  opacity: 0.72,
+                  border: `${height * 0.003}px dashed rgba(242,242,242,.8)`,
+                }}
+              />
+            );
+          })()
+        : null}
+      {children ? children(screen) : null}
     </div>
   );
 };

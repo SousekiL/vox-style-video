@@ -34,7 +34,7 @@ export const VOX_FONT = {
   sans: loadLibreFranklin('normal', {weights: ['500', '600', '700', '800'], subsets: ['latin']}).fontFamily,
   serif: loadLibreBaskerville('normal', {weights: ['400', '700'], subsets: ['latin']}).fontFamily,
   mono: FONT.mono,
-  cjkSans: loadNotoSansSC('normal', {weights: ['400', '500', '700'], subsets: ['chinese-simplified', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
+  cjkSans: loadNotoSansSC('normal', {weights: ['400', '500', '700', '900'], subsets: ['chinese-simplified', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
   cjkSerif: loadNotoSerifSC('normal', {weights: ['700', '900'], subsets: ['chinese-simplified', 'latin'], ignoreTooManyRequestsWarning: true}).fontFamily,
   /** 朱雀仿宋 Zhuque Fangsong (OFL): self-hosted subset, see loadLocalFont + scripts/fonts/subset.sh */
   cjkFangsong: 'Zhuque Fangsong',

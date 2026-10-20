@@ -16,3 +16,4 @@ scripts/assets/cutout
 
 # Audio search candidates (ship only composed/synth/picked files under public/audio/bgm and public/audio/sfx)
 public/audio/raw/
+references/vox-study/
