@@ -32,6 +32,7 @@ Worked example: `src/stories/QinPoleCollage.tsx` (composition `VoxQinPoleCollage
 | Labels, source lines, tags | 黑体 Noto Sans SC | 400–700 | 1.9–2.6 %H |
 | One expressive accent (optional, ≤ 1 element per film) | Ma Shan Zheng 毛笔 (OFL) | 400 | e.g. a single exclamation; never mixed into a chip word |
 
+- **Render with self-hosted CJK subsets, not Google's on-demand slices**: parallel render tabs can paint a frame before a slice loads, so small text flickers between the real font and a fallback. `loadLocalFont` blocks rendering until the face is ready.
 - Subset self-hosted CJK fonts per film: `python3 -I scripts/fonts/subset_cjk.py <font.ttf> public/fonts/<name>.woff <story files…>` (collects every CJK character in the sources). Load with `loadLocalFont('<neutral name>', 'fonts/<name>.woff')`; give subsets a neutral family name (OFL reserved-name rule) and keep the OFL text next to the file.
 - Commercial fonts (e.g. 苍耳今楷) only after the user confirms the licence covers video use.
 - Latin pieces: Libre Franklin 800 for chips, Libre Baskerville for quotes, Roboto Mono for labels.
@@ -74,6 +75,14 @@ npx remotion still src/index.ts VoxCollageBakeoff out/bakeoff.png --props='{"sho
 - **Arcs**: `hook_payoff` (default), `timeline` (history), `pas` / `bab` (ads), `how_it_works`, `man_in_hole`.
 - **Shots**: 2 s for social cuts (one bar at 120 bpm); 3–6 s for narrated explainers; 2 shots per beat (wide with headline, detail without). Shot sizes: EST_WIDE · WIDE · MEDIUM · CLOSE · DETAIL.
 - **Payoff**: the title line + a seal or stamp, held a bar.
+
+### 6b. Biographies (a person's life and work)
+Principles, not a template: each film has its own opening and arc, so weigh them against the material.
+- **Structure**: no cold open that spends a later climax up front; let the life unfold. Full-screen title or chapter cards are allowed but sparing — only at the most important turn, and few.
+- **Facts and quotes**: quote the original text from a checked edition (circulating versions are often altered) and give the exact source; attribute with a plain "—— author" line.
+- **Photos and visuals**: plenty of archival photos of the person themself; use original artefacts (book covers, title calligraphy) as they are, never imitations; keep private details brief and centre milestones and works.
+- **Music**: cut to the song's structure and never put lyrics on screen; when the person's own recorded voice is used, lay it over the music (duck the music) instead of stopping it.
+- Worked example: `src/stories/EileenChang.tsx`.
 
 ## 7. Assets for collage
 - **Real artifacts and documents first** (search; 09-assets): keep them recognisable, halftone allowed because they are presented as printed clippings, always with a source line.
