@@ -1,0 +1,166 @@
+{
+"mother1916": {
+"file": "evidence/xiaohong/mother1916.jpg",
+"aspect": 0.6615
+},
+"classmates": {
+"file": "evidence/xiaohong/classmates.jpg",
+"aspect": 1.3746
+},
+"park1932": {
+"file": "evidence/xiaohong/park1932.jpg",
+"aspect": 0.7626
+},
+"flood1932": {
+"file": "evidence/xiaohong/flood1932.jpg",
+"aspect": 1.6693
+},
+"dongxingshun": {
+"file": "evidence/xiaohong/dongxingshun.jpg",
+"aspect": 1.4917
+},
+"farewell1934": {
+"file": "evidence/xiaohong/farewell1934.jpg",
+"aspect": 0.64
+},
+"qd_house": {
+"file": "evidence/xiaohong/qd_house.jpg",
+"aspect": 1.4939
+},
+"uchiyama": {
+"file": "evidence/xiaohong/uchiyama.jpg",
+"aspect": 0.7484
+},
+"ssc_cover": {
+"file": "evidence/xiaohong/ssc_cover.jpg",
+"aspect": 0.6768
+},
+"preface_ms": {
+"file": "evidence/xiaohong/preface_ms.jpg",
+"aspect": 0.74
+},
+"pipe1935": {
+"file": "evidence/xiaohong/pipe1935.jpg",
+"aspect": 0.6844
+},
+"ssj_cover": {
+"file": "evidence/xiaohong/ssj_cover.jpg",
+"aspect": 0.9207
+},
+"steps1936": {
+"file": "evidence/xiaohong/steps1936.jpg",
+"aspect": 0.6309
+},
+"farewell1936": {
+"file": "evidence/xiaohong/farewell1936.jpg",
+"aspect": 1.535
+},
+"letter": {
+"file": "evidence/xiaohong/letter.jpg",
+"aspect": 0.8542
+},
+"grave1937": {
+"file": "evidence/xiaohong/grave1937.jpg",
+"aspect": 0.8174
+},
+"last1937": {
+"file": "evidence/xiaohong/last1937.jpg",
+"aspect": 0.7941
+},
+"dingling1938": {
+"file": "evidence/xiaohong/dingling1938.jpg",
+"aspect": 0.6674
+},
+"duanmu1938": {
+"file": "evidence/xiaohong/duanmu1938.jpg",
+"aspect": 0.7125
+},
+"hk1940": {
+"file": "evidence/xiaohong/hk1940.jpg",
+"aspect": 0.7261
+},
+"singtao": {
+"file": "evidence/xiaohong/singtao.jpg",
+"aspect": 1.2875
+},
+"hlh1947": {
+"file": "evidence/xiaohong/hlh1947.jpg",
+"aspect": 0.6842
+},
+"colophon": {
+"file": "evidence/xiaohong/colophon.jpg",
+"aspect": 0.6927
+},
+"mabole": {
+"file": "evidence/xiaohong/mabole.jpg",
+"aspect": 0.6914
+},
+"maodun": {
+"file": "evidence/xiaohong/maodun.jpg",
+"aspect": 1.3583
+},
+"house": {
+"file": "evidence/xiaohong/house.jpg",
+"aspect": 1.3333
+},
+"courtyard": {
+"file": "evidence/xiaohong/courtyard.jpg",
+"aspect": 1.3333
+},
+"ststephen": {
+"file": "evidence/xiaohong/ststephen.jpg",
+"aspect": 1.3333
+},
+"grave_rb": {
+"file": "evidence/xiaohong/grave_rb.jpg",
+"aspect": 0.6263
+},
+"tomb_gz": {
+"file": "evidence/xiaohong/tomb_gz.jpg",
+"aspect": 1.3306
+},
+"luxun_family": {
+"file": "evidence/xiaohong/luxun_family.jpg",
+"aspect": 0.6765
+},
+"child": {
+"file": "cutouts/xiaohong/child.png",
+"aspect": 0.9492
+},
+"cq1939": {
+"file": "cutouts/xiaohong/cq1939.png",
+"aspect": 1.1677
+},
+"grandfather": {
+"file": "cutouts/xiaohong/grandfather.png",
+"aspect": 0.7553
+},
+"luxun": {
+"file": "cutouts/xiaohong/luxun.png",
+"aspect": 0.6964
+},
+"luxun1936": {
+"file": "cutouts/xiaohong/luxun1936.png",
+"aspect": 0.6595
+},
+"p1937": {
+"file": "cutouts/xiaohong/p1937.png",
+"aspect": 0.6015
+},
+"portrait": {
+"file": "cutouts/xiaohong/portrait.png",
+"aspect": 0.7932
+},
+"qd1934": {
+"file": "cutouts/xiaohong/qd1934.png",
+"aspect": 0.3927
+},
+"xa1938": {
+"file": "cutouts/xiaohong/xa1938.png",
+"aspect": 0.3177
+},
+"ssc_ink": {
+"file": "evidence/xiaohong/ssc_ink.png",
+"aspect": 1.0526
+}
+}
