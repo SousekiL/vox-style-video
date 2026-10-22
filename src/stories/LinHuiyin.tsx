@@ -1,10 +1,11 @@
 // 林徽因 (1080×1920, 24 fps, ≈3:21): vox-collage biography with the weight on her architecture: Penn, the Society for
 // Research in Chinese Architecture, the Tang hall at 佛光寺, the national emblem, cloisonné, the reliefs of the Monument to the
-// People's Heroes; the poetry stays in, briefly. Cold open on the 2024 posthumous Penn degree. Year ruler 1904–1955.
+// People's Heroes; the poetry stays in, briefly. Told plainly, in order; the 2024 posthumous Penn degree comes last.
+// Year ruler 1904–1955.
 // Song: supplied by the user (Bilibili audio, 200.6 s); compound-time feel, shots cut on tracked beats
-// (data/linhuiyin-beats.json): intro 0–25 s = title, what she left, 2024; 25–75 s = 1904–1931; the quieter verse 75–125 s =
+// (data/linhuiyin-beats.json): 0–75 s = title and 1904–1931; the quieter verse 75–125 s =
 // fieldwork, the poem, 佛光寺, 李庄, Tsinghua; the loud chorus 125–150 s = emblem, cloisonné, monument; 150 s on = 1955, the
-// tombstone, 金岳霖's elegy, closing card. No lyrics on screen.
+// 金岳霖's elegy, the tombstone, the 2024 degree, closing card. No lyrics on screen.
 // Facts: OpenMontage projects/lin-huiyin-vox/artifacts/FACTCHECK.md. Photos: Wikimedia Commons; the user clears rights.
 // Photos and song are kept local only (.gitignore).
 import React from 'react';
@@ -236,31 +237,8 @@ const SHOTS: ShotDef[] = [
         <Brush k={0} text="林徽因" x={14} y={71} size={13} color={P.rice} />
       </>
     )},
-  // ── what she left: the emblem, the monument, a Tang hall, a poem
-  {b: 14, bg: P.paper, dots: 'br', src: `${SRC_PHOTO}`, sfx: [[0, 'printLand'], [3, 'printLand'], [6, 'printLand'], [9, 'printLand'], [13, 'slam']],
-    C: () => (
-      <>
-        <Photo k={0} name="emblem" w={46} x={4} y={5} rot={-3} pitch={0.3} />
-        <Photo k={3} name="monument" w={40} x={54} y={6} rot={3} />
-        <Photo k={6} name="foguang" w={62} x={8} y={38} rot={2} />
-        <Film k={9} title="《你是人间的四月天》" x={30} y={64} size={3.4} rot={-2} />
-        <Strip k={13} text="这些，都和一位女性有关" x={7} y={74} size={3.6} bg={P.red} rot={1} />
-      </>
-    )},
-  // ── cold open: 2024, a diploma 97 years late
-  {b: 35, bg: P.slate, dots: 'none', src: SRC_PENN, sfx: [[0, 'slam'], [3, 'printLand'], [7, 'slide'], [11, 'slam'], [15, 'slide']],
-    C: () => (
-      <>
-        <DateStrip k={0} text="2024.5.18" />
-        <Strip k={1} text="美国 · 宾夕法尼亚大学" x={8} y={16} size={3} bg={P.rice} fg={P.ink} rot={-1} />
-        <Photo k={3} name="penn" w={44} x={50} y={24} rot={3} />
-        <Strip k={7} text="补发了一张建筑学学士学位证书" x={6} y={68} size={3} bg={P.ink} rot={-1} />
-        <Cut k={11} text="迟到97年" x={6} y={30} size={7.6} per={1} dark />
-        <Strip k={15} text="证书上写的毕业年份：1927" x={8} y={74} size={2.8} bg={P.red} rot={1} />
-      </>
-    )},
   // ── verse 1: 1904 born
-  {b: 59, bg: P.paper, dots: 'tr', year: 1904, src: `${SRC_PHOTO} · 据中新网等`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
+  {b: 14, bg: P.paper, dots: 'tr', year: 1904, src: `${SRC_PHOTO} · 据中新网等`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="1904.6.10" />
@@ -271,17 +249,17 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1920 Europe with her father
-  {b: 76, bg: P.mist, dots: 'tl', year: 1920, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [8, 'slide']],
+  {b: 35, bg: P.mist, dots: 'tl', year: 1920, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1920 · 16 岁" />
         <Strip k={2} text="随父亲林长民游历欧洲，旅居伦敦" x={7} y={16} size={2.9} bg={P.red} rot={-1} />
         <Photo k={4} name="father" w={70} x={15} y={25} rot={-2} />
-        <Strip k={8} text="她在那里萌生了学建筑的志向" x={8} y={70} size={3.2} rot={1} />
+        <Strip k={8} text="在伦敦，她开始对建筑产生兴趣" x={8} y={70} size={3.2} rot={1} />
       </>
     )},
   // ── 1924 Tagore in Beijing (the literary circle, briefly)
-  {b: 92, bg: P.paper, dots: 'br', year: 1924, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
+  {b: 59, bg: P.paper, dots: 'br', year: 1924, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1924 · 北京" />
@@ -290,7 +268,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1924 Penn: the architecture school did not admit women
-  {b: 107, bg: P.slate, dots: 'none', year: 1924, src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'slam'], [9, 'slide'], [12, 'slide']],
+  {b: 76, bg: P.slate, dots: 'none', year: 1924, src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'slam'], [9, 'slide'], [12, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1924 · 宾大" />
@@ -302,7 +280,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1927 graduation
-  {b: 123, bg: P.paper, dots: 'tr', year: 1927, src: `${SRC_PHOTO} · ${SRC_PENN}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
+  {b: 107, bg: P.paper, dots: 'tr', year: 1927, src: `${SRC_PHOTO} · ${SRC_PENN}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1927" />
@@ -312,7 +290,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1928 marriage, back to China, teaching
-  {b: 136, bg: P.mist, dots: 'bl', year: 1928, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
+  {b: 123, bg: P.mist, dots: 'bl', year: 1928, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1928" />
@@ -322,7 +300,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1931 the Society for Research in Chinese Architecture
-  {b: 148, bg: P.jade, dots: 'none', year: 1931, src: SRC_THU, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'popIn']],
+  {b: 136, bg: P.jade, dots: 'none', year: 1931, src: SRC_THU, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'popIn']],
     C: () => (
       <>
         <DateStrip k={0} text="1931" />
@@ -339,7 +317,7 @@ const SHOTS: ShotDef[] = [
         <Photo k={0} name="survey1" w={70} x={4} y={6} rot={-2} />
         <Photo k={3} name="survey2" w={66} x={30} y={30} rot={3} />
         <Photo k={6} name="survey3" w={32} x={6} y={46} rot={-3} />
-        <Cut k={9} text="爬梁上架" x={38} y={66} size={6} per={1} />
+        <Strip k={9} text="实地测绘古建筑" x={38} y={70} size={3.4} bg={P.red} rot={1} />
       </>
     )},
   // ── verse 2: 1934, the poem
@@ -365,13 +343,12 @@ const SHOTS: ShotDef[] = [
         <Cut k={18} text="唐 857" x={6} y={26} size={8} per={1} />
       </>
     )},
-  {b: 223, bg: P.slate, dots: 'none', year: 1937, src: '据清华大学新闻网', sfx: [[0, 'slam'], [4, 'scribble'], [7, 'slam']],
+  {b: 223, bg: P.slate, dots: 'none', year: 1937, src: '据清华大学新闻网', sfx: [[0, 'slam'], [5, 'slide'], [8, 'slam']],
     C: () => (
       <>
-        <Strip k={0} text="当时有人断言：" x={7} y={10} size={3} bg={P.rice} fg={P.ink} rot={-1} />
-        <Cut k={1} text="中国已无唐代木构" x={6} y={17} size={6.2} per={1} dark />
-        <Mark k={4} kind="strike" box={{x: 6, y: 17, w: 88, h: 6.2}} />
-        <Strip k={7} text="佛光寺东大殿，推翻了这个论断" x={7} y={33} size={3} bg={P.red} rot={1} />
+        <Strip k={0} text="此前，日本学者认为中国已没有唐代木构建筑" x={5} y={12} size={2.6} bg={P.rice} fg={P.ink} rot={-1} />
+        <Strip k={5} text="佛光寺东大殿，是当时在中国发现的" x={6} y={22} size={2.9} bg={P.red} rot={1} />
+        <Cut k={8} text="第一座唐代木构" x={6} y={29} size={6.2} per={1} dark />
       </>
     )},
   // ── 1940 Lizhuang: ill, still writing
@@ -445,20 +422,30 @@ const SHOTS: ShotDef[] = [
         <Strip k={7} text="病逝，未满 51 岁" x={8} y={66} size={3.8} bg={P.red} rot={-1} />
       </>
     )},
-  // ── the tombstone: seven characters
-  {b: 376, bg: P.mist, dots: 'none', year: 1955, age: 50, src: '据新浪、界面新闻报道 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [20, 'slide']],
-    C: () => (
-      <>
-        <Stone k={0} x={30} y={8} w={40} h={58} />
-        <Strip k={20} text="八宝山，她的墓碑只刻了七个字" x={6} y={70} size={2.9} rot={-1} />
-      </>
-    )},
   // ── Jin Yuelin's elegy
-  {b: 404, bg: P.paper, dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [6, 'slide']],
+  {b: 371, bg: P.paper, dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [6, 'slide']],
     C: () => (
       <>
         <Note k={0} text="一身诗意千寻瀑" x={14} y={20} w={80} size={5} rot={-1} />
         <Note k={6} text="万古人间四月天" by="—— 金岳霖挽林徽因" x={22} y={38} w={80} size={5} rot={1} />
+      </>
+    )},
+  // ── the tombstone: seven characters
+  {b: 389, bg: P.mist, dots: 'none', year: 1955, age: 50, src: '据新浪、界面新闻报道 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [14, 'slide']],
+    C: () => (
+      <>
+        <Stone k={0} x={30} y={8} w={40} h={58} />
+        <Strip k={14} text="墓在北京八宝山" x={8} y={70} size={3.2} rot={-1} />
+      </>
+    )},
+  // ── 2024: the degree
+  {b: 412, bg: P.slate, dots: 'none', src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'printLand'], [9, 'slide']],
+    C: () => (
+      <>
+        <DateStrip k={0} text="2024.5.18" />
+        <Strip k={2} text="宾夕法尼亚大学追授她建筑学学士学位" x={6} y={16} size={2.9} bg={P.rice} fg={P.ink} rot={-1} />
+        <Photo k={5} name="penn" w={46} x={48} y={26} rot={3} />
+        <Strip k={9} text="证书上的毕业年份：1927" x={6} y={30} size={3} bg={P.red} rot={1} />
       </>
     )},
   // ── closing card
