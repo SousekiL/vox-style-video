@@ -1,0 +1,42 @@
+{
+ "child": {
+  "file": "evidence/linhuiyin/child.jpg",
+  "aspect": 0.8143
+ },
+ "father": {
+  "file": "evidence/linhuiyin/father.jpg",
+  "aspect": 1.4286
+ },
+ "tagore": {
+  "file": "evidence/linhuiyin/tagore.jpg",
+  "aspect": 1.4431
+ },
+ "penn": {
+  "file": "evidence/linhuiyin/penn.jpg",
+  "aspect": 0.7129
+ },
+ "wedding": {
+  "file": "evidence/linhuiyin/wedding.jpg",
+  "aspect": 0.6686
+ },
+ "survey1": {
+  "file": "evidence/linhuiyin/survey1.jpg",
+  "aspect": 1.4463
+ },
+ "survey2": {
+  "file": "evidence/linhuiyin/survey2.jpg",
+  "aspect": 1.5901
+ },
+ "survey3": {
+  "file": "evidence/linhuiyin/survey3.jpg",
+  "aspect": 0.675
+ },
+ "adult": {
+  "file": "evidence/linhuiyin/adult.jpg",
+  "aspect": 0.7293
+ },
+ "hero": {
+  "file": "cutouts/linhuiyin/hero.png",
+  "aspect": 0.6155
+ }
+}

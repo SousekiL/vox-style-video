@@ -35,3 +35,7 @@ public/evidence/lixianglan/
 
 # local render helpers
 *.tmp.mjs
+
+# 林徽因 photos and the song: third-party material, kept local only
+public/cutouts/linhuiyin/
+public/evidence/linhuiyin/
