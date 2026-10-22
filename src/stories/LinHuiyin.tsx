@@ -62,7 +62,7 @@ export const LH_THEMES: Record<string, Pal & {name: string}> = {
   blueprint: {name: '蓝图（晒图蓝 · 米白 · 朱红）', paper: '#E8E4D8', mist: '#BFC6CC', rice: '#F5F2EA', ink: '#1C2430', red: '#C0392B', jade: '#24476B', pale: '#D6D2C4', slate: '#33414F'},
   timber: {name: '木构（米黄 · 木褐 · 黛青）', paper: '#ECE3CF', mist: '#C8B79A', rice: '#F6F0E2', ink: '#221C16', red: '#A8432C', jade: '#5C4632', pale: '#DDCFB2', slate: '#3D4A4C'},
 };
-const P: Pal = {...LH_THEMES.spring};
+const P: Pal = {...LH_THEMES.blueprint}; // picked at the bake-off
 type BgKey = keyof Pal;
 const DARK_KEYS = new Set<BgKey>(['ink', 'jade', 'slate', 'red']);
 const chips = (pairs: Array<[string, string]>): ChipStyle[] => pairs.map(([bg, fg]) => ({bg, fg, font: ROLE.chip.font, weight: ROLE.chip.weight}));
@@ -540,8 +540,8 @@ const ShotView: React.FC<{def: ShotDef; dur: number}> = ({def, dur}) => {
   );
 };
 
-export const LinHuiyin: React.FC<{theme?: string; mute?: boolean}> = ({theme = 'spring', mute = false}) => {
-  Object.assign(P, LH_THEMES[theme] ?? LH_THEMES.spring);
+export const LinHuiyin: React.FC<{theme?: string; mute?: boolean}> = ({theme = 'blueprint', mute = false}) => {
+  Object.assign(P, LH_THEMES[theme] ?? LH_THEMES.blueprint);
   const frame = useCurrentFrame();
   const {height} = useVideoConfig();
   return (

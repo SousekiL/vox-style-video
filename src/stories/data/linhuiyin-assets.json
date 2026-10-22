@@ -1,78 +1,82 @@
 {
  "child": {
-  "file": "evidence/linhuiyin/child.jpg",
+  "file": "evidence/linhuiyin/child_t.png",
   "aspect": 0.8143
  },
  "father": {
-  "file": "evidence/linhuiyin/father.jpg",
+  "file": "evidence/linhuiyin/father_t.png",
   "aspect": 1.4286
  },
  "tagore": {
-  "file": "evidence/linhuiyin/tagore.jpg",
-  "aspect": 1.4431
+  "file": "evidence/linhuiyin/tagore_t.png",
+  "aspect": 1.4429
  },
  "penn": {
-  "file": "evidence/linhuiyin/penn.jpg",
-  "aspect": 0.7129
+  "file": "evidence/linhuiyin/penn_t.png",
+  "aspect": 0.7125
  },
  "wedding": {
-  "file": "evidence/linhuiyin/wedding.jpg",
-  "aspect": 0.6686
+  "file": "evidence/linhuiyin/wedding_t.png",
+  "aspect": 0.6677
  },
  "survey1": {
-  "file": "evidence/linhuiyin/survey1.jpg",
-  "aspect": 1.4463
+  "file": "evidence/linhuiyin/survey1_t.png",
+  "aspect": 1.4458
  },
  "survey2": {
-  "file": "evidence/linhuiyin/survey2.jpg",
-  "aspect": 1.5901
+  "file": "evidence/linhuiyin/survey2_t.png",
+  "aspect": 1.59
  },
  "survey3": {
-  "file": "evidence/linhuiyin/survey3.jpg",
+  "file": "evidence/linhuiyin/survey3_t.png",
   "aspect": 0.675
  },
  "adult": {
-  "file": "evidence/linhuiyin/adult.jpg",
-  "aspect": 0.7293
+  "file": "evidence/linhuiyin/adult_t.png",
+  "aspect": 0.7292
+ },
+ "foguang_lin": {
+  "file": "evidence/linhuiyin/foguang_lin_t.png",
+  "aspect": 0.7083
  },
  "foguang": {
-  "file": "evidence/linhuiyin/foguang.jpg",
+  "file": "evidence/linhuiyin/foguang_t.png",
   "aspect": 1.3333
  },
  "family": {
-  "file": "evidence/linhuiyin/family.jpg",
-  "aspect": 1.3008
+  "file": "evidence/linhuiyin/family_t.png",
+  "aspect": 1.3
  },
  "xinlin": {
-  "file": "evidence/linhuiyin/xinlin.jpg",
+  "file": "evidence/linhuiyin/xinlin_t.png",
   "aspect": 1.3333
  },
  "emblem_draft": {
-  "file": "evidence/linhuiyin/emblem_draft.jpg",
+  "file": "evidence/linhuiyin/emblem_draft_t.png",
   "aspect": 1.0
  },
  "emblem": {
-  "file": "evidence/linhuiyin/emblem.png",
-  "aspect": 0.9215
+  "file": "evidence/linhuiyin/emblem_t.png",
+  "aspect": 0.92
  },
  "monument": {
-  "file": "evidence/linhuiyin/monument.jpg",
+  "file": "evidence/linhuiyin/monument_t.png",
   "aspect": 0.75
  },
  "relief1": {
-  "file": "evidence/linhuiyin/relief1.jpg",
-  "aspect": 1.5006
+  "file": "evidence/linhuiyin/relief1_t.png",
+  "aspect": 1.5
  },
  "relief2": {
-  "file": "evidence/linhuiyin/relief2.jpg",
+  "file": "evidence/linhuiyin/relief2_t.png",
   "aspect": 1.3361
  },
  "late": {
-  "file": "evidence/linhuiyin/late.jpg",
-  "aspect": 0.6779
+  "file": "evidence/linhuiyin/late_t.png",
+  "aspect": 0.6771
  },
  "hero": {
-  "file": "cutouts/linhuiyin/hero.png",
-  "aspect": 0.6155
+  "file": "cutouts/linhuiyin/hero_t.png",
+  "aspect": 0.6152
  }
 }

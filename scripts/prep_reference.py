@@ -18,7 +18,14 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-FONT = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 15)
+FONT = None
+for _f in ("/System/Library/Fonts/Supplemental/Arial Bold.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
+    try:
+        FONT = ImageFont.truetype(_f, 15)
+        break
+    except OSError:
+        pass
+FONT = FONT or ImageFont.load_default()
 LONG_SIDE = 540
 COLS, ROWS = 6, 4
 
