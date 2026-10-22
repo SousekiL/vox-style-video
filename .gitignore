@@ -32,3 +32,6 @@ public/evidence/xiaohong/
 # 李香兰 photos, film clips and the song: third-party material, kept local only
 public/cutouts/lixianglan/
 public/evidence/lixianglan/
+
+# local render helpers
+*.tmp.mjs

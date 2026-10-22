@@ -346,12 +346,13 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1941 Tokyo, the crowd at the Nichigeki
-  {b: 110, bg: P.mist, dots: 'br', year: 1941, name: 1, src: '图：1941 年东京日本剧场外（公有领域）· 据文春オンライン', sfx: [[0, 'slam'], [1, 'slide'], [2, 'printLand'], [5, 'popIn'], [9, 'slide'], [12, 'slide']],
+  {b: 110, bg: P.mist, dots: 'br', year: 1941, name: 1, src: '据文春オンライン · 图：她演出时剧场外的人群，维基共享资源标注为 1943 年（公有领域）', sfx: [[0, 'slam'], [1, 'slide'], [2, 'printLand'], [5, 'popIn'], [9, 'slide'], [12, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1941.2.11" />
         <Tag k={1} text="东京 · 日本剧场" x={8} y={16} size={2.6} />
         <Photo k={2} name="nichigeki1941" w={58} x={38} y={14} rot={2} pitch={0.3} />
+        <Tag k={3} text="照片：她演出时的人群（1943）" x={44} y={58} size={2} bg={P.ink} rot={1} />
         <Cut k={5} text="七圈半" x={6} y={24} size={10} per={1} />
         <Strip k={9} text="据称约十万人围住剧场" x={6} y={63} size={3.4} rot={-1} />
         <Strip k={12} text="“七圈半”是后来流传的说法" x={8} y={69.5} size={2.5} bg={P.rice} fg={P.ink} rot={1} />
