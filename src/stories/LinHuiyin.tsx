@@ -54,11 +54,20 @@ const ROLE = {
 };
 
 // ---- palette: spring for 《你是人间的四月天》 and old timber for the buildings — paper, celadon tile, vermilion, ink ----
-const P = {paper: '#EFE9DC', mist: '#C9C4B6', rice: '#F7F3EA', ink: '#1E1E1C', red: '#B8432F', jade: '#4F6F62', pale: '#DCD3BF', slate: '#4A5A6A'};
-const DARK = new Set([P.ink, P.jade, P.slate, P.red]);
+// Themes for the bake-off gate (14-vox-collage §4): the same keys, different values; the film reads one at render time.
+type Pal = {paper: string; mist: string; rice: string; ink: string; red: string; jade: string; pale: string; slate: string};
+export const LH_THEMES: Record<string, Pal & {name: string}> = {
+  spring: {name: '四月天（宣纸 · 青瓷 · 朱红）', paper: '#EFE9DC', mist: '#C9C4B6', rice: '#F7F3EA', ink: '#1E1E1C', red: '#B8432F', jade: '#4F6F62', pale: '#DCD3BF', slate: '#4A5A6A'},
+  series: {name: '系列灰（同阮玲玉 · 李香兰）', paper: '#DCD8D1', mist: '#A9A6A0', rice: '#F2EFE8', ink: '#1D1C1B', red: '#B0313B', jade: '#56636F', pale: '#CFC9BF', slate: '#2E3238'},
+  blueprint: {name: '蓝图（晒图蓝 · 米白 · 朱红）', paper: '#E8E4D8', mist: '#BFC6CC', rice: '#F5F2EA', ink: '#1C2430', red: '#C0392B', jade: '#24476B', pale: '#D6D2C4', slate: '#33414F'},
+  timber: {name: '木构（米黄 · 木褐 · 黛青）', paper: '#ECE3CF', mist: '#C8B79A', rice: '#F6F0E2', ink: '#221C16', red: '#A8432C', jade: '#5C4632', pale: '#DDCFB2', slate: '#3D4A4C'},
+};
+const P: Pal = {...LH_THEMES.spring};
+type BgKey = keyof Pal;
+const DARK_KEYS = new Set<BgKey>(['ink', 'jade', 'slate', 'red']);
 const chips = (pairs: Array<[string, string]>): ChipStyle[] => pairs.map(([bg, fg]) => ({bg, fg, font: ROLE.chip.font, weight: ROLE.chip.weight}));
-const POP = chips([[P.ink, P.rice], [P.rice, P.red], [P.jade, P.rice]]);
-const ON_DARK = chips([[P.rice, P.ink], [P.red, P.rice], [P.pale, P.ink]]);
+const pop = () => chips([[P.ink, P.rice], [P.rice, P.red], [P.jade, P.rice]]);
+const onDark = () => chips([[P.rice, P.ink], [P.red, P.rice], [P.pale, P.ink]]);
 
 const ASSETS = assetData as Record<string, {file: string; aspect: number}>;
 const img = (n: string) => {
@@ -88,7 +97,7 @@ const Strip: React.FC<{k: number; text: string; x: number; y: number; size?: num
   const {st} = useB();
   return <HeadlineStrip text={text} step={st(k)} sizePctH={size} x={x} y={y} bg={bg} fg={fg} rot={rot} font={font} />;
 };
-const DateStrip: React.FC<{k: number; text: string; x?: number; y?: number; size?: number}> = ({k, text, x = 7, y = 6.5, size = 5.4}) => (
+const DateStrip: React.FC<{k: number; text: string; x?: number; y?: number; size?: number}> = ({k, text, x = 7, y = 8, size = 5.4}) => (
   <Strip k={k} text={text} x={x} y={y} size={size} bg={P.ink} fg={P.rice} rot={-1.5} font={ROLE.num} />
 );
 const Tag: React.FC<{k: number; text: string; x: number; y: number; size?: number; bg?: string; fg?: string; rot?: number}> = ({k, text, x, y, size = 2.6, bg = P.red, fg = P.rice, rot = -1}) => (
@@ -102,7 +111,7 @@ const Film: React.FC<{k: number; title: string; note?: string; x: number; y: num
 );
 const Cut: React.FC<{k: number; text: string; x: number; y: number; size: number; dark?: boolean; per?: number; seed?: string}> = ({k, text, x, y, size, dark = false, per = 2, seed}) => {
   const {st} = useB();
-  return <CutLetters text={text} step={st(k)} perChar={per} sizePctH={size} styles={dark ? ON_DARK : POP} x={x} y={y} seed={seed ?? text} />;
+  return <CutLetters text={text} step={st(k)} perChar={per} sizePctH={size} styles={dark ? onDark() : pop()} x={x} y={y} seed={seed ?? text} />;
 };
 /** a photograph as a printed halftone clipping with a torn white edge */
 const Photo: React.FC<{k: number; name: string; w: number; x: number; y: number; rot?: number; enter?: 'slap' | 'drop' | 'slide' | 'none'; pitch?: number}> = ({k, name, w, x, y, rot = 0, enter = 'slap', pitch = 0.34}) => {
@@ -210,7 +219,7 @@ const Count: React.FC<{k: number; to: number; prefix?: string; suffix?: string; 
 
 type ShotDef = {
   b: number; // first beat
-  bg: string;
+  bg: BgKey;
   dots?: 'tl' | 'tr' | 'bl' | 'br' | 'none';
   year?: number; // drives the year ruler (hidden when undefined)
   age?: number; // override the ruler's age label (completed years)
@@ -229,16 +238,16 @@ const SRC_THU = '据清华大学新闻网等';
 
 const SHOTS: ShotDef[] = [
   // ── title (full on frame 0 → thumbnail)
-  {b: 0, bg: P.jade, dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 48, 1.05]}, sfx: [[0, 'titleHit']],
+  {b: 0, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 48, 1.05]}, sfx: [[0, 'titleHit']],
     C: () => (
       <>
         <Brush k={0} text="人间四月天" x={6} y={4} size={11} color="rgba(247,243,234,.3)" />
-        <Photo k={0} name="hero" w={70} x={15} y={16} enter="none" pitch={0.3} />
-        <Brush k={0} text="林徽因" x={14} y={71} size={13} color={P.rice} />
+        <Photo k={0} name="hero" w={64} x={18} y={14} enter="none" pitch={0.3} />
+        <Brush k={0} text="林徽因" x={16} y={73} size={12} color={P.rice} />
       </>
     )},
   // ── verse 1: 1904 born
-  {b: 14, bg: P.paper, dots: 'tr', year: 1904, src: `${SRC_PHOTO} · 据中新网等`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
+  {b: 14, bg: 'paper', dots: 'tr', year: 1904, src: `${SRC_PHOTO} · 据中新网等`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="1904.6.10" />
@@ -249,7 +258,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1920 Europe with her father
-  {b: 35, bg: P.mist, dots: 'tl', year: 1920, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [8, 'slide']],
+  {b: 35, bg: 'mist', dots: 'tl', year: 1920, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1920 · 16 岁" />
@@ -259,7 +268,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1924 Tagore in Beijing (the literary circle, briefly)
-  {b: 59, bg: P.paper, dots: 'br', year: 1924, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
+  {b: 59, bg: 'paper', dots: 'br', year: 1924, src: SRC_PHOTO, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1924 · 北京" />
@@ -268,7 +277,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1924 Penn: the architecture school did not admit women
-  {b: 76, bg: P.slate, dots: 'none', year: 1924, src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'slam'], [9, 'slide'], [12, 'slide']],
+  {b: 76, bg: 'slate', dots: 'none', year: 1924, src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'slam'], [9, 'slide'], [12, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1924 · 宾大" />
@@ -280,17 +289,17 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1927 graduation
-  {b: 107, bg: P.paper, dots: 'tr', year: 1927, src: `${SRC_PHOTO} · ${SRC_PENN}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
+  {b: 107, bg: 'paper', dots: 'tr', year: 1927, src: `${SRC_PHOTO} · ${SRC_PENN}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1927" />
         <Photo k={1} name="penn" w={52} x={42} y={12} rot={3} />
         <Strip k={5} text="美术学士毕业" x={7} y={18} size={3.6} bg={P.red} rot={-1} />
-        <Note k={8} text={'离建筑学学位，\n只差一门\n不对女生开放的课。'} x={6} y={28} w={40} size={2.8} />
+        <Note k={8} text={'离建筑学学位，\n只差一门\n不对女生开放的\n课程。'} x={6} y={28} w={42} size={2.7} />
       </>
     )},
   // ── 1928 marriage, back to China, teaching
-  {b: 123, bg: P.mist, dots: 'bl', year: 1928, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
+  {b: 123, bg: 'mist', dots: 'bl', year: 1928, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'slide'], [8, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1928" />
@@ -300,18 +309,18 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1931 the Society for Research in Chinese Architecture
-  {b: 136, bg: P.jade, dots: 'none', year: 1931, src: SRC_THU, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'popIn']],
+  {b: 136, bg: 'jade', dots: 'none', year: 1931, src: SRC_THU, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'popIn']],
     C: () => (
       <>
         <DateStrip k={0} text="1931" />
         <Strip k={2} text="加入中国营造学社" x={8} y={16} size={3.6} bg={P.rice} fg={P.ink} rot={-1} />
-        <Count k={4} to={200} prefix="近" suffix=" 个县" x={8} y={28} size={14} color={P.rice} />
-        <Count k={7} to={1000} prefix="近" suffix=" 处古建筑" x={8} y={46} size={11} color={P.rice} />
-        <Strip k={10} text="学社 1930—1946 年间的田野调查" x={8} y={62} size={2.6} bg={P.red} rot={1} />
+        <Count k={4} to={200} prefix="近" suffix=" 个县" x={8} y={27} size={10} color={P.rice} />
+        <Count k={7} to={1000} prefix="近" suffix=" 处古建筑" x={8} y={40} size={8.6} color={P.rice} />
+        <Strip k={10} text="学社 1930—1946 年间的田野调查" x={8} y={53} size={2.6} bg={P.red} rot={1} />
       </>
     )},
   // ── in the field
-  {b: 160, bg: P.paper, dots: 'tr', year: 1934, src: SRC_PHOTO, sfx: [[0, 'printLand'], [3, 'printLand'], [6, 'printLand'], [9, 'slam']],
+  {b: 160, bg: 'paper', dots: 'tr', year: 1934, src: SRC_PHOTO, sfx: [[0, 'printLand'], [3, 'printLand'], [6, 'printLand'], [9, 'slam']],
     C: () => (
       <>
         <Photo k={0} name="survey1" w={70} x={4} y={6} rot={-2} />
@@ -321,7 +330,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── verse 2: 1934, the poem
-  {b: 173, bg: P.jade, dots: 'none', year: 1934, src: '诗：发表于《学文》1 卷 1 期，1934', sfx: [[0, 'slam'], [3, 'slide'], [8, 'slide'], [12, 'printLand']],
+  {b: 173, bg: 'jade', dots: 'none', year: 1934, src: '诗：发表于《学文》1 卷 1 期，1934', sfx: [[0, 'slam'], [3, 'slide'], [8, 'slide'], [12, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="1934" />
@@ -332,7 +341,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1937 Foguang Temple: a Tang timber hall
-  {b: 194, bg: P.paper, dots: 'br', year: 1937, src: `${SRC_PHOTO} · 据梁思成《记五台山佛光寺的建筑》`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [9, 'printLand'], [14, 'slide'], [18, 'slam']],
+  {b: 194, bg: 'paper', dots: 'br', year: 1937, src: `${SRC_PHOTO} · 据梁思成《记五台山佛光寺的建筑》`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [9, 'printLand'], [14, 'slide'], [18, 'slam']],
     C: () => (
       <>
         <DateStrip k={0} text="1937.6 · 五台山" />
@@ -343,7 +352,7 @@ const SHOTS: ShotDef[] = [
         <Cut k={18} text="唐 857" x={6} y={26} size={8} per={1} />
       </>
     )},
-  {b: 223, bg: P.slate, dots: 'none', year: 1937, src: '据清华大学新闻网', sfx: [[0, 'slam'], [5, 'slide'], [8, 'slam']],
+  {b: 223, bg: 'slate', dots: 'none', year: 1937, src: '据清华大学新闻网', sfx: [[0, 'slam'], [5, 'slide'], [8, 'slam']],
     C: () => (
       <>
         <Strip k={0} text="此前，日本学者认为中国已没有唐代木构建筑" x={5} y={12} size={2.6} bg={P.rice} fg={P.ink} rot={-1} />
@@ -352,7 +361,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1940 Lizhuang: ill, still writing
-  {b: 237, bg: P.mist, dots: 'tl', year: 1940, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [9, 'slide'], [13, 'slide']],
+  {b: 237, bg: 'mist', dots: 'tl', year: 1940, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'printLand'], [9, 'slide'], [13, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1940 · 四川李庄" />
@@ -363,7 +372,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── back to Beijing: Tsinghua
-  {b: 268, bg: P.paper, dots: 'br', year: 1946, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
+  {b: 268, bg: 'paper', dots: 'br', year: 1946, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'slam'], [2, 'printLand'], [6, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1946 · 北平" />
@@ -372,7 +381,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── chorus 2: the national emblem
-  {b: 290, bg: P.red, dots: 'tr', year: 1950, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'titleHit'], [2, 'printLand'], [6, 'printLand'], [10, 'slide'], [12, 'slide']],
+  {b: 290, bg: 'red', dots: 'tr', year: 1950, src: `${SRC_PHOTO} · ${SRC_THU}`, sfx: [[0, 'titleHit'], [2, 'printLand'], [6, 'printLand'], [10, 'slide'], [12, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1950" />
@@ -384,7 +393,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── cloisonné
-  {b: 304, bg: P.jade, dots: 'none', year: 1951, src: '据中国非物质文化遗产网、清华大学新闻网', sfx: [[0, 'slam'], [2, 'popIn'], [6, 'slide'], [9, 'slide']],
+  {b: 304, bg: 'jade', dots: 'none', year: 1951, src: '据中国非物质文化遗产网、清华大学新闻网', sfx: [[0, 'slam'], [2, 'popIn'], [6, 'slide'], [9, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1951" />
@@ -395,7 +404,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── the Monument to the People's Heroes
-  {b: 319, bg: P.paper, dots: 'tl', year: 1952, src: `${SRC_PHOTO} · 据新华网、中国作家网`, sfx: [[0, 'slam'], [1, 'printLand'], [6, 'slide'], [9, 'slam']],
+  {b: 319, bg: 'paper', dots: 'tl', year: 1952, src: `${SRC_PHOTO} · 据新华网、中国作家网`, sfx: [[0, 'slam'], [1, 'printLand'], [6, 'slide'], [9, 'slam']],
     C: () => (
       <>
         <DateStrip k={0} text="1952" />
@@ -404,7 +413,7 @@ const SHOTS: ShotDef[] = [
         <Cut k={9} text="人民英雄纪念碑" x={5} y={26} size={6.4} per={1} />
       </>
     )},
-  {b: 335, bg: P.jade, dots: 'none', year: 1953, src: `${SRC_PHOTO} · 据中国作家网 2022`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'printLand'], [9, 'slide'], [12, 'slide']],
+  {b: 335, bg: 'jade', dots: 'none', year: 1953, src: `${SRC_PHOTO} · 据中国作家网 2022`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'printLand'], [9, 'slide'], [12, 'slide']],
     C: () => (
       <>
         <Photo k={1} name="relief1" w={88} x={6} y={8} rot={-1} />
@@ -414,7 +423,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 1955
-  {b: 353, bg: P.ink, dots: 'none', year: 1955, age: 50, src: `${SRC_PHOTO} · 据中新网 2024`, sfx: [[0, 'slam'], [2, 'printLand'], [7, 'slide']],
+  {b: 353, bg: 'ink', dots: 'none', year: 1955, age: 50, src: `${SRC_PHOTO} · 据中新网 2024`, sfx: [[0, 'slam'], [2, 'printLand'], [7, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1955.4.1 · 北京" />
@@ -423,7 +432,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── Jin Yuelin's elegy
-  {b: 371, bg: P.paper, dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [6, 'slide']],
+  {b: 371, bg: 'paper', dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [6, 'slide']],
     C: () => (
       <>
         <Note k={0} text="一身诗意千寻瀑" x={14} y={20} w={80} size={5} rot={-1} />
@@ -431,7 +440,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── the tombstone: seven characters
-  {b: 389, bg: P.mist, dots: 'none', year: 1955, age: 50, src: '据新浪、界面新闻报道 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [14, 'slide']],
+  {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '据新浪、界面新闻报道 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [14, 'slide']],
     C: () => (
       <>
         <Stone k={0} x={30} y={8} w={40} h={58} />
@@ -439,7 +448,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── 2024: the degree
-  {b: 412, bg: P.slate, dots: 'none', src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'printLand'], [9, 'slide']],
+  {b: 412, bg: 'slate', dots: 'none', src: SRC_PENN, sfx: [[0, 'slam'], [2, 'slide'], [5, 'printLand'], [9, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="2024.5.18" />
@@ -449,7 +458,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── closing card
-  {b: 435, bg: P.jade, dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 49, 1.04]}, sfx: [[0, 'titleHit']],
+  {b: 435, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 49, 1.04]}, sfx: [[0, 'titleHit']],
     C: () => (
       <>
         <div style={{position: 'absolute', inset: 0, opacity: 0.45}}>
@@ -479,7 +488,7 @@ const YearRuler: React.FC<{frame: number}> = ({frame}) => {
   const t = Math.min(1, (frame - F[shot.b]) / 10);
   const e = t * t * (3 - 2 * t);
   const year = prevYear + (shot.year - prevYear) * e;
-  const dark = DARK.has(shot.bg);
+  const dark = DARK_KEYS.has(shot.bg);
   const ink = dark ? 'rgba(247,243,234,.85)' : 'rgba(30,30,28,.8)';
   const accent = dark ? '#F0A08C' : P.red;
   const x0 = W * 0.08;
@@ -521,23 +530,24 @@ const ShotView: React.FC<{def: ShotDef; dur: number}> = ({def, dur}) => {
   return (
     <ShotCtx.Provider value={{b0: def.b, pace: def.pace ?? 1}}>
       <AbsoluteFill>
-        <ColorField color={def.bg} dots={def.dots ?? 'br'} seed={def.b + 1} />
+        <ColorField color={P[def.bg]} dots={def.dots ?? 'br'} seed={def.b + 1} />
         <VoxCamera frame={f} fps={fps} drift={cam ? 0 : drift} keys={keys}>
           <C />
         </VoxCamera>
-        {def.src ? <SourceLine frame={f} at={6} onDark={DARK.has(def.bg)} font={ROLE.label} text={def.src} /> : null}
+        {def.src ? <SourceLine frame={f} at={6} onDark={DARK_KEYS.has(def.bg)} font={ROLE.label} text={def.src} /> : null}
       </AbsoluteFill>
     </ShotCtx.Provider>
   );
 };
 
-export const LinHuiyin: React.FC = () => {
+export const LinHuiyin: React.FC<{theme?: string; mute?: boolean}> = ({theme = 'spring', mute = false}) => {
+  Object.assign(P, LH_THEMES[theme] ?? LH_THEMES.spring);
   const frame = useCurrentFrame();
   const {height} = useVideoConfig();
   return (
     <AbsoluteFill style={{background: P.ink}}>
       <CollageFilters scale={height / 1080} seed={11} />
-      <Audio src={staticFile('audio/raw/linhuiyin/siyuetian.wav')} volume={(fr) => interpolate(fr, [0, 2], [0, 1], {extrapolateRight: 'clamp'})} />
+      {mute ? null : <Audio src={staticFile('audio/raw/linhuiyin/siyuetian.wav')} volume={(fr) => interpolate(fr, [0, 2], [0, 1], {extrapolateRight: 'clamp'})} />}
       <SfxTrack cues={CUES} />
       {SHOTS.map((s, i) => {
         const from = i === 0 ? 0 : F[s.b];

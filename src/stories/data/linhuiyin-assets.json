@@ -35,6 +35,42 @@
   "file": "evidence/linhuiyin/adult.jpg",
   "aspect": 0.7293
  },
+ "foguang": {
+  "file": "evidence/linhuiyin/foguang.jpg",
+  "aspect": 1.3333
+ },
+ "family": {
+  "file": "evidence/linhuiyin/family.jpg",
+  "aspect": 1.3008
+ },
+ "xinlin": {
+  "file": "evidence/linhuiyin/xinlin.jpg",
+  "aspect": 1.3333
+ },
+ "emblem_draft": {
+  "file": "evidence/linhuiyin/emblem_draft.jpg",
+  "aspect": 1.0
+ },
+ "emblem": {
+  "file": "evidence/linhuiyin/emblem.png",
+  "aspect": 0.9215
+ },
+ "monument": {
+  "file": "evidence/linhuiyin/monument.jpg",
+  "aspect": 0.75
+ },
+ "relief1": {
+  "file": "evidence/linhuiyin/relief1.jpg",
+  "aspect": 1.5006
+ },
+ "relief2": {
+  "file": "evidence/linhuiyin/relief2.jpg",
+  "aspect": 1.3361
+ },
+ "late": {
+  "file": "evidence/linhuiyin/late.jpg",
+  "aspect": 0.6779
+ },
  "hero": {
   "file": "cutouts/linhuiyin/hero.png",
   "aspect": 0.6155
