@@ -4,7 +4,8 @@
 // marks the one in use and strikes 李香兰 when she is sent back to Japan in 1946. Night palette for the night flower.
 // Song structure (data/lixianglan-beats.json, aubiotrack ≈110 bpm): instrumental intro 0–28 s = title + the five
 // cards; verses and choruses 28–120 s = 1920–1945; the instrumental interlude 120–150 s = arrest, trial, leaving China;
-// the last choruses 150–189 s = 山口淑子 again, Shirley Yamaguchi, 大鹰淑子; the outro = closing card. No lyrics on screen.
+// the last choruses 150–189 s = 山口淑子 again, Shirley Yamaguchi, 大鹰淑子, her visits to China and work between the two
+// countries; the outro = closing card. No lyrics on screen.
 // Facts: OpenMontage projects/li-xianglan-vox/artifacts/FACTCHECK.md (中新网 2014 obituaries, 文春オンライン, AFP and
 // Washington Post obituaries). Photos: Wikimedia Commons (public domain, credited on screen). Footage, used sparingly
 // (two strips): 《サヨンの鐘》 1943 (Internet Archive, public domain mark). Song: the 1944 recording, supplied by the user.
@@ -13,6 +14,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Freeze, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {
   Annotate,
+  DarkReliefMap,
   CollageFilters,
   ColorField,
   CutLetters,
@@ -212,9 +214,9 @@ const Credit: React.FC<{k: number}> = ({k}) => {
 const NAMES = [
   {name: '山口淑子', short: '山口淑子', year: 1920, note: '出生时的本名', photo: 'yy1950'},
   {name: '李香兰', short: '李香兰', year: 1933, note: '义父李际春所取的中文名', photo: 'p1940'},
-  {name: '潘淑华', short: '潘淑华', year: 1934, note: '北平求学时用的名字', photo: undefined},
+  {name: '潘淑华', short: '潘淑华', year: 1934, note: '北平求学时用的名字', photo: 'youth1933'},
   {name: 'Shirley Yamaguchi', short: 'Shirley', year: 1950, note: '在好莱坞', photo: 'domon1952'},
-  {name: '大鹰淑子', short: '大鹰淑子', year: 1958, note: '婚后的名字', photo: undefined},
+  {name: '大鹰淑子', short: '大鹰淑子', year: 1958, note: '婚后的名字', photo: 'otaka_late'},
 ] as const;
 const CIRCLED = ['①', '②', '③', '④', '⑤'];
 
@@ -249,6 +251,43 @@ const IdCard: React.FC<{k: number; i: number; x: number; y: number; w: number; h
   );
 };
 
+/** 1975 / 1978: the cities she went back to, on a land-only map (dots are schematic, no borders) */
+const CITIES = [
+  {name: '北京', lon: 116.4, lat: 39.9, side: 'l'},
+  {name: '上海', lon: 121.5, lat: 31.2, side: 'r'},
+  {name: '哈尔滨', lon: 126.6, lat: 45.8, side: 'r'},
+  {name: '长春', lon: 125.3, lat: 43.9, side: 'l'},
+] as const;
+const Revisit: React.FC = () => {
+  const {f, fps, st, H} = useB();
+  return (
+    <>
+      <DarkReliefMap frame={f} fps={fps} box={[[97, 22], [146, 54]]} rivers drift={0.004} keys={[{at: 0, lon: 121.5, lat: 38.2, scale: 1.0}, {at: 90, lon: 121.5, lat: 38.2, scale: 1.05}]}>
+        {(screen) =>
+          CITIES.map((c, i) => {
+            const s = st(7 + i);
+            if (s < 0) return null;
+            const [x, y] = screen(c.lon, c.lat);
+            const dot = H * 0.007;
+            return (
+              <React.Fragment key={c.name}>
+                <div style={{position: 'absolute', left: `${x}%`, top: `${y}%`, width: dot * 2, height: dot * 2, marginLeft: -dot, marginTop: -dot, borderRadius: '50%', background: P.red, boxShadow: `0 0 0 ${dot * 0.5}px ${P.rice}`}} />
+                <div style={{position: 'absolute', left: `${x + (c.side === 'r' ? 1.8 : -1.8)}%`, top: `${y - 1.4}%`, transform: `translateX(${c.side === 'r' ? 0 : -100}%) scale(${SLAP[Math.min(s, 3)]})`, transformOrigin: c.side === 'r' ? '0 50%' : '100% 50%', padding: `${H * 0.003}px ${H * 0.008}px`, background: P.rice, fontFamily: ROLE.label, fontWeight: 900, fontSize: H * 0.024, color: P.ink, whiteSpace: 'nowrap'}}>
+                  {c.name}
+                </div>
+              </React.Fragment>
+            );
+          })
+        }
+      </DarkReliefMap>
+      <DateStrip k={0} text="1975 · 1978" />
+      <Strip k={1} text="1975 年途经北京，廖承志设宴款待" x={7} y={16} size={2.9} bg={P.rice} fg={P.ink} rot={-1} />
+      <Strip k={4} text="1978 年率日本环境访华团" x={7} y={22} size={2.8} bg={P.red} rot={1} />
+      <Cut k={6} text="重访中国" x={7} y={73} size={6.4} per={1} dark />
+    </>
+  );
+};
+
 type ShotDef = {
   b: number; // first beat
   bg: string;
@@ -280,7 +319,7 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── the five names, one identity card every 6 beats
-  {b: 14, bg: P.paper, dots: 'br', src: `${SRC_BIO} · ${SRC_PHOTO}`, sfx: [[0, 'slam'], [2, 'printLand'], [8, 'printLand'], [14, 'printLand'], [20, 'printLand'], [26, 'printLand']],
+  {b: 14, bg: P.paper, dots: 'br', src: `${SRC_BIO} · ${SRC_PHOTO} · 卡⑤照片：中时新闻网`, sfx: [[0, 'slam'], [2, 'printLand'], [8, 'printLand'], [14, 'printLand'], [20, 'printLand'], [26, 'printLand']],
     C: () => (
       <>
         <Strip k={0} text="唱这首歌的人，一生用过五个名字" x={5} y={3.4} size={2.8} rot={-1} />
@@ -301,13 +340,13 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── ② 李香兰: 1933
-  {b: 62, bg: P.mist, dots: 'tl', year: 1933, name: 1, src: `${SRC_BIO} · ${SRC_PHOTO}`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
+  {b: 62, bg: P.mist, dots: 'tl', year: 1933, name: 1, src: `${SRC_BIO} · 图：约 1933—1934 年，维基共享资源（公有领域）`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [7, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="1933 · 13 岁" />
         <Tag k={2} text="父亲的结拜兄弟李际春收她为义女" x={8} y={16} size={2.6} />
         <Cut k={4} text="李香兰" x={8} y={23} size={11} per={1} />
-        <Photo k={7} name="p1940" w={44} x={50} y={36} rot={3} />
+        <Photo k={7} name="youth1933" w={44} x={50} y={36} rot={3} />
         <Strip k={9} text="她的中文名由此而来" x={9} y={46} size={3} rot={-1} />
       </>
     )},
@@ -350,9 +389,9 @@ const SHOTS: ShotDef[] = [
     C: () => (
       <>
         <DateStrip k={0} text="1941.2.11" />
-        <Tag k={1} text="东京 · 日本剧场" x={8} y={16} size={2.6} />
-        <Photo k={2} name="nichigeki1941" w={58} x={38} y={14} rot={2} pitch={0.3} />
-        <Tag k={3} text="照片：她演出时的人群（1943）" x={44} y={58} size={2} bg={P.ink} rot={1} />
+        <Tag k={1} text="东京 · 日本剧场" x={7} y={16} size={2.4} />
+        <Photo k={2} name="nichigeki1941" w={52} x={44} y={14} rot={2} pitch={0.3} />
+        <Tag k={3} text="照片：她演出时的人群（1943）" x={46} y={54} size={2} bg={P.ink} rot={1} />
         <Cut k={5} text="七圈半" x={6} y={24} size={10} per={1} />
         <Strip k={9} text="据称约十万人围住剧场" x={6} y={63} size={3.4} rot={-1} />
         <Strip k={12} text="“七圈半”是后来流传的说法" x={8} y={69.5} size={2.5} bg={P.rice} fg={P.ink} rot={1} />
@@ -448,47 +487,64 @@ const SHOTS: ShotDef[] = [
         <Strip k={8} text="这个名字，从此留在了中国" x={10} y={46} size={3.4} bg={P.red} rot={1} />
       </>
     )},
-  // ── last choruses: 山口淑子 again, Shirley Yamaguchi, 大鹰淑子
-  {b: 270, bg: P.paper, dots: 'br', year: 1947, name: 0, struck: true, src: `${SRC_PHOTO} · ${SRC_BIO}`, sfx: [[0, 'slam'], [2, 'printLand'], [4, 'slide'], [5, 'popIn']],
+  // ── last choruses: 山口淑子 again, Shirley Yamaguchi, 大鹰淑子, and her later years between Japan and China
+  {b: 270, pace: 0.8, bg: P.paper, dots: 'br', year: 1947, name: 0, struck: true, src: `${SRC_PHOTO} · ${SRC_BIO}`, sfx: [[0, 'slam'], [1, 'printLand'], [2, 'slide'], [3, 'popIn'], [6, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1947" />
-        <Photo k={2} name="yy1950" w={56} x={40} y={14} rot={3} />
-        <Strip k={4} text="改回本名" x={8} y={18} size={3.4} bg={P.red} rot={-1} />
-        <Cut k={5} text="山口淑子" x={6} y={26} size={8} per={1} />
-        <Strip k={9} text="在日本重新拍片" x={8} y={58} size={3.2} rot={1} />
+        <Photo k={1} name="yy1950" w={50} x={44} y={36} rot={3} />
+        <Strip k={2} text="改回本名" x={8} y={16} size={3.4} bg={P.red} rot={-1} />
+        <Cut k={3} text="山口淑子" x={6} y={23} size={8} per={1} />
+        <Strip k={6} text="在日本重新拍片" x={6} y={46} size={3.2} rot={1} />
       </>
     )},
-  {b: 282, bg: P.mist, dots: 'tl', year: 1951, name: 3, struck: true, src: `${SRC_PHOTO} · 据 AFP、《华盛顿邮报》讣闻`, sfx: [[0, 'slam'], [2, 'printLand'], [5, 'slide'], [9, 'slide'], [12, 'slide']],
+  {b: 279, pace: 0.85, bg: P.mist, dots: 'tl', year: 1951, name: 3, struck: true, src: `${SRC_PHOTO} · 据 AFP、《华盛顿邮报》讣闻`, sfx: [[0, 'slam'], [1, 'printLand'], [2, 'slide'], [5, 'slide'], [7, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1950 年代" />
-        <Photo k={2} name="domon1952" w={50} x={46} y={12} rot={3} />
-        <Strip k={4} text="Shirley Yamaguchi" x={6} y={18} size={3.8} bg={P.rice} fg={P.ink} rot={-1.5} font={ROLE.num} />
-        <Tag k={5} text="闯荡好莱坞与百老汇" x={8} y={25} size={2.6} />
-        <Film k={8} title="《竹屋》" note="1955 · 好莱坞" x={8} y={34} size={3.6} />
-        <Strip k={12} text="1951 年嫁雕塑家野口勇，1956 年离婚" x={6} y={64} size={2.6} rot={-1} />
+        <Photo k={1} name="domon1952" w={50} x={46} y={40} rot={3} />
+        <Strip k={2} text="Shirley Yamaguchi" x={6} y={18} size={3.8} bg={P.rice} fg={P.ink} rot={-1.5} font={ROLE.num} />
+        <Tag k={3} text="闯荡好莱坞与百老汇" x={8} y={25} size={2.6} />
+        <Film k={5} title="《竹屋》" note="1955 · 好莱坞" x={8} y={34} size={3.6} />
+        <Strip k={7} text="1951 年嫁雕塑家野口勇，1956 年离婚" x={6} y={75} size={2.6} rot={-1} />
       </>
     )},
-  {b: 298, bg: P.paper, dots: 'br', year: 1958, name: 4, struck: true, src: `${SRC_PHOTO} · ${SRC_BIO}`, sfx: [[0, 'slam'], [2, 'slide'], [4, 'popIn'], [8, 'printLand']],
+  {b: 288, bg: P.paper, dots: 'br', year: 1958, name: 4, struck: true, src: `${SRC_PHOTO} · ${SRC_BIO}`, sfx: [[0, 'slam'], [1, 'slide'], [2, 'popIn'], [4, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="1958" />
-        <Strip k={2} text="嫁给外交官大鹰弘，息影" x={8} y={16} size={3.2} bg={P.red} rot={-1} />
-        <Cut k={4} text="大鹰淑子" x={6} y={24} size={9} per={1} />
-        <Photo k={8} name="portrait_hand" w={40} x={52} y={40} rot={3} />
+        <Strip k={1} text="嫁给外交官大鹰弘，息影" x={8} y={16} size={3.2} bg={P.red} rot={-1} />
+        <Cut k={2} text="大鹰淑子" x={6} y={24} size={9} per={1} />
+        <Photo k={4} name="portrait_hand" w={40} x={52} y={40} rot={3} />
       </>
     )},
-  {b: 310, bg: P.night, dots: 'none', year: 1974, name: 4, struck: true, src: SRC_BIO, sfx: [[0, 'slam'], [2, 'slide'], [4, 'slam'], [8, 'slide']],
+  {b: 296, bg: P.night, dots: 'none', year: 1974, name: 4, struck: true, src: `${SRC_BIO} · 图：中时新闻网（晚年）`, sfx: [[0, 'slam'], [1, 'slide'], [2, 'slam'], [4, 'printLand'], [6, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1974" />
-        <Strip k={2} text="当选日本参议院议员" x={8} y={16} size={3.6} bg={P.rice} fg={P.ink} rot={-1} />
-        <Cut k={4} text="18 年" x={8} y={26} size={14} per={1} dark />
-        <Strip k={8} text="连任三届，至 1992 年" x={10} y={47} size={3.2} bg={P.red} rot={1} />
+        <Strip k={1} text="当选日本参议院议员" x={8} y={16} size={3.6} bg={P.rice} fg={P.ink} rot={-1} />
+        <Cut k={2} text="18年" x={8} y={26} size={14} per={1} dark />
+        <Print k={4} name="otaka_late" w={34} x={60} y={52} rot={3} />
+        <Tag k={5} text="晚年的大鹰淑子" x={10} y={53} size={2.4} bg={P.rice} fg={P.ink} rot={-1} />
+        <Strip k={6} text="连任三届，至 1992 年" x={8} y={45} size={3.2} bg={P.red} rot={1} />
       </>
     )},
-  {b: 322, bg: P.ink, dots: 'none', year: 2014, name: 4, struck: true, src: `${SRC_BIO} · 影片：《莎韵之钟》，1943（公有领域）`, sfx: [[0, 'slam'], [1, 'printLand']],
+  // ── back to China: 1975 via Beijing, 1978 her old cities (land-only map, schematic dots)
+  {b: 304, bg: P.night, dots: 'none', year: 1978, name: 4, struck: true, src: `${SRC_BIO} · 底图：Natural Earth（仅陆地，城市位置示意）`, sfx: [[0, 'mapFly'], [1, 'slide'], [4, 'slam'], [6, 'slide'], [7, 'poseJump'], [8, 'poseJump'], [9, 'poseJump'], [10, 'poseJump']],
+    C: () => <Revisit />},
+  {b: 316, pace: 0.85, bg: P.paper, dots: 'tr', year: 2005, name: 4, struck: true, src: `${SRC_BIO} · 据英文维基百科及讣闻报道`, sfx: [[0, 'slam'], [3, 'slide'], [4, 'popIn'], [6, 'slam'], [7, 'slide'], [9, 'slide']],
+    C: () => (
+      <>
+        <Cut k={0} text="中日之间" x={6} y={6} size={8.4} per={1} />
+        <Strip k={3} text="曾任“亚洲女性基金”副理事长" x={7} y={21} size={3.2} rot={-1} />
+        <Tag k={4} text="为慰安妇问题奔走" x={9} y={27.5} size={2.6} />
+        <DateStrip k={6} text="2005" x={7} y={37} size={4.6} />
+        <Strip k={7} text="撰长文，劝小泉首相不要参拜靖国神社" x={6} y={45.5} size={2.8} bg={P.red} rot={1} />
+        <Note k={9} text="理由：这会伤害中国人的感情。" by="—— 大意，据中新网报道" x={7} y={53} w={84} size={3} />
+        <Bits k={2} seed="b2005" items={[{kind: 'half', x: 84, y: 16, size: 5, rot: 12, color: P.red}, {kind: 'dot', x: 86, y: 30, size: 3, color: P.night}]} />
+      </>
+    )},
+  {b: 326, bg: P.ink, dots: 'none', year: 2014, name: 4, struck: true, src: `${SRC_BIO} · 影片：《莎韵之钟》，1943（公有领域）`, sfx: [[0, 'slam'], [1, 'printLand']],
     C: () => (
       <>
         <DateStrip k={0} text="2014.9.7 · 东京" />

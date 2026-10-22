@@ -82,5 +82,13 @@
  "hero": {
   "file": "cutouts/lixianglan/hero.png",
   "aspect": 0.8778
+ },
+ "youth1933": {
+  "file": "evidence/lixianglan/youth1933.jpg",
+  "aspect": 0.7082
+ },
+ "otaka_late": {
+  "file": "evidence/lixianglan/otaka_late.jpg",
+  "aspect": 0.656
  }
 }
