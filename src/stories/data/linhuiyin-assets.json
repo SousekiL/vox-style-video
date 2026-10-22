@@ -61,15 +61,15 @@
  },
  "monument": {
   "file": "evidence/linhuiyin/monument_t.png",
-  "aspect": 0.75
+  "aspect": 0.6657
  },
  "relief1": {
   "file": "evidence/linhuiyin/relief1_t.png",
-  "aspect": 1.5
+  "aspect": 1.4952
  },
  "relief2": {
   "file": "evidence/linhuiyin/relief2_t.png",
-  "aspect": 1.3361
+  "aspect": 1.5
  },
  "late": {
   "file": "evidence/linhuiyin/late_t.png",

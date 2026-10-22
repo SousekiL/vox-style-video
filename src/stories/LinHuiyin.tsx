@@ -282,8 +282,8 @@ const SHOTS: ShotDef[] = [
       <>
         <DateStrip k={0} text="1924 · 宾大" />
         <Strip k={2} text="她和梁思成一起赴美留学" x={8} y={16} size={3} bg={P.rice} fg={P.ink} rot={-1} />
-        <Cut k={5} text="建筑系不收女生" x={6} y={25} size={6.6} per={1} dark />
-        <Mark k={7} kind="strike" box={{x: 6, y: 25, w: 88, h: 6.6}} />
+        <Cut k={5} text="建筑系不收女生" x={5} y={25} size={5.2} per={1} dark />
+        <Mark k={7} kind="strike" box={{x: 5, y: 25, w: 84, h: 5.6}} />
         <Strip k={9} text="她注册进美术学院" x={8} y={40} size={3.2} bg={P.red} rot={1} />
         <Strip k={12} text="主要选修的，是建筑系的课" x={10} y={46.5} size={3.2} bg={P.rice} fg={P.ink} rot={-1} />
       </>
@@ -346,18 +346,19 @@ const SHOTS: ShotDef[] = [
       <>
         <DateStrip k={0} text="1937.6 · 五台山" />
         <Strip k={2} text="循敦煌壁画《五台山图》的线索" x={7} y={16} size={2.8} bg={P.red} rot={-1} />
-        <Photo k={4} name="foguang_lin" w={56} x={40} y={22} rot={3} />
-        <Photo k={9} name="foguang" w={58} x={4} y={44} rot={-2} />
-        <Strip k={14} text="梁下题记，施主“宁公遇”" x={44} y={72} size={2.6} rot={1} />
-        <Cut k={18} text="唐 857" x={6} y={26} size={8} per={1} />
+        <Photo k={4} name="foguang_lin" w={48} x={48} y={30} rot={3} />
+        <Photo k={9} name="foguang" w={54} x={4} y={48} rot={-2} />
+        <Strip k={14} text="梁下题记，施主“宁公遇”" x={6} y={76} size={2.8} rot={1} />
+        <Cut k={18} text="唐857年" x={6} y={21.5} size={6} per={1} />
       </>
     )},
   {b: 223, bg: 'slate', dots: 'none', year: 1937, src: '据清华大学新闻网', sfx: [[0, 'slam'], [5, 'slide'], [8, 'slam']],
     C: () => (
       <>
-        <Strip k={0} text="此前，日本学者认为中国已没有唐代木构建筑" x={5} y={12} size={2.6} bg={P.rice} fg={P.ink} rot={-1} />
-        <Strip k={5} text="佛光寺东大殿，是当时在中国发现的" x={6} y={22} size={2.9} bg={P.red} rot={1} />
-        <Cut k={8} text="第一座唐代木构" x={6} y={29} size={6.2} per={1} dark />
+        <Strip k={0} text="此前，日本学者认为" x={6} y={10} size={2.8} bg={P.rice} fg={P.ink} rot={-1} />
+        <Strip k={1} text="中国已没有唐代木构建筑" x={8} y={15.5} size={2.8} bg={P.rice} fg={P.ink} rot={1} />
+        <Strip k={5} text="佛光寺东大殿，是当时在中国发现的" x={6} y={24} size={2.8} bg={P.red} rot={-1} />
+        <Cut k={8} text="第一座唐代木构" x={5} y={31} size={5.2} per={1} dark />
       </>
     )},
   // ── 1940 Lizhuang: ill, still writing
@@ -368,7 +369,7 @@ const SHOTS: ShotDef[] = [
         <Strip k={2} text="战乱中，营造学社内迁" x={7} y={16} size={3} bg={P.red} rot={-1} />
         <Photo k={4} name="family" w={50} x={44} y={24} rot={3} />
         <Strip k={9} text="她肺病缠身" x={7} y={30} size={3.4} rot={1} />
-        <Note k={13} text={'仍主导撰写\n《中国建筑史》\n宋辽金部分'} x={6} y={38} w={36} size={3} />
+        <Note k={13} text={'仍主导撰写\n《中国建筑史》\n宋辽金部分'} x={6} y={38} w={46} size={3} />
       </>
     )},
   // ── back to Beijing: Tsinghua
@@ -408,16 +409,17 @@ const SHOTS: ShotDef[] = [
     C: () => (
       <>
         <DateStrip k={0} text="1952" />
-        <Photo k={1} name="monument" w={48} x={48} y={8} rot={2} />
+        <Photo k={1} name="monument" w={44} x={50} y={9} rot={2} />
         <Strip k={6} text="参与设计" x={7} y={18} size={3.4} bg={P.red} rot={-1} />
-        <Cut k={9} text="人民英雄纪念碑" x={5} y={26} size={6.4} per={1} />
+        <Cut k={9} text="人民英雄纪念碑" x={4} y={62} size={5.2} per={1} />
       </>
     )},
   {b: 335, bg: 'jade', dots: 'none', year: 1953, src: `${SRC_PHOTO} · 据中国作家网 2022`, sfx: [[0, 'slam'], [1, 'printLand'], [5, 'printLand'], [9, 'slide'], [12, 'slide']],
     C: () => (
       <>
-        <Photo k={1} name="relief1" w={88} x={6} y={8} rot={-1} />
-        <Photo k={5} name="relief2" w={70} x={24} y={30} rot={2} />
+        <Photo k={1} name="relief1" w={86} x={7} y={8} rot={-1} />
+        <Photo k={5} name="relief2" w={72} x={22} y={32} rot={2} />
+        <Tag k={6} text="图为碑座（须弥座），浮雕另由雕塑家创作" x={6} y={52} size={2} bg={P.ink} rot={-1} />
         <Strip k={9} text="碑座花饰的主要设计者" x={6} y={58} size={3.4} bg={P.rice} fg={P.ink} rot={-1} />
         <Strip k={12} text="牡丹 · 荷花 · 菊花" x={8} y={64.5} size={3.4} bg={P.red} rot={1} />
       </>
