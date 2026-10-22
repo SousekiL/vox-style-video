@@ -1,0 +1,86 @@
+{
+ "portrait1950s": {
+  "file": "evidence/lixianglan/portrait1950s.jpg",
+  "aspect": 0.7779
+ },
+ "yy1950": {
+  "file": "evidence/lixianglan/yy1950.jpg",
+  "aspect": 0.8104
+ },
+ "taiwan1941": {
+  "file": "evidence/lixianglan/taiwan1941.jpg",
+  "aspect": 0.6671
+ },
+ "hasegawa": {
+  "file": "evidence/lixianglan/hasegawa.jpg",
+  "aspect": 1.6548
+ },
+ "p1940": {
+  "file": "evidence/lixianglan/p1940.jpg",
+  "aspect": 0.6414
+ },
+ "nichigeki1941": {
+  "file": "evidence/lixianglan/nichigeki1941.jpg",
+  "aspect": 0.7523
+ },
+ "shina_ad": {
+  "file": "evidence/lixianglan/shina_ad.jpg",
+  "aspect": 2.0621
+ },
+ "zhang_ailing": {
+  "file": "evidence/lixianglan/zhang_ailing.jpg",
+  "aspect": 0.666
+ },
+ "domon1952": {
+  "file": "evidence/lixianglan/domon1952.jpg",
+  "aspect": 0.9393
+ },
+ "china_nights01": {
+  "file": "evidence/lixianglan/china_nights01.jpg",
+  "aspect": 1.4128
+ },
+ "orchid02": {
+  "file": "evidence/lixianglan/orchid02.jpg",
+  "aspect": 1.435
+ },
+ "orchid01": {
+  "file": "evidence/lixianglan/orchid01.jpg",
+  "aspect": 1.4414
+ },
+ "portrait_hand": {
+  "file": "evidence/lixianglan/portrait_hand.jpg",
+  "aspect": 0.7038
+ },
+ "manei_cards": {
+  "file": "evidence/lixianglan/manei_cards.jpg",
+  "aspect": 1.3333
+ },
+ "yingchunhua": {
+  "file": "evidence/lixianglan/yingchunhua.jpg",
+  "aspect": 0.7064
+ },
+ "singers": {
+  "file": "evidence/lixianglan/singers.jpg",
+  "aspect": 1.4568
+ },
+ "shiseido1941": {
+  "file": "evidence/lixianglan/shiseido1941.jpg",
+  "aspect": 0.6771
+ },
+ "wanshi_poster": {
+  "file": "evidence/lixianglan/wanshi_poster.jpg",
+  "aspect": 0.6979
+ },
+ "three_girls": {
+  "file": "evidence/lixianglan/three_girls.jpg",
+  "aspect": 0.6786
+ },
+ "sengoku1952": {
+  "file": "evidence/lixianglan/sengoku1952.jpg",
+  "aspect": 1.2995
+ },
+ "hero": {
+  "file": "cutouts/lixianglan/hero.png",
+  "aspect": 0.8778
+ }
+}

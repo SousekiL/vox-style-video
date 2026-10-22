@@ -17,7 +17,7 @@ chars = set()
 for src in sources:
     text = Path(src).read_text(encoding="utf-8")
     chars |= set(re.findall(r"[　-〿㐀-鿿＀-￯《》「」“”‘’·—…]", text))
-chars |= set("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ×?!.,:;()-")
+chars |= set("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ×?!.,:;()-=%+/≠")
 tmp = Path(out).with_suffix(".chars.txt")
 tmp.write_text("".join(sorted(chars)), encoding="utf-8")
 subprocess.run(["pyftsubset", font, f"--text-file={tmp}", "--flavor=woff", f"--output-file={out}", "--layout-features=*"], check=True)
