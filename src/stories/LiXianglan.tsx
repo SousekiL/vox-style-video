@@ -7,7 +7,7 @@
 // countries; the outro = closing card. No lyrics on screen.
 // Facts: OpenMontage projects/li-xianglan-vox/artifacts/FACTCHECK.md (中新网 2014 obituaries, 文春オンライン, AFP and
 // Washington Post obituaries). Photos: Wikimedia Commons (public domain, credited on screen). Footage, used sparingly
-// (two strips): 《サヨンの鐘》 1943 (Internet Archive, public domain mark). Song: the 1944 recording, supplied by the user.
+// (one strip): 《サヨンの鐘》 1943 (Internet Archive, public domain mark). Song: the 1944 recording, supplied by the user.
 // Photos, footage and song are third-party material kept local only (.gitignore).
 import React from 'react';
 import {AbsoluteFill, Audio, Freeze, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
@@ -515,15 +515,13 @@ const SHOTS: ShotDef[] = [
         <Photo k={4} name="portrait_hand" w={40} x={52} y={40} rot={3} />
       </>
     )},
-  {b: 296, bg: P.night, dots: 'none', year: 1974, src: `${SRC_BIO} · 图：中时新闻网（晚年）`, sfx: [[0, 'slam'], [1, 'slide'], [2, 'slam'], [4, 'printLand'], [6, 'slide']],
+  {b: 296, bg: P.night, dots: 'none', year: 1974, src: SRC_BIO, sfx: [[0, 'slam'], [1, 'slide'], [2, 'slam'], [5, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1974" />
         <Strip k={1} text="当选日本参议院议员" x={8} y={16} size={3.6} bg={P.rice} fg={P.ink} rot={-1} />
         <Cut k={2} text="18年" x={8} y={26} size={14} per={1} dark />
-        <Print k={4} name="otaka_late" w={34} x={60} y={52} rot={3} />
-        <Tag k={5} text="晚年的大鹰淑子" x={10} y={53} size={2.4} bg={P.rice} fg={P.ink} rot={-1} />
-        <Strip k={6} text="连任三届，至 1992 年" x={8} y={45} size={3.2} bg={P.red} rot={1} />
+        <Strip k={5} text="连任三届，至 1992 年" x={8} y={45} size={3.2} bg={P.red} rot={1} />
       </>
     )},
   // ── back to China: 1975 via Beijing, 1978 her old cities (land-only map, schematic dots)
@@ -541,12 +539,12 @@ const SHOTS: ShotDef[] = [
         <Bits k={2} seed="b2005" items={[{kind: 'half', x: 84, y: 16, size: 5, rot: 12, color: P.red}, {kind: 'dot', x: 86, y: 30, size: 3, color: P.night}]} />
       </>
     )},
-  {b: 326, bg: P.ink, dots: 'none', year: 2014, src: `${SRC_BIO} · 影片：《莎韵之钟》，1943（公有领域）`, sfx: [[0, 'slam'], [1, 'printLand']],
+  {b: 326, bg: P.ink, dots: 'none', year: 2014, src: `${SRC_BIO} · 图：中时新闻网（晚年）`, sfx: [[0, 'slam'], [1, 'printLand'], [4, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="2014.9.7 · 东京" />
-        <FilmStrip k={1} src={clip('sayon_close')} len={240} x={6} y={18} w={80} rot={-1} />
-        <Strip k={5} text="去世，享年 94 岁" x={8} y={52} size={3.8} bg={P.red} rot={1} />
+        <Print k={1} name="otaka_late" w={54} x={24} y={14} rot={2} />
+        <Strip k={4} text="去世，享年 94 岁" x={8} y={66} size={3.8} bg={P.red} rot={-1} />
       </>
     )},
   // ── closing: the name people remember, the other four beneath it, credit
