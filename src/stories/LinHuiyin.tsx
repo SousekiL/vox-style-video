@@ -201,6 +201,28 @@ const Stone: React.FC<{k: number; x: number; y: number; w: number; h: number}> =
   );
 };
 
+/** one line of a mourning couplet: a tall paper scroll, one character per beat */
+const Couplet: React.FC<{k: number; text: string; x: number; y: number; w: number; h: number; rot?: number}> = ({k, text, x, y, w, h, rot = 0}) => {
+  const {f, st, W, H, B} = useB();
+  const s = st(k);
+  if (s < 0) return null;
+  const chars = [...text];
+  const shown = chars.filter((_, i) => f >= B(k + i)).length;
+  const fs = (h / 100) * H * 0.105;
+  return (
+    <div style={{position: 'absolute', left: `${x}%`, top: `${y}%`, width: (w / 100) * W, height: (h / 100) * H, transform: `rotate(${rot}deg) scale(${SLAP[Math.min(s, 3)]})`, filter: `drop-shadow(0 ${H * 0.008}px ${H * 0.012}px rgba(0,0,0,.35))`}}>
+      <div style={{position: 'absolute', inset: 0, background: P.rice, filter: 'url(#torn)'}} />
+      <div style={{position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: fs * 0.18}}>
+        {chars.map((c, i) => (
+          <div key={i} style={{fontFamily: ROLE.quote, fontWeight: 500, fontSize: fs, lineHeight: 1, color: i < shown ? P.ink : 'transparent'}}>
+            {c}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 /** a large rolling number on the collage clock */
 const Count: React.FC<{k: number; to: number; prefix?: string; suffix?: string; x: number; y: number; size: number; color?: string}> = ({k, to, prefix = '', suffix = '', x, y, size, color = P.ink}) => {
   const {f, B, H} = useB();
@@ -330,14 +352,14 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── verse 2: 1934, the poem
-  {b: 173, bg: 'jade', dots: 'none', year: 1934, src: '诗：发表于《学文》1 卷 1 期，1934', sfx: [[0, 'slam'], [3, 'slide'], [8, 'slide'], [12, 'printLand']],
+  {b: 173, bg: 'jade', dots: 'none', year: 1934, src: '诗：发表于《学文》1 卷 1 期，1934', sfx: [[0, 'slam'], [2, 'slide'], [4, 'slide'], [6, 'printLand'], [10, 'slide']],
     C: () => (
       <>
         <DateStrip k={0} text="1934" />
-        <Film k={3} title="《你是人间的四月天》" x={7} y={17} size={4.2} rot={-1} />
-        <Strip k={8} text="她最为人熟知的诗" x={9} y={28} size={3} bg={P.red} rot={1} />
-        <Photo k={12} name="adult" w={50} x={44} y={36} rot={3} />
-        <Strip k={15} text="同年发表小说《九十九度中》" x={7} y={50} size={2.6} bg={P.rice} fg={P.ink} rot={-1} />
+        <Film k={2} title="《你是人间的四月天》" x={7} y={17} size={4.2} rot={-1} />
+        <Strip k={4} text="她最为人熟知的诗" x={9} y={28} size={3} bg={P.red} rot={1} />
+        <Photo k={6} name="adult" w={42} x={50} y={36} rot={3} />
+        <Strip k={10} text="同年发表小说《九十九度中》" x={7} y={72} size={2.6} bg={P.rice} fg={P.ink} rot={-1} />
       </>
     )},
   // ── 1937 Foguang Temple: a Tang timber hall
@@ -434,19 +456,21 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── Jin Yuelin's elegy
-  {b: 371, bg: 'paper', dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [6, 'slide']],
+  {b: 371, bg: 'paper', dots: 'tr', src: '挽联：金岳霖', sfx: [[0, 'slide'], [8, 'slide'], [15, 'printLand']],
     C: () => (
       <>
-        <Note k={0} text="一身诗意千寻瀑" x={14} y={20} w={80} size={5} rot={-1} />
-        <Note k={6} text="万古人间四月天" by="—— 金岳霖挽林徽因" x={22} y={38} w={80} size={5} rot={1} />
+        <Couplet k={0} text="一身诗意千寻瀑" x={54} y={8} w={26} h={64} rot={1} />
+        <Couplet k={8} text="万古人间四月天" x={20} y={8} w={26} h={64} rot={-1} />
+        <Tag k={15} text="金岳霖挽林徽因" x={34} y={75} size={2.6} bg={P.ink} rot={-1} />
       </>
     )},
   // ── the tombstone: seven characters
-  {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '据新浪、界面新闻报道 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [14, 'slide']],
+  {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '据中新网 2024、维基百科等 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [9, 'slide'], [13, 'slide']],
     C: () => (
       <>
-        <Stone k={0} x={30} y={8} w={40} h={58} />
-        <Strip k={14} text="墓在北京八宝山" x={8} y={70} size={3.2} rot={-1} />
+        <Stone k={0} x={30} y={8} w={40} h={48} />
+        <Note k={9} text={'墓下嵌一方汉白玉花圈刻样，\n原是人民英雄纪念碑\n碑座纹饰的试刻样品'} x={10} y={58} w={80} size={3} rot={-1} />
+        <Strip k={13} text="墓在北京八宝山，由梁思成设计" x={8} y={75} size={2.6} rot={1} />
       </>
     )},
   // ── 2024: the degree
