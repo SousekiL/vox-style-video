@@ -446,8 +446,8 @@ const SHOTS: ShotDef[] = [
   {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '照片：董辰兴 / Wikimedia Commons, CC BY-SA 4.0 · 据中新网 2024', sfx: [[0, 'printLand'], [4, 'printLand'], [7, 'highlight'], [10, 'slide'], [14, 'slide']],
     C: () => (
       <>
-        <Print k={0} name="tomb" w={68} x={16} y={9} rot={-2} />
-        <Print k={4} name="tomb_relief" w={80} x={12} y={38} rot={1.5} />
+        <Photo k={0} name="tomb" w={68} x={16} y={9} rot={-2} pitch={0.24} />
+        <Photo k={4} name="tomb_relief" w={80} x={12} y={38} rot={1.5} pitch={0.22} />
         <Mark k={7} kind="circle" box={{x: 21, y: 52.5, w: 56, h: 13.5}} />
         <Note k={10} text={'墓碑下方的汉白玉花圈，\n是人民英雄纪念碑碑座纹饰的试刻样品'} x={6} y={70} w={88} size={2.6} rot={-1} />
         <Strip k={14} text="墓在八宝山，由梁思成设计" x={7} y={9} size={2.6} rot={-2} />

@@ -80,11 +80,11 @@
   "aspect": 0.6152
  },
  "tomb": {
-  "file": "evidence/linhuiyin/tomb.jpg",
+  "file": "evidence/linhuiyin/tomb_v.png",
   "aspect": 1.0417
  },
  "tomb_relief": {
-  "file": "evidence/linhuiyin/tomb_relief.jpg",
+  "file": "evidence/linhuiyin/tomb_relief_v.png",
   "aspect": 1.4302
  }
 }
