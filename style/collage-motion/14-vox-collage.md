@@ -82,7 +82,8 @@ Principles, not a template: each film has its own opening and arc, so weigh them
 - **Facts and quotes**: quote the original text from a checked edition (circulating versions are often altered) and give the exact source; attribute with a plain "—— author" line.
 - **Photos and visuals**: plenty of archival photos of the person themself; use original artefacts (book covers, title calligraphy) as they are, never imitations; keep private details brief and centre milestones and works.
 - **Music**: cut to the song's structure and never put lyrics on screen; when the person's own recorded voice is used, lay it over the music (duck the music) instead of stopping it.
-- Worked example: `src/stories/EileenChang.tsx`.
+- **Film clips** (actors, filmmakers): play them muted in a film-stock frame (`Clip` in `RuanLingyu.tsx`); give every clip of a story film a one-line plot caption in small type, so viewers can follow the film's story as it threads through the life; name a disputed source as disputed on screen.
+- Worked examples: `src/stories/EileenChang.tsx`, `XiaoHong.tsx`, `RuanLingyu.tsx`.
 
 ## 7. Assets for collage
 - **Real artifacts and documents first** (search; 09-assets): keep them recognisable, halftone allowed because they are presented as printed clippings, always with a source line.
@@ -94,5 +95,6 @@ Principles, not a template: each film has its own opening and arc, so weigh them
 - One font per text element; role map unchanged across the film.
 - Every shot passes the §2 checklist; no text cropped by the frame edge after the camera move (check first and last frame of each shot).
 - Source line not covered by a cut-out (move it to the top when needed).
+- Archival film clips: restored copies often hide damaged footage behind repeated frames, which play as a stutter. Scan every clip (`ffmpeg -i clip.mp4 -vf "tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG" -f null -`): a run of ≥ 8 frames with YAVG < 0.05 is a freeze (real intertitles still flicker with grain). Re-cut that moment from another copy, cropping any watermark.
 - Cadence: collage layers show the 2s clock; with per-frame grain and camera drift the whole-frame `cadence.py` reads mostly 1s, which is correct.
 - Master −14 LUFS / ≤ −1.5 dBTP; cuts on downbeats.

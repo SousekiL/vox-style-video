@@ -28,3 +28,7 @@ public/evidence/ruan-1991/
 # 萧红 photos, scans and the song: third-party copyright, kept local only
 public/cutouts/xiaohong/
 public/evidence/xiaohong/
+
+# 阮玲玉 photos, scans and film stills: kept local like the other biography films
+public/cutouts/ruan/
+public/evidence/ruan/
