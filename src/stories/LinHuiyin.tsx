@@ -114,10 +114,10 @@ const Cut: React.FC<{k: number; text: string; x: number; y: number; size: number
   return <CutLetters text={text} step={st(k)} perChar={per} sizePctH={size} styles={dark ? onDark() : pop()} x={x} y={y} seed={seed ?? text} />;
 };
 /** a photograph as a printed halftone clipping with a torn white edge */
-const Photo: React.FC<{k: number; name: string; w: number; x: number; y: number; rot?: number; enter?: 'slap' | 'drop' | 'slide' | 'none'; pitch?: number}> = ({k, name, w, x, y, rot = 0, enter = 'slap', pitch = 0.34}) => {
+const Photo: React.FC<{k: number; name: string; w: number; x: number; y: number; rot?: number; enter?: 'slap' | 'drop' | 'slide' | 'none'; pitch?: number; wobble?: number}> = ({k, name, w, x, y, rot = 0, enter = 'slap', pitch = 0.34, wobble = 0.5}) => {
   const {st, W} = useB();
   const a = img(name);
-  return <PrintCutout src={a.src} aspect={a.aspect} widthPx={(w / 100) * W} x={x} y={y} rot={rot} step={st(k)} enter={enter} pitchPctH={pitch} paperColor="#F2EEE4" wobble={0.5} />;
+  return <PrintCutout src={a.src} aspect={a.aspect} widthPx={(w / 100) * W} x={x} y={y} rot={rot} step={st(k)} enter={enter} pitchPctH={pitch} paperColor="#F2EEE4" wobble={wobble} />;
 };
 /** a poster or printed ad keeps its own (faded) colours: flat print with a torn sticker edge */
 const Print: React.FC<{k: number; name: string; w: number; x: number; y: number; rot?: number}> = ({k, name, w, x, y, rot = 0}) => {
@@ -175,28 +175,6 @@ const Credit: React.FC<{k: number}> = ({k}) => {
       <span style={{fontFamily: ROLE.label, fontWeight: 700, fontSize: H * 0.021, color: 'rgba(247,243,234,.92)'}}>制作</span>
       <Img src={staticFile('brand/zeno-mark-dark.svg')} style={{width: H * 0.03, height: H * 0.03}} />
       <span style={{fontFamily: ROLE.num, fontWeight: 500, fontSize: H * 0.021, color: 'rgba(247,243,234,.92)', letterSpacing: '0.02em'}}>zeno.yczc</span>
-    </div>
-  );
-};
-
-/** the seven characters on her tombstone, cut in stone, vertical */
-const Stone: React.FC<{k: number; x: number; y: number; w: number; h: number}> = ({k, x, y, w, h}) => {
-  const {st, W, H} = useB();
-  const s = st(k);
-  if (s < 0) return null;
-  const chars = [...'建筑师林徽因墓'];
-  const shown = Math.min(chars.length, Math.max(0, s - 2));
-  const fs = (h / 100) * H * 0.105;
-  return (
-    <div style={{position: 'absolute', left: `${x}%`, top: `${y}%`, width: (w / 100) * W, height: (h / 100) * H, transform: `scale(${SLAP[Math.min(s, 3)]})`, filter: `drop-shadow(0 ${H * 0.01}px ${H * 0.014}px rgba(0,0,0,.5))`}}>
-      <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(160deg, #8E8C86, #6E6C66)', filter: 'url(#torn)'}} />
-      <div style={{position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: fs * 0.18}}>
-        {chars.map((c, i) => (
-          <div key={i} style={{fontFamily: ROLE.film, fontWeight: 900, fontSize: fs, lineHeight: 1, color: i < shown ? '#2A2926' : 'transparent', textShadow: i < shown ? '0 1px 0 rgba(255,255,255,.25), 0 -1px 0 rgba(0,0,0,.35)' : 'none'}}>
-            {c}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -260,11 +238,11 @@ const SRC_THU = '据清华大学新闻网等';
 
 const SHOTS: ShotDef[] = [
   // ── title (full on frame 0 → thumbnail)
-  {b: 0, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 48, 1.05]}, sfx: [[0, 'titleHit']],
+  {b: 0, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 50, 1.0]}, sfx: [[0, 'titleHit']],
     C: () => (
       <>
         <Brush k={0} text="人间四月天" x={6} y={4} size={11} color="rgba(247,243,234,.3)" />
-        <Photo k={0} name="hero" w={64} x={18} y={14} enter="none" pitch={0.3} />
+        <Photo k={0} name="hero" w={64} x={18} y={14} enter="none" pitch={0.3} wobble={0} />
         <Brush k={0} text="林徽因" x={16} y={73} size={12} color={P.rice} />
       </>
     )},
@@ -464,13 +442,15 @@ const SHOTS: ShotDef[] = [
         <Tag k={15} text="金岳霖挽林徽因" x={34} y={75} size={2.6} bg={P.ink} rot={-1} />
       </>
     )},
-  // ── the tombstone: seven characters
-  {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '据中新网 2024、维基百科等 · 墓碑为示意', sfx: [[0, 'slam'], [2, 'stamp'], [9, 'slide'], [13, 'slide']],
+  // ── the tomb at Babaoshan; the wreath panel is a trial carving for the monument base
+  {b: 389, bg: 'mist', dots: 'none', year: 1955, age: 50, src: '照片：董辰兴 / Wikimedia Commons, CC BY-SA 4.0 · 据中新网 2024', sfx: [[0, 'printLand'], [4, 'printLand'], [7, 'highlight'], [10, 'slide'], [14, 'slide']],
     C: () => (
       <>
-        <Stone k={0} x={30} y={8} w={40} h={48} />
-        <Note k={9} text={'墓下嵌一方汉白玉花圈刻样，\n原是人民英雄纪念碑\n碑座纹饰的试刻样品'} x={10} y={58} w={80} size={3} rot={-1} />
-        <Strip k={13} text="墓在北京八宝山，由梁思成设计" x={8} y={75} size={2.6} rot={1} />
+        <Print k={0} name="tomb" w={68} x={16} y={9} rot={-2} />
+        <Print k={4} name="tomb_relief" w={80} x={12} y={38} rot={1.5} />
+        <Mark k={7} kind="circle" box={{x: 21, y: 52.5, w: 56, h: 13.5}} />
+        <Note k={10} text={'墓碑下方的汉白玉花圈，\n是人民英雄纪念碑碑座纹饰的试刻样品'} x={6} y={70} w={88} size={2.6} rot={-1} />
+        <Strip k={14} text="墓在八宝山，由梁思成设计" x={7} y={9} size={2.6} rot={-2} />
       </>
     )},
   // ── 2024: the degree
@@ -484,11 +464,11 @@ const SHOTS: ShotDef[] = [
       </>
     )},
   // ── closing card
-  {b: 435, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 49, 1.04]}, sfx: [[0, 'titleHit']],
+  {b: 435, bg: 'jade', dots: 'none', cam: {from: [50, 50, 1.0], to: [50, 50, 1.0]}, sfx: [[0, 'titleHit']],
     C: () => (
       <>
         <div style={{position: 'absolute', inset: 0, opacity: 0.45}}>
-          <Photo k={0} name="hero" w={80} x={10} y={6} enter="none" pitch={0.3} />
+          <Photo k={0} name="hero" w={80} x={10} y={6} enter="none" pitch={0.3} wobble={0} />
         </div>
         <Brush k={0} text="林徽因" x={14} y={54} size={15} color={P.rice} />
         <Strip k={2} text="1904 — 1955" x={30} y={70} size={4} bg={P.rice} fg={P.ink} rot={-1} font={ROLE.num} />
