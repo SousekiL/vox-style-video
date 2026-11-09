@@ -9,6 +9,7 @@ import {TAIPEI_POLL_DURATION, TaipeiPoll2026} from './stories/TaipeiPoll2026';
 import {EILEEN_DURATION, EileenChang} from './stories/EileenChang';
 import {RUAN_DURATION, RuanLingyu} from './stories/RuanLingyu';
 import {XIAOHONG_DURATION, XiaoHong} from './stories/XiaoHong';
+import {TAZI_DURATION, TaZi} from './stories/tazi/TaZi';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -20,6 +21,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="VoxQinPoleBold4K" component={QinPoleBold} durationInFrames={QIN_BOLD_DURATION} fps={24} width={3840} height={2160} />
     <Composition id="VoxQinPoleCollage" component={QinPoleCollage} durationInFrames={QIN_COLLAGE_DURATION} fps={24} width={1920} height={1080} />
     <Composition id="VoxQinPoleCollageVertical" component={QinPoleCollage} durationInFrames={QIN_COLLAGE_DURATION} fps={24} width={1080} height={1920} />
+    <Composition id="VoxTaZi" component={TaZi} durationInFrames={TAZI_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxRuanLingyu" component={RuanLingyu} durationInFrames={RUAN_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxXiaoHong" component={XiaoHong} durationInFrames={XIAOHONG_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxEileenChang" component={EileenChang} durationInFrames={EILEEN_DURATION} fps={24} width={1080} height={1920} />

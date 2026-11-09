@@ -9,10 +9,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/libre-franklin": "^5.3.0",
+    "@fontsource/noto-sans-sc": "^5.3.1",
+    "@fontsource/noto-serif-jp": "^5.3.1",
+    "@fontsource/noto-serif-sc": "^5.3.1",
     "@remotion/cli": "4.0.537",
     "@remotion/google-fonts": "4.0.537",
     "@remotion/noise": "^4.0.537",
     "d3-geo": "^3.1.1",
+    "lxgw-wenkai-webfont": "^1.7.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "remotion": "4.0.537",
