@@ -32,3 +32,6 @@ public/evidence/xiaohong/
 # 阮玲玉 photos, scans and film stills: kept local like the other biography films
 public/cutouts/ruan/
 public/evidence/ruan/
+
+# 南京大屠杀: archive photos, judgment scans, terrain and the voice-over stay local (third-party / large); the manifest lists them
+public/evidence/nanjing/
