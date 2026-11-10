@@ -6,7 +6,7 @@
 // Map: the 金陵 geo layers (terrain hillshade, water, Ming wall) in data px: x = (lon−118.3)·3778, y = (32.65−lat)·4437.9.
 import React from 'react';
 import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Annotate, CollageFilters, FilmLook, LabelBox, SfxTrack, VOX_FONT, VoxCamera, loadLocalFont, type CamKey, type SfxEvent} from '../collage';
+import {Annotate, CollageFilters, FilmLook, LabelBox, SfxTrack, VOX_FONT, VoxCamera, dbToGain, loadLocalFont, type CamKey, type SfxEvent} from '../collage';
 import mapData from './data/nanjing-map.json';
 import dotData from './data/nanjing-dots.json';
 import assetData from './data/nanjing-assets.json';
@@ -297,12 +297,11 @@ const Fall: React.FC = () => {
           <Arrow at={21.14} from={s(32.035, 118.775)} to={s(32.028, 118.712)} color={P.white} bend={0.1} dash w={4} />
         </MapBase>
         <MapLabel at={16.94} p={PLACES.zhonghuamen} text="中华门" dx={2} dy={-0.6} />
-        <MapLabel at={17.3} p={pt(31.968, 118.80)} text="日军" bg={P.red} />
-        <MapLabel at={19.9} p={pt(32.064, 118.722)} text="守军撤离（示意）" dx={0} dy={0} />
+                <MapLabel at={19.9} p={pt(32.064, 118.722)} text="守军撤离（示意）" dx={0} dy={0} />
         <MapLabel at={15.6} p={pt(32.035, 118.70)} text="长江" bg="transparent" color={P.river} size={2.4} />
         <MapLabel at={15.6} p={pt(32.068, 118.79)} text="明城墙" bg="transparent" color="rgba(236,230,217,.85)" size={1.8} dx={6} />
       </VoxCamera>
-      <Tag at={15.72} text="1937.12.12 夜" x={6} y={12} size={2.8} bg={P.paper} color={P.ink} />
+      <Tag at={15.72} text="1937.12.12 夜  日军攻城" x={6} y={12} size={2.8} bg={P.paper} color={P.ink} />
       <Tag at={22.54} text="12.13 晨  日军进城" x={6} y={18} size={2.8} />
       <Big at={24.6} text="南京沦陷" x={6} y={63} size={6.2} />
       <Print name="entry_parade" at={23.6} x={50} y={9} w={42} rot={2} caption="1937.12.17 日军入城式" />
@@ -572,12 +571,63 @@ const Monuments: React.FC = () => {
   );
 };
 
+/** 四 · fallback for the 1947 board: the case in three dates (D2 in the data plan) */
+const CaseTimeline: React.FC = () => {
+  const {f, W, H, T} = useB();
+  const rows: Array<[number, string, string, string?]> = [
+    [138.2, '1946.12.31', '起诉书', '屠杀总数当在 34 万人以上'],
+    [139.4, '1947.3.10', '判决', '被害总数达 30 万人以上'],
+    [140.6, '1947.4.26', '雨花台执行'],
+  ];
+  const line = interpolate(f, [T(138.0), T(141.0)], [0, 1], clamp);
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: W * 0.1, top: H * 0.17, width: 4, height: H * 0.3 * line, background: P.red}} />
+      {rows.map(([at, d, what, note], i) => {
+        const o = interpolate(f, [T(at), T(at) + 8], [0, 1], clamp);
+        return (
+          <div key={d} style={{position: 'absolute', left: W * 0.085, top: H * (0.17 + i * 0.11), opacity: o, display: 'flex', gap: W * 0.04, alignItems: 'flex-start'}}>
+            <div style={{width: W * 0.035, height: W * 0.035, borderRadius: '50%', background: P.red, marginTop: H * 0.008}} />
+            <div>
+              <div style={{fontFamily: NUM, fontWeight: 800, fontSize: H * 0.03, color: P.white}}>{d} <span style={{fontFamily: SANS, fontWeight: 700}}>{what}</span></div>
+              {note ? <div style={{fontFamily: SANS, fontWeight: 400, fontSize: H * 0.02, color: P.dim, marginTop: 6}}>{note}</div> : null}
+            </div>
+          </div>
+        );
+      })}
+    </AbsoluteFill>
+  );
+};
+
+/** 五 · fallback for the 1985 board: the memorial stands on the 江东门 site */
+const JiangdongmenMap: React.FC = () => {
+  const {f, T} = useB();
+  const jd = pt(32.035, 118.744);
+  const cam: CamKey[] = [{at: 0, cx: 50, cy: 50, scale: 1.0}, {at: T(213.2), cx: SX(jd.x), cy: SY(jd.y) + 4, scale: 2.2}];
+  return (
+    <AbsoluteFill>
+      <VoxCamera frame={f} fps={FPS} keys={cam} drift={0.002}>
+        <MapBase>
+          <circle cx={jd.x} cy={jd.y} r={rOf(10000)} fill={P.red} fillOpacity={0.35} stroke={P.red} strokeWidth={1.2} />
+          <Pulse at={211.9} p={jd} r={4} />
+        </MapBase>
+        <MapLabel at={212.3} p={jd} text="江东门 · 纪念馆" dx={2} dy={-1.6} size={1.2} />
+      </VoxCamera>
+      <Note at={212.8} text="纪念馆建在江东门遗址上：碑文「万余人」" x={6} y={15} size={2} color={P.white} weight={700} w={88} />
+    </AbsoluteFill>
+  );
+};
+
 /** 四 · Nanjing tribunal 1947 */
 const Tribunal1947: React.FC = () => (
   <AbsoluteFill>
-    <Print name={pick('tani_trial_open', 'tani_trial_judge', 'tani_on_trial')} at={137.7} x={5} y={14} w={86} rot={-1} />
+    {pick('tani_trial_open', 'tani_trial_judge', 'tani_on_trial') ? (
+      <Print name={pick('tani_trial_open', 'tani_trial_judge', 'tani_on_trial')} at={137.7} x={5} y={14} w={86} rot={-1} />
+    ) : (
+      <CaseTimeline />
+    )}
     <Tag at={137.88} text="1947 · 南京 国防部审判战犯军事法庭" x={6} y={9} size={2.2} bg={P.paper} color={P.ink} />
-    <Tag at={140.2} text="被告：日军第六师团师团长 谷寿夫" x={6} y={52} size={2.1} />
+    <Tag at={140.2} text="被告：日军第六师团师团长 谷寿夫" x={6} y={53} size={2.1} />
     <Print name={pick('tani_indictment')} at={141.0} x={56} y={56} w={36} rot={3} color caption="谷寿夫案起诉书" />
     <Note at={142.3} text="判决书：被害总数达" x={6} y={60} size={2.4} color={P.white} weight={700} />
     <Big at={142.9} text="30万人以上" x={6} y={64} size={7.6} color={P.red} />
@@ -587,7 +637,11 @@ const Tribunal1947: React.FC = () => (
 /** 四 · Tokyo tribunal 1948 */
 const Tribunal1948: React.FC = () => (
   <AbsoluteFill>
-    <Print name={pick('imtfe_chamber', 'imtfe_judges')} at={145.8} x={5} y={14} w={86} rot={1} />
+    {pick('imtfe_chamber', 'imtfe_judges') ? (
+      <Print name={pick('imtfe_chamber', 'imtfe_judges')} at={145.8} x={5} y={14} w={86} rot={1} />
+    ) : (
+      <Doc page="imtfe_p12" at={145.8} x={9} y={15} w={82} crop={[6, 30]} rot={0.6} marks={[{at: 146.6, b: [36.2, 11.6, 58.5, 13.0]}]} />
+    )}
     <Tag at={145.96} text="1948 · 东京 远东国际军事法庭" x={6} y={9} size={2.2} bg={P.paper} color={P.ink} />
     <Doc page="imtfe_p16" at={149.7} x={5} y={48} w={90} crop={[23.4, 32]} marks={[{at: 150.2, b: [17.1, 24.4, 84, 25.8]}, {at: 151.2, b: [17.1, 27.0, 84, 28.4]}, {at: 152.4, b: [17.1, 29.6, 83.2, 30.9]}]} />
     <Note at={149.8} text="占领头六个星期 · 南京及附近 · 平民和战俘" x={6} y={65} size={2} color={P.white} weight={700} w={88} />
@@ -723,7 +777,8 @@ const Wall: React.FC = () => {
   const photo = f < T(218.3);
   return (
     <AbsoluteFill>
-      {photo ? <Print name={pick('victims_number', 'victims_300000', 'memorial_entrance')} at={211.7} x={5} y={18} w={86} rot={-1} /> : null}
+      {photo && pick('victims_number', 'victims_300000', 'memorial_entrance') ? <Print name={pick('victims_number', 'victims_300000', 'memorial_entrance')} at={211.7} x={5} y={18} w={86} rot={-1} /> : null}
+      {photo && !pick('victims_number', 'victims_300000', 'memorial_entrance') ? <JiangdongmenMap /> : null}
       {photo ? <Tag at={211.82} text="1985 · 江东门  纪念馆建成" x={6} y={9} size={2.4} bg={P.paper} color={P.ink} /> : null}
       {photo ? <Tag at={214.54} text="“哭墙”：一个一个刻着遇难者的名字" x={6} y={62} size={2.2} /> : null}
       {!photo ? (
@@ -856,15 +911,15 @@ const BOARDS: Board[] = [
   {from: 65.6, to: 77.4, chapter: '二 · 怎么数', C: Count, src: '战后收埋记录，原件藏中国第二历史档案馆、南京市档案馆'},
   {from: 77.4, to: 103.2, chapter: '二 · 怎么数', C: Ledger, src: '数据：孙宅巍（2021）对收埋记录的整理；判决书原书第 1015 页'},
   {from: 103.2, to: 137.6, chapter: '三 · 在哪里', C: Monuments, src: '碑文：南京大屠杀遗址纪念碑；判决书原书第 1014–1015 页；底图：地形与水系据开放数据'},
-  {from: 137.6, to: 145.7, chapter: '四 · 两个法庭', C: Tribunal1947, src: '谷寿夫案判决（1947.3.10）；图：Wikimedia Commons（公有领域）'},
-  {from: 145.7, to: 155.5, chapter: '四 · 两个法庭', C: Tribunal1948, src: '远东国际军事法庭判决书，原书第 1015 页；图：Wikimedia Commons（公有领域）'},
+  {from: 137.6, to: 145.7, chapter: '四 · 两个法庭', C: Tribunal1947, src: `谷寿夫案起诉书（1946.12.31）、判决（1947.3.10）${pick('tani_trial_open', 'tani_trial_judge', 'tani_on_trial') ? '；图：Wikimedia Commons（公有领域）' : ''}`},
+  {from: 145.7, to: 155.5, chapter: '四 · 两个法庭', C: Tribunal1948, src: `远东国际军事法庭判决书，原书第 ${pick('imtfe_chamber', 'imtfe_judges') ? '1015 页；图：Wikimedia Commons（公有领域）' : '1011、1015 页'}`},
   {from: 155.5, to: 169.4, chapter: '四 · 两个法庭', C: TwoNumbers, src: '两个法庭的判决书'},
   {from: 169.4, to: 178.7, chapter: '四 · 两个法庭', C: Mofa, src: '日本外务省网站《历史问题 Q&A》；中文为本片翻译'},
   {from: 178.7, to: 193.8, chapter: '四 · 两个法庭', C: Nagoya, src: '读卖新闻 2012.2.22；新浪 2012.2.21；2025 年 8 月报道'},
-  {from: 193.8, to: 211.6, chapter: '五 · 名字', C: MemorialName, src: '图：Wikimedia Commons（CC BY-SA）'},
-  {from: 211.6, to: 237.3, chapter: '五 · 名字', C: Wall, src: '哭墙名字数：新华社 2026.4.3；点阵为示意，亮点随机分布'},
+  {from: 193.8, to: 211.6, chapter: '五 · 名字', C: MemorialName, src: pick('memorial_entrance', 'victims_300000') ? '图：Wikimedia Commons（CC BY-SA）' : undefined},
+  {from: 211.6, to: 237.3, chapter: '五 · 名字', C: Wall, src: '哭墙名字数：新华社 2026.4.3；点阵为示意，亮点随机分布；江东门遗址碑文'},
   {from: 237.3, to: 252.4, chapter: '五 · 名字', C: Survivors, src: '南京大屠杀幸存者援助协会登记数，经新华社、新京报（2026.10.20）等报道；1997、2006 年为约数'},
-  {from: 252.4, to: 270, C: Ending, src: '图：南京新街口，Wikimedia Commons（CC BY-SA 4.0）'},
+  {from: 252.4, to: 270, C: Ending, src: pick('skyline') ? '图：南京新街口，Wikimedia Commons（CC BY-SA 4.0）' : undefined},
 ];
 
 // ---------------------------------------------------------------- subtitles (script text, voice timing)
@@ -962,6 +1017,8 @@ export const Nanjing1937: React.FC = () => {
     <AbsoluteFill style={{background: P.stage}}>
       <CollageFilters scale={height / 1080} seed={13} />
       <Audio src={staticFile('audio/raw/nanjing/vo_v4.mp3')} />
+      {/* synthesized bed (scripts/audio/nanjing_bed.py): −24 dBFS RMS file, played ≈ 16 dB under the voice */}
+      <Audio src={staticFile('audio/raw/nanjing/bed.wav')} volume={dbToGain(-15)} />
       <SfxTrack cues={CUES} />
       {BOARDS.map((b) => {
         const from = Math.round(b.from * FPS);
