@@ -975,12 +975,7 @@ const Chrome: React.FC<{frame: number}> = ({frame}) => {
   const so = interpolate(local, [6, 14], [0, 1], clamp);
   return (
     <>
-      {b.chapter ? (
-        <div style={{position: 'absolute', left: W * 0.06, top: H * 0.035, display: 'flex', alignItems: 'center', gap: W * 0.016}}>
-          <div style={{width: H * 0.005, height: H * 0.026, background: P.red}} />
-          <span style={{fontFamily: SANS, fontWeight: 700, fontSize: H * 0.019, color: P.white, letterSpacing: '0.12em'}}>{b.chapter}</span>
-        </div>
-      ) : null}
+      {/* no on-screen chapter label (Felix, 2026-11-10); b.chapter stays as a structure note */}
       <div style={{position: 'absolute', right: W * 0.06, top: H * 0.035, fontFamily: SERIF, fontWeight: 900, fontSize: H * 0.019, color: 'rgba(242,242,242,.8)', letterSpacing: '0.12em', lineHeight: `${H * 0.026}px`}}>一尺之棰</div>
       {b.src ? (
         <div style={{position: 'absolute', left: W * 0.06, bottom: H * 0.035, maxWidth: W * 0.66, fontFamily: SANS, fontWeight: 400, fontSize: W * 0.021, lineHeight: 1.35, color: 'rgba(242,242,242,.62)', opacity: so}}>{b.src}</div>
