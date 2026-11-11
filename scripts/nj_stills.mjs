@@ -1,8 +1,10 @@
 import {bundle} from '@remotion/bundler';
 import {renderStill, selectComposition} from '@remotion/renderer';
 import path from 'node:path';
-const root = '/home/user/vox-style-video';
-const browserExecutable = process.env.NJ_BROWSER || '/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell';
+import {fileURLToPath} from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// optional: a wrapper Chrome (e.g. one that sets the proxy in the cloud); otherwise Remotion's own
+const browserExecutable = process.env.NJ_BROWSER || null;
 const secs = process.argv.slice(2).map(Number);
 const serveUrl = await bundle({entryPoint: path.join(root, 'src/index.ts'), publicDir: path.join(root, 'public')});
 const composition = await selectComposition({serveUrl, id: 'VoxNanjing1937', browserExecutable});
