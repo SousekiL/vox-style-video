@@ -742,7 +742,6 @@ const MemorialName: React.FC = () => {
   return (
     <AbsoluteFill>
       <Print name={pick('memorial_entrance', 'victims_300000')} at={193.9} full dark={0.62} />
-      <Tag at={194.16} text="我在南京生活了很多年" x={6} y={9} size={2.3} bg={P.paper} color={P.ink} />
       <Big at={196.6} text="“南京大屠杀纪念馆”" x={6} y={22} size={4.6} color={strike ? P.grey : P.white} />
       <Annotate frame={f} at={T(200.8)} dur={10} kind="strike" box={{x: 6, y: 22.5, w: 82, h: 4.5}} color={P.red} widthPctH={0.55} seed="name" />
       <Note at={202.3} text="全名" x={6} y={34} size={2.2} color={P.dim} weight={700} />
