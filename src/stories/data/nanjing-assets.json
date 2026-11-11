@@ -1,0 +1,78 @@
+{
+ "bates": {
+  "file": "evidence/nanjing/bates.jpg",
+  "aspect": 0.6681
+ },
+ "committee": {
+  "file": "evidence/nanjing/committee.jpg",
+  "aspect": 1.549
+ },
+ "committee_1213": {
+  "file": "evidence/nanjing/committee_1213.jpg",
+  "aspect": 1.4361
+ },
+ "entry_parade": {
+  "file": "evidence/nanjing/entry_parade.jpg",
+  "aspect": 1.5899
+ },
+ "files_victims": {
+  "file": "evidence/nanjing/files_victims.jpg",
+  "aspect": 0.6667
+ },
+ "imtfe_chamber": {
+  "file": "evidence/nanjing/imtfe_chamber.jpg",
+  "aspect": 1.3242
+ },
+ "imtfe_p12": {
+  "file": "evidence/nanjing/imtfe_p12.png",
+  "aspect": 0.6499
+ },
+ "imtfe_p13": {
+  "file": "evidence/nanjing/imtfe_p13.png",
+  "aspect": 0.6503
+ },
+ "imtfe_p14": {
+  "file": "evidence/nanjing/imtfe_p14.png",
+  "aspect": 0.6497
+ },
+ "imtfe_p15": {
+  "file": "evidence/nanjing/imtfe_p15.png",
+  "aspect": 0.6499
+ },
+ "imtfe_p16": {
+  "file": "evidence/nanjing/imtfe_p16.png",
+  "aspect": 0.6497
+ },
+ "memorial_entrance": {
+  "file": "evidence/nanjing/memorial_entrance.jpg",
+  "aspect": 1.3333
+ },
+ "shelter_jinling": {
+  "file": "evidence/nanjing/shelter_jinling.jpg",
+  "aspect": 1.6537
+ },
+ "shelter_wutaishan": {
+  "file": "evidence/nanjing/shelter_wutaishan.jpg",
+  "aspect": 1.8497
+ },
+ "shelters_list": {
+  "file": "evidence/nanjing/shelters_list.jpg",
+  "aspect": 1.6961
+ },
+ "siren": {
+  "file": "evidence/nanjing/siren.jpg",
+  "aspect": 1.5
+ },
+ "skyline": {
+  "file": "evidence/nanjing/skyline.jpg",
+  "aspect": 1.7794
+ },
+ "vautrin_refugees": {
+  "file": "evidence/nanjing/vautrin_refugees.jpg",
+  "aspect": 1.2834
+ },
+ "victims_number": {
+  "file": "evidence/nanjing/victims_number.jpg",
+  "aspect": 1.5262
+ }
+}

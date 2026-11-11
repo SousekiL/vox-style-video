@@ -9,6 +9,7 @@ import {TAIPEI_POLL_DURATION, TaipeiPoll2026} from './stories/TaipeiPoll2026';
 import {EILEEN_DURATION, EileenChang} from './stories/EileenChang';
 import {RUAN_DURATION, RuanLingyu} from './stories/RuanLingyu';
 import {XIAOHONG_DURATION, XiaoHong} from './stories/XiaoHong';
+import {NANJING_DURATION, Nanjing1937} from './stories/Nanjing1937';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -23,6 +24,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="VoxRuanLingyu" component={RuanLingyu} durationInFrames={RUAN_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxXiaoHong" component={XiaoHong} durationInFrames={XIAOHONG_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxEileenChang" component={EileenChang} durationInFrames={EILEEN_DURATION} fps={24} width={1080} height={1920} />
+    <Composition id="VoxNanjing1937" component={Nanjing1937} durationInFrames={NANJING_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxTaipeiPoll2026" component={TaipeiPoll2026} durationInFrames={TAIPEI_POLL_DURATION} fps={24} width={1080} height={1920} />
     <Composition id="VoxQinPoleCollage4K" component={QinPoleCollage} durationInFrames={QIN_COLLAGE_DURATION} fps={24} width={3840} height={2160} />
     {/* a 1-frame Composition (not <Still>, whose fps is 1) so camera drift and fades use the real 24 fps clock */}
