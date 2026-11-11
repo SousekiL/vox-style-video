@@ -451,7 +451,7 @@ const Count: React.FC = () => {
     <AbsoluteFill>
       <Big at={66.0} text={'没有人能\n挨家挨户统计'} x={6} y={12} size={4.4} color={P.dim} />
       <Big at={70.6} text="数尸体" x={6} y={28} size={10} />
-      <Print name={pick('files_victims')} at={72.8} x={42} y={44} w={50} rot={2} caption="南京大屠杀遇难者档案（纪念馆藏）" />
+      <Print name={pick('files_victims')} at={72.8} x={54} y={42} w={36} rot={2} caption="遇难者档案（纪念馆藏）" />
       <div style={{position: 'absolute', left: W * 0.06, top: H * 0.47, width: W * 0.42, height: H * 0.26, background: P.paper, opacity: p, transform: `rotate(-1.5deg) translateY(${(1 - p) * 30}px)`, boxShadow: '0 14px 40px rgba(0,0,0,.5)', padding: H * 0.014, boxSizing: 'border-box'}}>
         <div style={{fontFamily: SERIF, fontWeight: 900, fontSize: H * 0.026, color: P.ink, borderBottom: `2px solid ${P.ink}`, paddingBottom: 6}}>收埋记录</div>
         <div style={{display: 'flex', fontFamily: SANS, fontWeight: 700, fontSize: H * 0.014, color: '#444', marginTop: 8}}>
@@ -643,9 +643,9 @@ const Tribunal1948: React.FC = () => (
       <Doc page="imtfe_p12" at={145.8} x={9} y={15} w={82} crop={[6, 30]} rot={0.6} marks={[{at: 146.6, b: [36.2, 11.6, 58.5, 13.0]}]} />
     )}
     <Tag at={145.96} text="1948 · 东京 远东国际军事法庭" x={6} y={9} size={2.2} bg={P.paper} color={P.ink} />
-    <Doc page="imtfe_p16" at={149.7} x={5} y={48} w={90} crop={[23.4, 32]} marks={[{at: 150.2, b: [17.1, 24.4, 84, 25.8]}, {at: 151.2, b: [17.1, 27.0, 84, 28.4]}, {at: 152.4, b: [17.1, 29.6, 83.2, 30.9]}]} />
-    <Note at={149.8} text="占领头六个星期 · 南京及附近 · 平民和战俘" x={6} y={65} size={2} color={P.white} weight={700} w={88} />
-    <Big at={152.8} text="超过20万" x={6} y={69} size={7.6} color={P.red} />
+    <Doc page="imtfe_p16" at={149.7} x={5} y={53} w={90} crop={[23.4, 32]} marks={[{at: 150.2, b: [17.1, 24.4, 84, 25.8]}, {at: 151.2, b: [17.1, 27.0, 84, 28.4]}, {at: 152.4, b: [17.1, 29.6, 83.2, 30.9]}]} />
+    <Note at={149.8} text="占领头六个星期 · 南京及附近 · 平民和战俘" x={6} y={62.5} size={2} color={P.white} weight={700} w={88} />
+    <Big at={152.8} text="超过20万" x={6} y={66.5} size={7.6} color={P.red} />
   </AbsoluteFill>
 );
 
@@ -908,7 +908,7 @@ const BOARDS: Board[] = [
   {from: 44.2, to: 53.7, chapter: '一 · 时间', C: Judgment1, src: '远东国际军事法庭判决书第八章，原书第 1012 页'},
   {from: 53.7, to: 58.5, chapter: '一 · 时间', C: Judgment2, src: '远东国际军事法庭判决书，原书第 1013 页'},
   {from: 58.5, to: 65.6, chapter: '一 · 时间', C: SixWeeks, src: '据远东国际军事法庭判决书 “the first six weeks”'},
-  {from: 65.6, to: 77.4, chapter: '二 · 怎么数', C: Count, src: '战后收埋记录，原件藏中国第二历史档案馆、南京市档案馆'},
+  {from: 65.6, to: 77.4, chapter: '二 · 怎么数', C: Count, src: '战后收埋记录，原件藏中国第二历史档案馆、南京市档案馆；图：Gary Todd, Wikimedia Commons（CC0）'},
   {from: 77.4, to: 103.2, chapter: '二 · 怎么数', C: Ledger, src: '数据：孙宅巍（2021）对收埋记录的整理；判决书原书第 1015 页'},
   {from: 103.2, to: 137.6, chapter: '三 · 在哪里', C: Monuments, src: '碑文：南京大屠杀遗址纪念碑；判决书原书第 1014–1015 页；底图：地形与水系据开放数据'},
   {from: 137.6, to: 145.7, chapter: '四 · 两个法庭', C: Tribunal1947, src: `谷寿夫案起诉书（1946.12.31）、判决（1947.3.10）${pick('tani_trial_open', 'tani_trial_judge', 'tani_on_trial') ? '；图：Wikimedia Commons（公有领域）' : ''}`},
@@ -916,10 +916,10 @@ const BOARDS: Board[] = [
   {from: 155.5, to: 169.4, chapter: '四 · 两个法庭', C: TwoNumbers, src: '两个法庭的判决书'},
   {from: 169.4, to: 178.7, chapter: '四 · 两个法庭', C: Mofa, src: '日本外务省网站《历史问题 Q&A》；中文为本片翻译'},
   {from: 178.7, to: 193.8, chapter: '四 · 两个法庭', C: Nagoya, src: '读卖新闻 2012.2.22；新浪 2012.2.21；2025 年 8 月报道'},
-  {from: 193.8, to: 211.6, chapter: '五 · 名字', C: MemorialName, src: pick('memorial_entrance', 'victims_300000') ? '图：Wikimedia Commons（CC BY-SA）' : undefined},
-  {from: 211.6, to: 237.3, chapter: '五 · 名字', C: Wall, src: '哭墙名字数：新华社 2026.4.3；点阵为示意，亮点随机分布；江东门遗址碑文'},
+  {from: 193.8, to: 211.6, chapter: '五 · 名字', C: MemorialName, src: pick('memorial_entrance') ? '图：x li, Wikimedia Commons（CC BY-SA 2.0）' : undefined},
+  {from: 211.6, to: 237.3, chapter: '五 · 名字', C: Wall, src: `哭墙名字数：新华社 2026.4.3；点阵为示意，亮点随机分布${pick('victims_number') ? '；图：Jim Bowen, Wikimedia Commons（CC BY 2.0）' : '；江东门遗址碑文'}`},
   {from: 237.3, to: 252.4, chapter: '五 · 名字', C: Survivors, src: '南京大屠杀幸存者援助协会登记数，经新华社、新京报（2026.10.20）等报道；1997、2006 年为约数'},
-  {from: 252.4, to: 270, C: Ending, src: pick('skyline') ? '图：南京新街口，Wikimedia Commons（CC BY-SA 4.0）' : undefined},
+  {from: 252.4, to: 270, C: Ending, src: pick('skyline') ? '图：南京新街口，Haha169, Wikimedia Commons（CC BY-SA 4.0）' : undefined},
 ];
 
 // ---------------------------------------------------------------- subtitles (script text, voice timing)
